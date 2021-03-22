@@ -74,7 +74,7 @@ class App extends Component {
           <div className="App">
                 <Route exact path='/' render={(props) => (<Home {...props} addUser={this.addUser} />)}/>
             <Route path="/health-statement" render={(props) => (<HealthStatement {...props} name={this.state.name} addHS={this.addHS}/>)} />
-            <Route path="/calendar" component={Calendar}/>
+            <Route path="/calendar" render={(props) => (<Calendar {...props} name={this.state.name} email={this.state.email} data={this.state.data}/>)} />
           </div>
         </Router>
 

@@ -1,0 +1,22 @@
+version: "3"
+services:
+  # backend:
+  #   container_name: "backend"
+  #   build: ./backend/
+  #   ports:
+  #     - "3001:3001"
+  pg:
+    image: "postgres:12"
+    container_name: "postgres"
+    environment:
+      # POSTGRES_USER: 'admin'
+      POSTGRES_PASSWORD: 'p'
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./pg/db_data:/var/lib/postgresql/employees
+  # frontend:
+  #   container_name: "frontend"
+  #   build: ./frontend/
+  #   ports:
+  #     - "3000:3000"

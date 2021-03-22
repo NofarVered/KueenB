@@ -103,12 +103,33 @@ class Calendar extends React.Component {
         return <div className="body">{rows}</div>;
     }
 
+
     onDateClick = day => {
         this.setState({
             selectedDate: day
         });
-
     };
+
+    insertRegistryToDB = (async (email, name, date)=> {
+        const jsonRequest = {}
+        jsonRequest.employees = {email: email, name: name, HS: false, arrivalDate:date}
+        console.log(jsonRequest);
+        let result = await fetch("http://localhost:3001/registry", {method: "POST", 
+                      headers: {"content-type": "application/json"}, body: JSON.stringify(jsonRequest) })
+                      result = await result.json();
+                      if (!result.success)  alert("FAILED! ")
+    })
+
+    onContinueClick = () =>{
+        if (this.props.data.length>12){
+            console.log("Day is full");
+        }
+        else{
+            this.insertRegistryToDB(this.props.email, this.props.name, this.state.selectedDate);
+            console.log(this.props.email, this.props.name, false, this.state.selectedDate);
+        }
+    }
+
 
     nextMonth = () => {
         this.setState({
@@ -130,7 +151,10 @@ class Calendar extends React.Component {
                 {this.renderDays()}
                 {this.renderCells()}
             </div>
-                <button>Continue</button>
+                <div>
+                    <h1>{this.state.selectedDate.getDay()}</h1>
+                </div>
+                <button onClick={this.onContinueClick}>Continue</button>
             </div>
         );
     }

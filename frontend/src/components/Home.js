@@ -42,7 +42,7 @@ class Home extends Component {
                         pathname: "/calendar",
                         state: this.state
                     }}
-                > Calendar</Link>
+                />
                 <div className="box">
                     <img className="navlogo" width="90vw" height="90vw" src={Klogo} alt="logo k health"/></div>
                 <div className="box">
