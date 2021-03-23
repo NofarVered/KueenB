@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
+
 class HealthStatement extends Component {
     state = {
         name: ' ',
-        Date: new Date().getDate()+ "/"+ (new Date().getMonth()+1) + "/"+ new Date().getFullYear(),
+        Date: new Date().getDate() + "/" + (new Date().getMonth() + 1) + "/" + new Date().getFullYear(),
         firstSentence: true,
         secondSentence: true,
         thirdSentence: true,
@@ -17,114 +18,76 @@ class HealthStatement extends Component {
         this.setState({
             [name]: value
         });
-        // const isChecked = this.setState(c => c.checked === true)
-        // if(isChecked) {
-        //      this.setState({ count: this.state.count + 1 })
-        //  }
     }
     handleOnSubmit = (e) => {
-        if(this.state.firstSentence === false || this.state.secondSentence === false || this.state.thirdSentence === false || this.state.forthSentence === false  )
-        {
+        if (this.state.firstSentence === false || this.state.secondSentence === false || this.state.thirdSentence === false || this.state.forthSentence === false) {
             alert('Please select all');
         }
-        else
-            this.props.addHS(this.state.Date);
+        else {
+            const ans = true;
+            this.props.addHS(ans);
+        }
     }
-
     render() {
-        return (
-            <div style={{"color": "#00406B"}} className="HS_headpage">
-                <center>
-                    <h5><b>Health Statement</b></h5>
-                    <h6> {this.state.Date}</h6>
-                    <h5><b>I, {this.props.name}, declare that:</b></h5>
-                    <div style = {{textAlign: 'left'}} >
-                        <input
-                            name="firstSentence"
-                            type="checkbox"
-                            checked={this.state.firstSentence}
-                            onChange={this.handleInputChange}
-                            style={{
-                                width: 14.5,
-                                height: 14.5
-                            }}
-                        />
-                        <h5>
-                            I do not have a cough (other than
-                            <br></br>
-                            coughing or difficulty bredthing as a
-                            <br></br>
-                            result of a chronic condition, asthma or
-                            <br></br>
-                            other allergy)
-                        </h5>
-
-                        <input
-                            name="secondSentence"
-                            type="checkbox"
-                            checked={this.state.secondSentence}
-                            onChange={this.handleInputChange}
-                            style={{
-                                width: 14.5,
-                                height: 14.5
-                            }}/>
-                        <h5>
-                            I do not have a themerature over 38
-                            <br></br>
-                            degrees celsius
-                        </h5>
-
-                        <input
-                            name="thirdSentence"
-                            type="checkbox"
-                            checked={this.state.thirdSentence}
-                            onChange={this.handleInputChange}
-                            style={{
-                                width: 14.5,
-                                height: 14.5
-                            }}/>
-                        <h5>
-                            I have not had a fever (over 38 degrees
-                            <br></br>
-                            celsius) over the last week
-                        </h5>
-
-                        <input
-                            name="forthSentence"
-                            type="checkbox"
-                            checked={this.state.forthSentence}
-                            onChange={this.handleInputChange}
-                            style={{
-                                width: 14.5,
-                                height: 14.5,
-                            }}/>
-                        <h5>
-                            I have not been in contact with anyone
-                            <br></br>
-                            diagnosed with coronavirus over the
-                            <br></br>
-                            last 2 weeks
-                        </h5>
-                    </div>
-                    <br></br>
-                    <br></br>
-                    <br></br>
-                    <br></br>
-                    <br></br>
-
-                    <button onClick={this.handleOnSubmit}
-                            type = 'submit'
-                            style = {{
-                                width: 155,
-                                height: 40,
-                                "background": "#2B8FFF",
-                                "color": "#FFFFFF",
-                            }}>sent</button>
-
-                </center>
+    return (
+        <div>
+            <div className="head_box">
+                <div className="headpage">Health Statement</div>
+                        <div className="dateFill">{this.state.Date}</div>
+                </div>
+            <div className="contentPage" >
+                <h5 className="declare"> I, {this.props.name} declare that: </h5>
+                <label className="form-check-label">
+                I do not have a cough (other than coughing or difficulty bredthing as a result of a chronic condition, asthma or other allergy).
+                <br></br>
+                <br></br>
+                I do not have a themerature over 38 degrees celsius.
+                <br></br>
+                <br></br>
+                I have not had a fever (over 38 degrees celsius) over the last week.
+                <br></br>
+                <br></br>
+                I have not been in contact with anyone diagnosed with coronavirus over the last 2 weeks.
+                <br></br>
+                <br></br>
+                <br></br>
+                <br></br>
+                </label>
+                <div className="warp1">
+                    <input
+                        name="firstSentence"
+                        type="checkbox"
+                        checked={this.state.firstSentence}
+                        onChange={this.handleInputChange} 
+                        className="cbox"/>
+                </div>
+                <div className="warp2">
+                    <input
+                        name="secondSentence"
+                        type="checkbox"
+                        checked={this.state.secondSentence}
+                        onChange={this.handleInputChange}
+                        className="cbox"/>
+                </div>
+                <div className="warp3">
+                    <input
+                        name="thirdSentence"
+                        type="checkbox"
+                        checked={this.state.thirdSentence}
+                        onChange={this.handleInputChange} 
+                        className="cbox"/>
+                </div>
+                <div className="warp4">
+                    <input
+                        name="forthSentence"
+                        type="checkbox"
+                        checked={this.state.forthSentence}
+                        onChange={this.handleInputChange}
+                        className="cbox"/>
+                </div>       
+                <button onClick={this.handleOnSubmit} className="sendButton" type='submit'>sent</button> 
             </div>
-
-
+        </div>
         )
     }
 }

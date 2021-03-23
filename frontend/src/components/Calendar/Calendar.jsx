@@ -7,7 +7,7 @@ import isSameDay from "date-fns/isSameDay";
 import { parseJSON, isPast , isAfter} from 'date-fns'
 import addMonths from "date-fns/addMonths";
 import subMonths from "date-fns/subMonths";
-
+import "./calendar.css"
 
 class Calendar extends React.Component {
     state = {

@@ -10,17 +10,23 @@ import {Link} from "react-router-dom";
 class Home extends Component {
     state = {
         name: '',
-        email: ''
-    }
+        email: '',
+        HS_Date: '', 
+        REG_Date: ''
+    };
+
     handleChange_name= (e) => {
         this.setState({
             name: e.target.value
         });
+        console.log(this.state.name);
     }
+
     handleChange_email= (e) => {
         this.setState({
             email: e.target.value
         });
+        console.log(this.state.email);
     }
     handleSubmit = (e) => {
         // e.preventDefault();
@@ -55,8 +61,20 @@ class Home extends Component {
                             <input className="forms" type="text" placeholder="Email" onChange={this.handleChange_email} value={this.state.email} />
                     </div>
                     <div className="box">
-                    <Link to="/calendar"><Button onClick={this.handleSubmit} variant="light" className="nav-buttons"><img src={regLogo} width="45px" height="45px" alt=""/><br/>Register to a day in the office</Button></Link>
-                    <Link to="/health-statement"><Button onClick={this.handleSubmit} variant="light" className="nav-buttons"><img src={healthLogo} width="45px" height="45px" alt=""/><br/>Fill a health statement</Button></Link>
+                        <Link to="/calendar">
+                            <Button onClick={this.handleSubmit} variant="light" className="nav-buttons">
+                                <img src={regLogo} width="45px" height="45px" alt=""/>
+                                <br/>
+                                Register to a day in the office
+                            </Button>
+                        </Link>
+                        <Link to="/health-statement">
+                            <Button onClick={this.handleSubmit} variant="light" className="nav-buttons">
+                                <img src={healthLogo} width="45px" height="45px" alt=""/>
+                                <br/>
+                                Fill a health statement
+                            </Button>
+                        </Link>
                     </div>
                 </form>
                 </div>
