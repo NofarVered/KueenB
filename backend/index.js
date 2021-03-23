@@ -95,7 +95,7 @@ async function updateEmployee(employeeDetails){
         console.log(employeeDetails.arrivalDate);
         await pool.query(`UPDATE employees SET hs=true WHERE email=$1 and arrivalDate=$2`,[employeeDetails.email, employeeDetails.arrivalDate]);
         const results = await pool.query('SELECT * FROM employees WHERE email=$1', [employeeDetails.email])
-        console.log(results.rows);
+        console.log("data" , results.rows);
         
         return true
         }

@@ -17,9 +17,8 @@ class Calendar extends React.Component {
     state = {
         currentMonth: new Date(),
         selectedDate: new Date(),
-        currentDay: new Date(),
+        currentDay: new Date()
     };
-
 
     renderHeader() {
         const dateFormat = "MMMM yyyy";
@@ -65,10 +64,11 @@ class Calendar extends React.Component {
         if (isSameDay(day, selectedDate)) return "selected";
         return "";
     }
+
     renderCells() {
         const { currentMonth, currentDay } = this.state;
         const calendarStart = startOfWeek(currentMonth);
-        const lastDay = addDays(currentDay, 11);
+        const lastDay = addDays(currentDay, 14);
         const calendarEnd = endOfWeek(lastDay);
         const startDate = startOfWeek(calendarStart);
         const endDate = endOfWeek(calendarEnd);
@@ -123,25 +123,16 @@ class Calendar extends React.Component {
                       if (!result.success)  alert("FAILED! ")
     })
 
-    getCurrentDB = () => { //remove later
-        fetch(`http://localhost:3001/registry`)
-          .then(result =>result.json())
-        //   .then((result) => this.setState({data: result}));
-        .then(res => console.log(res));
-      }
-
     onContinueClick = () =>{
-        if (this.props.data.length>12){
+        if (this.props.mapRegistersByDay[this.state.selectedDate] && 
+            this.props.mapRegistersByDay[this.state.selectedDate].length>12){
             console.log("Day is full");
         }
         else{
             this.insertRegistryToDB(this.props.email, this.props.name, format(this.state.selectedDate, "dd/MM/yyyy"));
-            this.getCurrentDB();
-            
             console.log(this.props.email, this.props.name, false, format(this.state.selectedDate, "dd/MM/yyyy"));
         }
     }
-
 
     nextMonth = () => {
         this.setState({
@@ -154,21 +145,7 @@ class Calendar extends React.Component {
             currentMonth: subMonths(this.state.currentMonth, 1)
         });
     };
-    
-    countRegisters =() =>{
-        let countDic={};
-        let tmpData = this.state.data;
-        for (let i=0; i<tmpData.length; i++){
-            //tmpData[4] is the date column in the DB
-            if (countDic[tmpData[4]]){
-                countDic[tmpData[4]]++;
-            }
-            else{
-                countDic[tmpData[4]]=1;
-            }
-        }
-        return countDic;
-    };
+
     render() {
         return (
             <div>
@@ -185,9 +162,14 @@ class Calendar extends React.Component {
                 <div className="box">
                         <div className="dayWindow">
                             <p className="dateHeadline">{format(this.state.selectedDate, "EEEE")}, {format(this.state.selectedDate, "dd.MM")}</p>
+                            {this.props.mapRegistersByDay[format(this.state.selectedDate, 
+                             "dd/MM/yyyy")] == null ? (' ') : 
+                             this.props.mapRegistersByDay[format(this.state.selectedDate, "dd/MM/yyyy")].join(', ')}
                         </div>
                 </div>
-                <Button variant="primary" size="sm" onClick={this.onContinueClick}>Continue</Button>
+                    <Button variant="primary" size="sm" onClick={this.onContinueClick}>
+                        Continue
+                    </Button>
             </div>
         );
     }

@@ -10,7 +10,16 @@ class App extends Component {
       email: '',
       HS_Date: '',
       REG_Date: '',
-      data: []
+      data: [],
+      mapRegistersByDay: {}
+  }
+
+  componentDidMount() {
+    fetch(`http://localhost:3001/registry`)
+    .then(result =>result.json())
+    .then((result) => this.setState({data: result}, () => {
+      this.countRegisters();
+    }));
   }
 
   setHsByEmail = (async (email, currentDate)=> {
@@ -23,13 +32,6 @@ class App extends Component {
                   if (!result.success)  alert("FAILED! ")
   })
 
-  getCurrentDB = () => { //remove later
-    fetch(`http://localhost:3001/registry`)
-      .then(result =>result.json())
-    //   .then((result) => this.setState({data: result}));
-    .then(res => console.log(res));
-  }
-
   addHS = (date_copy) => {
     const userdate = date_copy;
     console.log(userdate);
@@ -40,7 +42,6 @@ class App extends Component {
     
     this.setHsByEmail(this.state.email, userdate);
     console.log(typeof(userdate));
-    this.getCurrentDB();
   }
 
 
@@ -54,13 +55,29 @@ class App extends Component {
         } );
   }
 
+  countRegisters = () => {
+    let countDic={};
+    let tmpData = this.state.data;
+    console.log(tmpData);
+    for (let i=0; i < tmpData.length; i++){
+        if (countDic[tmpData[i].arrivaldate]){
+            countDic[tmpData[i].arrivaldate].push(tmpData[i].name);
+
+        }
+        else{
+            countDic[tmpData[i].arrivaldate]=[tmpData[i].name];
+        }
+    }
+    this.setState({mapRegistersByDay : countDic})
+  };
+
   render() {
     return (
         <Router>
           <div className="App">
             <Route exact path='/' render={(props) => (<Home {...props} addUser={this.addUser} />)}/>
             <Route path="/health-statement" render={(props) => (<HealthStatement {...props} name={this.state.name} addHS={this.addHS}/>)} />
-            <Route path="/calendar" render={(props) => (<Calendar {...props} name={this.state.name} email={this.state.email} data={this.state.data}/>)} />
+            <Route path="/calendar" render={(props) => (<Calendar {...props} name={this.state.name} email={this.state.email} mapRegistersByDay={this.state.mapRegistersByDay}/>)} />
           </div>
         </Router>
 
