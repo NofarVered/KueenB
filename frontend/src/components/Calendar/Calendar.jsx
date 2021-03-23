@@ -7,6 +7,10 @@ import isSameDay from "date-fns/isSameDay";
 import { parseJSON, isPast , isAfter} from 'date-fns'
 import addMonths from "date-fns/addMonths";
 import subMonths from "date-fns/subMonths";
+import Button from "react-bootstrap/Button";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import {HiArrowLeft} from "react-icons/hi";
+
 import "./calendar.css"
 
 class Calendar extends React.Component {
@@ -88,7 +92,6 @@ class Calendar extends React.Component {
                         onClick={() => this.onDateClick(parsed)}
                     >
                         <span className="number">{formattedDate}</span>
-                        <span className="bg">{formattedDate}</span>
                     </div>
                 );
                 day = addDays(day, 1);
@@ -151,19 +154,40 @@ class Calendar extends React.Component {
             currentMonth: subMonths(this.state.currentMonth, 1)
         });
     };
-
+    
+    countRegisters =() =>{
+        let countDic={};
+        let tmpData = this.state.data;
+        for (let i=0; i<tmpData.length; i++){
+            //tmpData[4] is the date column in the DB
+            if (countDic[tmpData[4]]){
+                countDic[tmpData[4]]++;
+            }
+            else{
+                countDic[tmpData[4]]=1;
+            }
+        }
+        return countDic;
+    };
     render() {
         return (
             <div>
-            <div className="calendar">
-                {this.renderHeader()}
-                {this.renderDays()}
-                {this.renderCells()}
-            </div>
-                <div>
-                    <h1>{this.state.selectedDate.getDay()}</h1>
+                <div className="headlineBox">
+                    <p className="arrow"><HiArrowLeft /></p>
+                    <h4 className="calendarHeadline">When are you coming?</h4>
+                </div>  
+
+                <div className="calendar">
+                    {this.renderHeader()}
+                    {this.renderDays()}
+                    {this.renderCells()}
                 </div>
-                <button onClick={this.onContinueClick}>Continue</button>
+                <div className="box">
+                        <div className="dayWindow">
+                            <p className="dateHeadline">{format(this.state.selectedDate, "EEEE")}, {format(this.state.selectedDate, "dd.MM")}</p>
+                        </div>
+                </div>
+                <Button variant="primary" size="sm" onClick={this.onContinueClick}>Continue</Button>
             </div>
         );
     }
