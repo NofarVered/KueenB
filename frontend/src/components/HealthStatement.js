@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
+import format from "date-fns/format";
 
 class HealthStatement extends Component {
     state = {
         name: ' ',
-        Date: new Date().getDate() + "/" + (new Date().getMonth() + 1) + "/" + new Date().getFullYear(),
+        Date: format(new Date(), "dd/MM/yyyy"),
         firstSentence: true,
         secondSentence: true,
         thirdSentence: true,
@@ -25,7 +26,8 @@ class HealthStatement extends Component {
         }
         else {
             const ans = true;
-            this.props.addHS(ans);
+            // this.props.addHS(ans);
+            this.props.addHS(this.state.Date);
         }
     }
     render() {

@@ -13,15 +13,36 @@ class App extends Component {
       data: []
   }
 
+  setHsByEmail = (async (email, currentDate)=> {
+    const jsonRequest = {}
+    jsonRequest.employee = {email: email, arrivalDate: currentDate};
+    console.log(jsonRequest);
+    let result = await fetch("http://localhost:3001/registry", {method: "PUT", 
+                  headers: {"content-type": "application/json"}, body: JSON.stringify(jsonRequest) })
+                  result = await result.json();
+                  if (!result.success)  alert("FAILED! ")
+  })
+
+  getCurrentDB = () => { //remove later
+    fetch(`http://localhost:3001/registry`)
+      .then(result =>result.json())
+    //   .then((result) => this.setState({data: result}));
+    .then(res => console.log(res));
+  }
+
   addHS = (date_copy) => {
-    const userdate=date_copy;
+    const userdate = date_copy;
     console.log(userdate);
     this.setState({
           HS_Date: userdate},
         () => {console.log(this.state);
         });
-    // send to DB
+    
+    this.setHsByEmail(this.state.email, userdate);
+    console.log(typeof(userdate));
+    this.getCurrentDB();
   }
+
 
   addUser = (user_copy) => {
     const username=user_copy.name;

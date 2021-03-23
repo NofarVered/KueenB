@@ -120,13 +120,22 @@ class Calendar extends React.Component {
                       if (!result.success)  alert("FAILED! ")
     })
 
+    getCurrentDB = () => { //remove later
+        fetch(`http://localhost:3001/registry`)
+          .then(result =>result.json())
+        //   .then((result) => this.setState({data: result}));
+        .then(res => console.log(res));
+      }
+
     onContinueClick = () =>{
         if (this.props.data.length>12){
             console.log("Day is full");
         }
         else{
-            this.insertRegistryToDB(this.props.email, this.props.name, this.state.selectedDate);
-            console.log(this.props.email, this.props.name, false, this.state.selectedDate);
+            this.insertRegistryToDB(this.props.email, this.props.name, format(this.state.selectedDate, "dd/MM/yyyy"));
+            this.getCurrentDB();
+            
+            console.log(this.props.email, this.props.name, false, format(this.state.selectedDate, "dd/MM/yyyy"));
         }
     }
 
