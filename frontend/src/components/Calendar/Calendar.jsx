@@ -10,6 +10,7 @@ import subMonths from "date-fns/subMonths";
 import Button from "react-bootstrap/Button";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {HiArrowLeft} from "react-icons/hi";
+import {Link} from "react-router-dom";
 
 import "./calendar.css"
 
@@ -24,6 +25,7 @@ class Calendar extends React.Component {
         const dateFormat = "MMMM yyyy";
 
         return (
+            <div className="box">
             <div className="header row flex-middle">
                 <div className="col col-start">
                     <div className="icon" onClick={this.prevMonth}>
@@ -35,6 +37,7 @@ class Calendar extends React.Component {
                 </div>
                 <div className="col col-end" onClick={this.nextMonth}>
                     <div className="icon">chevron_right</div>
+                </div>
                 </div>
             </div>
         );
@@ -54,15 +57,16 @@ class Calendar extends React.Component {
             );
         }
 
-        return <div className="days row">{days}</div>;
+        return <div className="box"><div className="days row">{days}</div></div>;
     }
 
     getCellClass(day, lastDay, calendarStart) {
         const { selectedDate, currentDay } = this.state;
+        if (format(day, "iiii")==="Friday" ||format(day, "iiii")==="Saturday") return "disabled";
         if (isPast(day, calendarStart) && !isSameDay(day, currentDay))  return "disabled";
         if (isAfter(day, lastDay)) return "disabled";
         if (isSameDay(day, selectedDate)) return "selected";
-        return "";
+        return "available";
     }
 
     renderCells() {
@@ -103,7 +107,7 @@ class Calendar extends React.Component {
             );
             days = [];
         }
-        return <div className="body">{rows}</div>;
+        return <div className="box"><div className="body">{rows}</div></div>;
     }
 
 
@@ -147,10 +151,17 @@ class Calendar extends React.Component {
     };
 
     render() {
+        let dicValue = this.props.mapRegistersByDay[format(this.state.selectedDate, 
+            "dd/MM/yyyy")];
+            const maxPeople = 20;
         return (
             <div>
                 <div className="headlineBox">
-                    <p className="arrow"><HiArrowLeft /></p>
+                    <Link to="/">
+                            <div className="arrow" onClick={this.handleSubmit}>
+                            <HiArrowLeft />
+                            </div>
+                            </Link>   
                     <h4 className="calendarHeadline">When are you coming?</h4>
                 </div>  
 
@@ -162,9 +173,15 @@ class Calendar extends React.Component {
                 <div className="box">
                         <div className="dayWindow">
                             <p className="dateHeadline">{format(this.state.selectedDate, "EEEE")}, {format(this.state.selectedDate, "dd.MM")}</p>
-                            {this.props.mapRegistersByDay[format(this.state.selectedDate, 
-                             "dd/MM/yyyy")] == null ? (' ') : 
-                             this.props.mapRegistersByDay[format(this.state.selectedDate, "dd/MM/yyyy")].join(', ')}
+                            <div className="numOfRegisters">
+                                {dicValue == null ? "0 registered ("+ maxPeople+ " available)" : 
+                                dicValue.length+" registered ("+ maxPeople-dicValue.length+") available"}
+                            </div>
+                            <Link to="/registers">
+                            <div className="registersButton" onClick={this.handleSubmit}>
+                                See who registered
+                            </div>
+                            </Link>              
                         </div>
                 </div>
                     <Button variant="primary" size="sm" onClick={this.onContinueClick}>
