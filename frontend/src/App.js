@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import Home from './components/Home';
 import HealthStatement from './components/HealthStatement'
 import Calendar from "./components/Calendar/Calendar.jsx";
+import Registers from "./components/Registers/Registers";
+
 import {BrowserRouter as Router, Route} from "react-router-dom";
 
 class App extends Component {
@@ -71,6 +73,7 @@ class App extends Component {
     this.setState({mapRegistersByDay : countDic})
   };
 
+
   render() {
     return (
         <Router>
@@ -78,6 +81,7 @@ class App extends Component {
             <Route exact path='/' render={(props) => (<Home {...props} addUser={this.addUser} />)}/>
             <Route path="/health-statement" render={(props) => (<HealthStatement {...props} name={this.state.name} addHS={this.addHS}/>)} />
             <Route path="/calendar" render={(props) => (<Calendar {...props} name={this.state.name} email={this.state.email} mapRegistersByDay={this.state.mapRegistersByDay}/>)} />
+            <Route path="/registers" render={(props) => (<Registers {...props} mapRegistersByDay={this.state.mapRegistersByDay}/>)} />
           </div>
         </Router>
 
