@@ -2,23 +2,29 @@ import React, {Component } from 'react';
 import format from "date-fns/format";
 import Calendar from "../Calendar/Calendar";
 import "./Registers.css"
+import {HiArrowLeft} from "react-icons/hi";
+import {Link} from "react-router-dom";
 
 
 class Registers extends React.Component {
 
     render(){
-        const registersList = this.props.mapRegistersByDay[format(this.props.selectedDate,"dd/MM/yyyy")];
-        const data = registersList.map((item) =>
-        <li>{item}</li>
-              )
+        const date = format(this.props.selectedDate,"dd/MM/yyyy");
+        let registersList = this.props.mapRegistersByDay[format(this.props.selectedDate,"dd/MM/yyyy")];
+        if (registersList) {registersList = registersList.map((item) =><li>{item}</li>)}
               return (
                 <div>
                     <div className="head_box">
-                        {/* <div className="headpage">Health Statement</div>
-                                <div className="dateFill">{this.props.selectedDate}</div> */}
+                    <Link to="/calendar">
+                            <div className="arrow" onClick={this.handleSubmit}>
+                            <HiArrowLeft />
+                            </div>
+                            </Link>   
+                        <div className="headpage">Registers List</div>
+                        <div className="dateFill">{date}</div>
                         </div>
                     <div className="contentPage" >
-                    <ol>{data}</ol>
+                    <ol>{registersList}</ol>
                     </div>
                 </div>
 

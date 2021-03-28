@@ -198,9 +198,6 @@ class Calendar extends React.Component {
                     <Button variant="primary" size="sm" onClick={this.onContinueClick}>
                         Continue
                     </Button>
-                    {/* <div>
-                    <Registers registersList ={this.props.mapRegistersByDay} selectedDate={this.state.selectedDate} />
-                    </div> */}
             </div>
         );
     }
