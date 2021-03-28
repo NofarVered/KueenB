@@ -11,14 +11,17 @@ import Button from "react-bootstrap/Button";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {HiArrowLeft} from "react-icons/hi";
 import {Link} from "react-router-dom";
+import {BrowserRouter as Router, Route} from "react-router-dom";
 
 import "./calendar.css"
+import Registers from "../Registers/Registers";
 
 class Calendar extends React.Component {
     state = {
         currentMonth: new Date(),
         selectedDate: new Date(),
-        currentDay: new Date()
+        currentDay: new Date(),
+        registersList: []
     };
 
     renderHeader() {
@@ -113,7 +116,9 @@ class Calendar extends React.Component {
 
     onDateClick = day => {
         this.setState({
-            selectedDate: day
+            selectedDate: day,
+            registersList: this.props.mapRegistersByDay[format(day, 
+                "dd/MM/yyyy")]
         });
     };
 
@@ -150,8 +155,14 @@ class Calendar extends React.Component {
         });
     };
 
+
+    handleSubmit = (e) => {
+        console.log(this.state);
+        this.props.setSelectedDate(this.state.selectedDate);
+    }
+
     render() {
-        let dicValue = this.props.mapRegistersByDay[format(this.state.selectedDate, 
+        const dicValue = this.props.mapRegistersByDay[format(this.state.selectedDate, 
             "dd/MM/yyyy")];
             const maxPeople = 20;
         return (
@@ -174,19 +185,22 @@ class Calendar extends React.Component {
                         <div className="dayWindow">
                             <p className="dateHeadline">{format(this.state.selectedDate, "EEEE")}, {format(this.state.selectedDate, "dd.MM")}</p>
                             <div className="numOfRegisters">
-                                {dicValue == null ? "0 registered ("+ maxPeople+ " available)" : 
-                                dicValue.length+" registered ("+ maxPeople-dicValue.length+") available"}
+                                {dicValue === undefined ? ("0 registered ("+ maxPeople+ " available)"): 
+                                (dicValue.length+" registered ("+ maxPeople-(dicValue.length)+") available")}
                             </div>
                             <Link to="/registers">
                             <div className="registersButton" onClick={this.handleSubmit}>
                                 See who registered
-                            </div>
+                                </div>
                             </Link>              
                         </div>
                 </div>
                     <Button variant="primary" size="sm" onClick={this.onContinueClick}>
                         Continue
                     </Button>
+                    {/* <div>
+                    <Registers registersList ={this.props.mapRegistersByDay} selectedDate={this.state.selectedDate} />
+                    </div> */}
             </div>
         );
     }

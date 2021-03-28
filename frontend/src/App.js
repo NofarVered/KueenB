@@ -13,7 +13,9 @@ class App extends Component {
       HS_Date: '',
       REG_Date: '',
       data: [],
-      mapRegistersByDay: {}
+      mapRegistersByDay: {},
+      selectedDate: ''
+
   }
 
   componentDidMount() {
@@ -57,6 +59,10 @@ class App extends Component {
         } );
   }
 
+  setSelectedDate = (selectedDate) => {
+    this.setState({selectedDate});
+  }
+
   countRegisters = () => {
     let countDic={};
     let tmpData = this.state.data;
@@ -80,8 +86,8 @@ class App extends Component {
           <div className="App">
             <Route exact path='/' render={(props) => (<Home {...props} addUser={this.addUser} />)}/>
             <Route path="/health-statement" render={(props) => (<HealthStatement {...props} name={this.state.name} addHS={this.addHS}/>)} />
-            <Route path="/calendar" render={(props) => (<Calendar {...props} name={this.state.name} email={this.state.email} mapRegistersByDay={this.state.mapRegistersByDay}/>)} />
-            <Route path="/registers" render={(props) => (<Registers {...props} mapRegistersByDay={this.state.mapRegistersByDay}/>)} />
+            <Route path="/calendar" render={(props) => (<Calendar {...props} name={this.state.name} email={this.state.email} mapRegistersByDay={this.state.mapRegistersByDay} setSelectedDate={this.setSelectedDate}/>)} />
+            <Route path="/registers" render={(props) => (<Registers {...props} mapRegistersByDay={this.state.mapRegistersByDay} selectedDate={this.state.selectedDate}/>)} />
           </div>
         </Router>
 
