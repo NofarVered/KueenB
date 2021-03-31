@@ -3,6 +3,7 @@ import Home from './components/Home';
 import HealthStatement from './components/HealthStatement'
 import Calendar from "./components/Calendar/Calendar.jsx";
 import Registers from "./components/Registers/Registers";
+import OfficeManager from './components/OfficeManager';
 
 import {BrowserRouter as Router, Route} from "react-router-dom";
 
@@ -69,7 +70,7 @@ class App extends Component {
     console.log(tmpData);
     for (let i=0; i < tmpData.length; i++){
         if (countDic[tmpData[i].arrivaldate]){
-            countDic[tmpData[i].arrivaldate].push(tmpData[i].name);
+            countDic[tmpData[i].arrivaldate].push([tmpData[i].name]);
 
         }
         else{
@@ -88,6 +89,8 @@ class App extends Component {
             <Route path="/health-statement" render={(props) => (<HealthStatement {...props} name={this.state.name} addHS={this.addHS}/>)} />
             <Route path="/calendar" render={(props) => (<Calendar {...props} name={this.state.name} email={this.state.email} mapRegistersByDay={this.state.mapRegistersByDay} setSelectedDate={this.setSelectedDate}/>)} />
             <Route path="/registers" render={(props) => (<Registers {...props} mapRegistersByDay={this.state.mapRegistersByDay} selectedDate={this.state.selectedDate}/>)} />
+            <Route exact path='/office-manager' render={(props) => (<OfficeManager {...props} mapRegistersByDay={this.state.mapRegistersByDay} setSelectedDate={this.setSelectedDate} selectedDate={this.state.selectedDate}/>)}/>
+            
           </div>
         </Router>
 
