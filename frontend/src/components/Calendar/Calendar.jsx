@@ -118,6 +118,7 @@ class Calendar extends React.Component {
     };
 
     insertRegistryToDB = (async (email, name, date)=> {
+        // NOFAR&AILEEN: there is a copy of this function in app.js (we need it also for hs feature)...  maybe using a props here ??
         const jsonRequest = {}
         jsonRequest.employees = {email: email, name: name, HS: false, arrivalDate:date}
         console.log(jsonRequest);
@@ -129,7 +130,7 @@ class Calendar extends React.Component {
 
     onContinueClick = () =>{
         if (this.props.mapRegistersByDay[this.state.selectedDate] && 
-            this.props.mapRegistersByDay[this.state.selectedDate].length>12){
+            this.props.mapRegistersByDay[this.state.selectedDate].length>=12){
             console.log("Day is full");
         }
         else{
