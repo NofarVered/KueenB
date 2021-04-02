@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import Home from './components/Home';
-import HealthStatement from './components/HealthStatement'
+import HealthStatement from './components/HealthStatement/HealthStatement'
 import Calendar from "./components/Calendar/Calendar.jsx";
 import Registers from "./components/Registers/Registers";
-import format from "date-fns/format";
+// import format from "date-fns/format";
 
 import {BrowserRouter as Router, Route} from "react-router-dom";
 

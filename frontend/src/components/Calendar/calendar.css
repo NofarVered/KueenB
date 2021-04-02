@@ -195,11 +195,11 @@ main {
     transition: .15s ease-out;
 }
 
-.calendar .header .icon:hover {
-    /*transform: scale(1.75);
+/* .calendar .header .icon:hover {
+    transform: scale(1.75);
     transition: .25s ease-out;
-    color: var(--main-color);*/
-}
+    color: var(--main-color);
+} */
 
 .calendar .header .icon:first-of-type {
     margin-left: 1em;
@@ -251,10 +251,10 @@ main {
 }
 
 
-.calendar .body .cell:hover {
-    /*background: var(--bg-color);
-    transition: 0.5s ease-out;*/
-}
+/* .calendar .body .cell:hover {
+    background: var(--bg-color);
+    transition: 0.5s ease-out;
+} */
 
 .calendar .body .selected {
     /*border-left: 10px solid transparent;
@@ -291,13 +291,13 @@ main {
     cursor: pointer;
 }
 
-.calendar .body .row:last-child {
-    /*border-bottom: none;*/
-}
+/* .calendar .body .row:last-child {
+    border-bottom: none;
+} */
 
-.calendar .body .cell:last-child {
-    /*border-right: none;*/
-}
+/* .calendar .body .cell:last-child {
+    border-right: none;
+} */
 
 .calendar .body .cell .number {
     position: absolute;
@@ -311,10 +311,10 @@ main {
 
 
 
-.calendar .body .cell:hover .bg, .calendar .body .selected .bg  {
-    /*opacity: 0.05;
-    transition: .5s ease-in;*/
-}
+/* .calendar .body .cell:hover .bg, .calendar .body .selected .bg  {
+    opacity: 0.05;
+    transition: .5s ease-in;
+} */
 
 .calendar .body .col {
     flex-grow: 0;
@@ -323,6 +323,7 @@ main {
     height: 43px;
     -moz-border-radius: 50%;
     -webkit-border-radius: 50%;
+    border-radius: 10px;
 }
 
 .headlineBox{
