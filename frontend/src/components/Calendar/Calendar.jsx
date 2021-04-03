@@ -96,7 +96,7 @@ class Calendar extends React.Component {
                     <div
                         className={`col cell ${this.getCellClass(day, lastDay, calendarStart)}`}
                         key={day}
-                        onClick={() => this.onDateClick(parsed)}
+                        onClick={() => this.props.onDateClick(parsed)}
                     >
                         <span className="number">{formattedDate}</span>
                     </div>
@@ -113,36 +113,6 @@ class Calendar extends React.Component {
         return <div className="box"><div className="body">{rows}</div></div>;
     }
 
-
-    onDateClick = day => {
-        this.setState({
-            selectedDate: day,
-            registersList: this.props.mapRegistersByDay[format(day, 
-                "dd/MM/yyyy")]
-        });
-    };
-
-    insertRegistryToDB = (async (email, name, date)=> {
-        const jsonRequest = {}
-        jsonRequest.employees = {email: email, name: name, HS: false, arrivalDate:date}
-        console.log(jsonRequest);
-        let result = await fetch("http://localhost:3001/registry", {method: "POST", 
-                      headers: {"content-type": "application/json"}, body: JSON.stringify(jsonRequest) })
-                      result = await result.json();
-                      if (!result.success)  alert("FAILED! ")
-    })
-
-    onContinueClick = () =>{
-        if (this.props.mapRegistersByDay[this.state.selectedDate] && 
-            this.props.mapRegistersByDay[this.state.selectedDate].length>12){
-            console.log("Day is full");
-        }
-        else{
-            this.insertRegistryToDB(this.props.email, this.props.name, format(this.state.selectedDate, "dd/MM/yyyy"));
-            console.log(this.props.email, this.props.name, false, format(this.state.selectedDate, "dd/MM/yyyy"));
-        }
-    }
-
     nextMonth = () => {
         this.setState({
             currentMonth: addMonths(this.state.currentMonth, 1)
@@ -156,49 +126,15 @@ class Calendar extends React.Component {
     };
 
 
-    handleSubmit = (e) => {
-        console.log(this.state);
-        this.props.setSelectedDate(this.state.selectedDate);
-    }
-
     render() {
-        const dicValue = this.props.mapRegistersByDay[format(this.state.selectedDate, 
-            "dd/MM/yyyy")];
-            const maxPeople = 20;
         return (
-            <div>
-                <div className="headlineBox">
-                    <Link to="/">
-                            <div className="arrow" onClick={this.handleSubmit}>
-                            <HiArrowLeft />
-                            </div>
-                            </Link>   
-                    <h4 className="calendarHeadline">When are you coming?</h4>
-                </div>  
-
-                <div className="calendar">
-                    {this.renderHeader()}
-                    {this.renderDays()}
-                    {this.renderCells()}
-                </div>
-                <div className="box">
-                        <div className="dayWindow">
-                            <p className="dateHeadline">{format(this.state.selectedDate, "EEEE")}, {format(this.state.selectedDate, "dd.MM")}</p>
-                            <div className="numOfRegisters">
-                                {dicValue === undefined ? ("0 registered ("+ maxPeople+ " available)"): 
-                                (dicValue.length+" registered ("+ maxPeople-(dicValue.length)+") available")}
-                            </div>
-                            <Link to="/registers">
-                            <div className="registersButton" onClick={this.handleSubmit}>
-                                See who registered
-                                </div>
-                            </Link>              
-                        </div>
-                </div>
-                    <Button variant="primary" size="sm" onClick={this.onContinueClick}>
-                        Continue
-                    </Button>
+            <div className="calendar">
+                {this.renderHeader()}
+                {this.renderDays()}
+                {this.renderCells()}
             </div>
+            
+
         );
     }
 }

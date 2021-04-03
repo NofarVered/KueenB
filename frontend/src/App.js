@@ -6,6 +6,7 @@ import Registers from "./components/Registers/Registers";
 import OfficeManager from './components/OfficeManager';
 
 import {BrowserRouter as Router, Route} from "react-router-dom";
+import UserCalendar from './components/UserCalendar';
 
 class App extends Component {
     state = {
@@ -70,11 +71,11 @@ class App extends Component {
     console.log(tmpData);
     for (let i=0; i < tmpData.length; i++){
         if (countDic[tmpData[i].arrivaldate]){
-            countDic[tmpData[i].arrivaldate].push([tmpData[i].name]);
+            countDic[tmpData[i].arrivaldate].push([tmpData[i]]);
 
         }
         else{
-            countDic[tmpData[i].arrivaldate]=[tmpData[i].name];
+            countDic[tmpData[i].arrivaldate]=[tmpData[i]];
         }
     }
     this.setState({mapRegistersByDay : countDic})
@@ -87,9 +88,9 @@ class App extends Component {
           <div className="App">
             <Route exact path='/' render={(props) => (<Home {...props} addUser={this.addUser} />)}/>
             <Route path="/health-statement" render={(props) => (<HealthStatement {...props} name={this.state.name} addHS={this.addHS}/>)} />
-            <Route path="/calendar" render={(props) => (<Calendar {...props} name={this.state.name} email={this.state.email} mapRegistersByDay={this.state.mapRegistersByDay} setSelectedDate={this.setSelectedDate}/>)} />
+            <Route path="/calendar" render={(props) => (<UserCalendar {...props} name={this.state.name} email={this.state.email} mapRegistersByDay={this.state.mapRegistersByDay} setSelectedDate={this.setSelectedDate}/>)} />
             <Route path="/registers" render={(props) => (<Registers {...props} mapRegistersByDay={this.state.mapRegistersByDay} selectedDate={this.state.selectedDate}/>)} />
-            <Route exact path='/office-manager' render={(props) => (<OfficeManager {...props} mapRegistersByDay={this.state.mapRegistersByDay} setSelectedDate={this.setSelectedDate} selectedDate={this.state.selectedDate}/>)}/>
+            <Route exact path='/office-manager' render={(props) => (<OfficeManager {...props} mapRegistersByDay={this.state.mapRegistersByDay} setSelectedDate={this.setSelectedDate} selectedDate={this.state.selectedDate} data={this.state.data}/>)}/>
             
           </div>
         </Router>

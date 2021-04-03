@@ -8,24 +8,48 @@ import Calendar from "./Calendar/Calendar.jsx";
 import Registers from "./Registers/Registers.js";
 import format from "date-fns/format";
 
+
 class OfficeManager extends Component {
-       
+    state = {
+        registersList: [],
+        selectedDate: new Date()
+  
+    }
+
+    onDateClick = day => {
+       this.setState({
+            selectedDate: day,
+        });
+        console.log(this.state.selectedDate)
+    };
+    
+    renderNames = () => {
+        const registersList = this.props.mapRegistersByDay[format(this.state.selectedDate,"dd/MM/yyyy")];
+        console.log(registersList);
+        let list=<li></li>;
+        if(registersList) {list = registersList.map((item) =><li className={item.hs ? "black" : "red"}>{item.name}</li>)}
+        return list;
+    }
+
+    componentDidMount(){
+
+        };
 
     render(){
+        const registersList = this.props.mapRegistersByDay[format(this.state.selectedDate,"dd/MM/yyyy")];
         
-        const Data = this.props.mapRegistersByDay;
-        console.log(Data);
         return(
             <div>
-    
-                <div className = "headpage">
+                <div className ="manager_headpage">
                     <h2>office manager page</h2>
-                    <Registers mapRegistersByDay={this.props.mapRegistersByDay} selectedDate={this.props.selectedDate} ></Registers>
-                
+                    <div className ="registers_list">
+                    {registersList ? (<ol> {registersList.map((item, index) => {return <li key={index} className={item.hs ? "black" : "red"}>{item.name}</li>})}
+                </ol>): (<ol>{'hi'}</ol>)}
+                </div>
+                {console.log(registersList)}
                 </div>
                 <div className = "calendar_tab">
-                    <h2>calendar</h2>
-                    <Calendar mapRegistersByDay={this.props.mapRegistersByDay} setSelectedDate={this.props.setSelectedDate}></Calendar>
+                    <Calendar onDateClick={this.onDateClick}></Calendar>
 
                 </div>
                 

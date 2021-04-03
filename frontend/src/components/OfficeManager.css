@@ -19,12 +19,16 @@
     background: #F5FAFF;
   }
 
-  .headpage {    
+  .manager_headpage {    
     height: 80px;
     width: 1819px;
     left: 0px;
     top: 0px;
     border-radius: 0px;
 
+  }
+
+  .registers_list{
+      display: block;
   }
   
