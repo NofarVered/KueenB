@@ -161,6 +161,7 @@ class Calendar extends React.Component {
                     <Link to="/">
                             <div className="arrow" onClick={this.handleSubmit}>
                             <HiArrowLeft />
+                            
                             </div>
                             </Link>   
                     <h4 className="calendarHeadline">When are you coming?</h4>

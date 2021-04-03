@@ -3,7 +3,7 @@ import Home from './components/Home';
 import HealthStatement from './components/HealthStatement/HealthStatement'
 import Calendar from "./components/Calendar/Calendar.jsx";
 import Registers from "./components/Registers/Registers";
-// import format from "date-fns/format";
+import format from "date-fns/format";
 
 import {BrowserRouter as Router, Route} from "react-router-dom";
 
@@ -15,8 +15,7 @@ class App extends Component {
       REG_Date: '',
       data: [],
       mapRegistersByDay: {},
-      currentDate: new Date() //today date
-      
+      currentDate: format(new Date(), "dd/MM/yyyy")  //today date
   }
 
   componentDidMount() {
@@ -37,7 +36,7 @@ class App extends Component {
         } );
   }
   setHsByEmail = (async (email, currentDate)=> {
-    //update hs in DB to be TRUE exited  email and date (today date)
+    //update hs in DB to be TRUE exited email and date (today date)
     //used in addHS function
     const jsonRequest = {}
     jsonRequest.employee = {email: email, arrivalDate: currentDate};
@@ -61,25 +60,30 @@ class App extends Component {
         });
         }
     else{
+      console.log(this.state.mapRegistersByDay);
       if (this.state.mapRegistersByDay[this.state.currentDate] && 
-        this.state.mapRegistersByDay[this.state.currentDate].length<12){
-          this.insertRegistryToDB(this.state.email, this.state.name, this.state.currentDate); //sign for today
-          this.setHsByEmail(this.state.email, this.state.currentDate); //update DB
-          this.setState({ // update state
-              HS_Fill : true },
-          () => {console.log(this.state);
-          });
-          alert("You never registered for today... Now, the system has registered you for today and confirmed your HS");
+        this.state.mapRegistersByDay[this.state.currentDate].length>=12){
+          // defult max people per day- need to be change... 
+          console.log("IF of ADDHS");
+          alert("error");
       }  
-      else
-        alert("error");
+      else{
+        console.log("else of ADDHS");
+        this.insertRegistryToDB(this.state.email, this.state.name, this.state.currentDate); //sign for today
+        this.setHsByEmail(this.state.email, this.state.currentDate); //update DB
+        this.setState({ // update state
+            HS_Fill : true },
+        () => {console.log(this.state);
+        });
+        alert("You never registered for today... Now, the system has registered you for today and confirmed your HS");
+      }
     }
   }
   insertRegistryToDB = (async (email, name, date)=> {
     // registed for today
     //used in addHS
     const jsonRequest = {}
-    jsonRequest.employees = {email: email, name: name, HS: false, arrivalDate:date}
+    jsonRequest.employees = {email: email, name: name, HS: false, arrivalDate:date }
     console.log(jsonRequest);
     let result = await fetch("http://localhost:3001/registry", {method: "POST", 
                   headers: {"content-type": "application/json"}, body: JSON.stringify(jsonRequest) })
@@ -90,14 +94,19 @@ class App extends Component {
     // return true if there is email&currentDate in db 
     // else false
     //used in addHS
+    console.log("SEARCH looking email in spesific date");
     let tmpData = this.state.data;
-    console.log(tmpData);
+    console.log("SEARCH", tmpData);
     for (let i=0; i < tmpData.length; i++){
+      console.log("SEARCH 1");
         if (tmpData[i].email === this.state.email){
-           if (tmpData[i].arrivaldate === this.state.currentDate) 
-              return true ;
+           if (tmpData[i].arrivaldate === this.state.currentDate){
+            console.log("SEARCH serch return true");
+            return true ;
+           } 
         }
     }
+    console.log("SEARCH serch return false");
     return false;
   };
 
