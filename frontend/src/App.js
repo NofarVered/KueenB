@@ -41,10 +41,12 @@ class App extends Component {
     const jsonRequest = {}
     jsonRequest.employee = {email: email, arrivalDate: currentDate};
     console.log(jsonRequest);
+    console.log("T");
     let result = await fetch("http://localhost:3001/registry", {method: "PUT", 
                   headers: {"content-type": "application/json"}, body: JSON.stringify(jsonRequest) })
                   result = await result.json();
                   if (!result.success)  alert("FAILED! ")
+    console.log(this.state.data);
   })
 
   addHS = () => {
@@ -69,8 +71,8 @@ class App extends Component {
       }  
       else{
         console.log("else of ADDHS");
-        this.insertRegistryToDB(this.state.email, this.state.name, this.state.currentDate); //sign for today
-        this.setHsByEmail(this.state.email, this.state.currentDate); //update DB
+        this.insertRegistryToDB_true(this.state.email, this.state.name, this.state.currentDate); //sign for today
+        // this.setHsByEmail(this.state.email, this.state.currentDate); //update DB
         this.setState({ // update state
             HS_Fill : true },
         () => {console.log(this.state);
@@ -79,16 +81,26 @@ class App extends Component {
       }
     }
   }
-  insertRegistryToDB = (async (email, name, date)=> {
-    // registed for today
+  insertRegistryToDB_true = (async (email, name, date)=> {
+    // registed for today with true in hs
     //used in addHS
     const jsonRequest = {}
-    jsonRequest.employees = {email: email, name: name, HS: false, arrivalDate:date }
+    jsonRequest.employees = {email: email, name: name, HS: true, arrivalDate:date }
     console.log(jsonRequest);
     let result = await fetch("http://localhost:3001/registry", {method: "POST", 
                   headers: {"content-type": "application/json"}, body: JSON.stringify(jsonRequest) })
                   result = await result.json();
                   if (!result.success)  alert("FAILED! ")
+})
+insertRegistryToDB = (async (email, name, date)=> {
+  // for calender only
+  const jsonRequest = {}
+  jsonRequest.employees = {email: email, name: name, HS: false, arrivalDate:date }
+  console.log(jsonRequest);
+  let result = await fetch("http://localhost:3001/registry", {method: "POST", 
+                headers: {"content-type": "application/json"}, body: JSON.stringify(jsonRequest) })
+                result = await result.json();
+                if (!result.success)  alert("FAILED! ")
 })
   searchByEmailAndDate = () => {
     // return true if there is email&currentDate in db 
