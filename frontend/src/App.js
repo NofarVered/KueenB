@@ -40,13 +40,10 @@ class App extends Component {
     //used in addHS function
     const jsonRequest = {}
     jsonRequest.employee = {email: email, arrivalDate: currentDate};
-    console.log(jsonRequest);
-    console.log("T");
     let result = await fetch("http://localhost:3001/registry", {method: "PUT", 
                   headers: {"content-type": "application/json"}, body: JSON.stringify(jsonRequest) })
                   result = await result.json();
                   if (!result.success)  alert("FAILED! ")
-    console.log(this.state.data);
   })
 
   addHS = () => {
@@ -66,13 +63,10 @@ class App extends Component {
       if (this.state.mapRegistersByDay[this.state.currentDate] && 
         this.state.mapRegistersByDay[this.state.currentDate].length>=12){
           // defult max people per day- need to be change... 
-          console.log("IF of ADDHS");
           alert("error");
       }  
       else{
-        console.log("else of ADDHS");
         this.insertRegistryToDB(this.state.email, this.state.name, true, this.state.currentDate); //sign for today
-        // this.setHsByEmail(this.state.email, this.state.currentDate); //update DB
         this.setState({ // update state
             HS_Fill : true },
         () => {console.log(this.state);
@@ -83,7 +77,7 @@ class App extends Component {
   }
   
 insertRegistryToDB = (async (email, name, hs, date)=> {
-  // for calender only
+  // for calender and hs
   const jsonRequest = {}
   jsonRequest.employees = {email: email, name: name, HS: hs , arrivalDate:date }
   console.log(jsonRequest);
@@ -96,19 +90,14 @@ insertRegistryToDB = (async (email, name, hs, date)=> {
     // return true if there is email&currentDate in db 
     // else false
     //used in addHS
-    console.log("SEARCH looking email in spesific date");
     let tmpData = this.state.data;
-    console.log("SEARCH", tmpData);
     for (let i=0; i < tmpData.length; i++){
-      console.log("SEARCH 1");
         if (tmpData[i].email === this.state.email){
            if (tmpData[i].arrivaldate === this.state.currentDate){
-            console.log("SEARCH serch return true");
             return true ;
            } 
         }
     }
-    console.log("SEARCH serch return false");
     return false;
   };
 
