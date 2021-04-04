@@ -116,25 +116,14 @@ class Calendar extends React.Component {
             selectedDate: day
         });
     };
-
-    insertRegistryToDB = (async (email, name, date)=> {
-        // NOFAR&AILEEN: there is a copy of this function in app.js (we need it also for hs feature)...  maybe using a props here ??
-        const jsonRequest = {}
-        jsonRequest.employees = {email: email, name: name, HS: false, arrivalDate:date}
-        console.log(jsonRequest);
-        let result = await fetch("http://localhost:3001/registry", {method: "POST", 
-                      headers: {"content-type": "application/json"}, body: JSON.stringify(jsonRequest) })
-                      result = await result.json();
-                      if (!result.success)  alert("FAILED! ")
-    })
-
+    
     onContinueClick = () =>{
         if (this.props.mapRegistersByDay[this.state.selectedDate] && 
             this.props.mapRegistersByDay[this.state.selectedDate].length>=12){
             console.log("Day is full");
         }
         else{
-            this.insertRegistryToDB(this.props.email, this.props.name, format(this.state.selectedDate, "dd/MM/yyyy"));
+            this.props.insertRegistryToDB(this.props.email, this.props.name, false, format(this.state.selectedDate, "dd/MM/yyyy"));
             console.log(this.props.email, this.props.name, false, format(this.state.selectedDate, "dd/MM/yyyy"));
         }
     }

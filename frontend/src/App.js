@@ -71,7 +71,7 @@ class App extends Component {
       }  
       else{
         console.log("else of ADDHS");
-        this.insertRegistryToDB_true(this.state.email, this.state.name, this.state.currentDate); //sign for today
+        this.insertRegistryToDB(this.state.email, this.state.name, true, this.state.currentDate); //sign for today
         // this.setHsByEmail(this.state.email, this.state.currentDate); //update DB
         this.setState({ // update state
             HS_Fill : true },
@@ -81,21 +81,11 @@ class App extends Component {
       }
     }
   }
-  insertRegistryToDB_true = (async (email, name, date)=> {
-    // registed for today with true in hs
-    //used in addHS
-    const jsonRequest = {}
-    jsonRequest.employees = {email: email, name: name, HS: true, arrivalDate:date }
-    console.log(jsonRequest);
-    let result = await fetch("http://localhost:3001/registry", {method: "POST", 
-                  headers: {"content-type": "application/json"}, body: JSON.stringify(jsonRequest) })
-                  result = await result.json();
-                  if (!result.success)  alert("FAILED! ")
-})
-insertRegistryToDB = (async (email, name, date)=> {
+  
+insertRegistryToDB = (async (email, name, hs, date)=> {
   // for calender only
   const jsonRequest = {}
-  jsonRequest.employees = {email: email, name: name, HS: false, arrivalDate:date }
+  jsonRequest.employees = {email: email, name: name, HS: hs , arrivalDate:date }
   console.log(jsonRequest);
   let result = await fetch("http://localhost:3001/registry", {method: "POST", 
                 headers: {"content-type": "application/json"}, body: JSON.stringify(jsonRequest) })
@@ -146,7 +136,7 @@ insertRegistryToDB = (async (email, name, date)=> {
           <div className="App">
             <Route exact path='/' render={(props) => (<Home {...props} addUser={this.addUser} />)}/>
             <Route path="/health-statement" render={(props) => (<HealthStatement {...props} name={this.state.name} email={this.state.email} addHS={this.addHS}/>)} />
-            <Route path="/calendar" render={(props) => (<Calendar {...props} name={this.state.name} email={this.state.email} mapRegistersByDay={this.state.mapRegistersByDay}/>)} />
+            <Route path="/calendar" render={(props) => (<Calendar {...props} name={this.state.name} email={this.state.email} mapRegistersByDay={this.state.mapRegistersByDay} insertRegistryToDB={this.insertRegistryToDB}/>)} />
             <Route path="/registers" render={(props) => (<Registers {...props} mapRegistersByDay={this.state.mapRegistersByDay}/>)} />
           </div>
         </Router>
