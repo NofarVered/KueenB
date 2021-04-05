@@ -7,27 +7,28 @@ import "./OfficeManager.css"
 import Calendar from "./Calendar/Calendar.jsx";
 import Registers from "./Registers/Registers.js";
 import format from "date-fns/format";
+import { json } from 'body-parser';
 
 
 class OfficeManager extends Component {
     state = {
-        registersList: [],
-        selectedDate: new Date()
-  
+        selectedDate: new Date(),
+        registersList: []
     }
 
     onDateClick = day => {
-       this.setState({
+        this.setState({
             selectedDate: day,
+            registersList: this.props.mapRegistersByDay[format(day, 
+                "dd/MM/yyyy")]
         });
-        console.log(this.state.selectedDate)
     };
     
     renderNames = () => {
         const registersList = this.props.mapRegistersByDay[format(this.state.selectedDate,"dd/MM/yyyy")];
-        console.log(registersList);
+        // console.log(registersList);
         let list=<li></li>;
-        if(registersList) {list = registersList.map((item) =><li className={item.hs ? "black" : "red"}>{item.name}</li>)}
+        if(registersList) {list = registersList.map((item, index) =><li key= {index} className={item.hs ? "black" : "red"}>{item.name}</li>)}
         return list;
     }
 
@@ -36,17 +37,20 @@ class OfficeManager extends Component {
         };
 
     render(){
+        let temp = {};
+        console.log(typeof(temp));
+        const list = [{"id":40,"email":"asd@g.com","name":"akflk","hs":false,"arrivaldate":"11/04/2021"},{"id":37,"email":"asd@g.com","name":"skdsa","hs":false,"arrivaldate":"11/04/2021"}]
         const registersList = this.props.mapRegistersByDay[format(this.state.selectedDate,"dd/MM/yyyy")];
-        
+        console.log(registersList);
+
         return(
             <div>
                 <div className ="manager_headpage">
                     <h2>office manager page</h2>
                     <div className ="registers_list">
-                    {registersList ? (<ol> {registersList.map((item, index) => {return <li key={index} className={item.hs ? "black" : "red"}>{item.name}</li>})}
-                </ol>): (<ol>{'hi'}</ol>)}
-                </div>
-                {console.log(registersList)}
+                    {registersList ? <ol>{(registersList.map((item, index) =><li key={index} className={item[1] ? "black" : "red"}>{item[0]}</li>))}</ol>: 'hi'} 
+
+                    </div>
                 </div>
                 <div className = "calendar_tab">
                     <Calendar onDateClick={this.onDateClick}></Calendar>

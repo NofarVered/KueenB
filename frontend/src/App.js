@@ -63,6 +63,7 @@ class App extends Component {
 
   setSelectedDate = (selectedDate) => {
     this.setState({selectedDate});
+    // console.log(this.state.selectedDate);
   }
 
   countRegisters = () => {
@@ -71,11 +72,11 @@ class App extends Component {
     console.log(tmpData);
     for (let i=0; i < tmpData.length; i++){
         if (countDic[tmpData[i].arrivaldate]){
-            countDic[tmpData[i].arrivaldate].push([tmpData[i]]);
+            countDic[tmpData[i].arrivaldate].push([tmpData[i].name, tmpData[i].hs]);
 
         }
         else{
-            countDic[tmpData[i].arrivaldate]=[tmpData[i]];
+            countDic[tmpData[i].arrivaldate]=[[tmpData[i].name, tmpData[i].hs]];
         }
     }
     this.setState({mapRegistersByDay : countDic})

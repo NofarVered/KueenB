@@ -11,7 +11,7 @@ class Registers extends React.Component {
     render(){
         const date = format(this.props.selectedDate,"dd/MM/yyyy");
         let registersList = this.props.mapRegistersByDay[format(this.props.selectedDate,"dd/MM/yyyy")];
-        if (registersList) {registersList = registersList.map((item) =><li>{item.name}</li>)}
+        if (registersList) {registersList = registersList.map((item) =><li>{item[0]}</li>)}
               return (
                 <div>
                     <div className="head_box">

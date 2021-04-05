@@ -29,6 +29,31 @@
   }
 
   .registers_list{
-      display: block;
+    position: absolute;
+    width: 205px;
+    height: 270px;
+    left: 504px;
+    top: 301px;
+    
+    font-family: Sofia Pro;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 150%;
+    /* or 27px */
+    
+    
+    /* Text / General */
+    
+    color: #00406B;
+    
+  }
+
+  .red{
+      color: red;
+  }
+
+  .black{
+      color: black;
   }
   
