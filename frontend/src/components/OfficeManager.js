@@ -24,13 +24,7 @@ class OfficeManager extends Component {
         });
     };
     
-    renderNames = () => {
-        const registersList = this.props.mapRegistersByDay[format(this.state.selectedDate,"dd/MM/yyyy")];
-        // console.log(registersList);
-        let list=<li></li>;
-        if(registersList) {list = registersList.map((item, index) =><li key= {index} className={item.hs ? "black" : "red"}>{item.name}</li>)}
-        return list;
-    }
+
 
     componentDidMount(){
 
@@ -48,7 +42,7 @@ class OfficeManager extends Component {
                 <div className ="manager_headpage">
                     <h2>office manager page</h2>
                     <div className ="registers_list">
-                    {registersList ? <ol>{(registersList.map((item, index) =><li key={index} className={item[1] ? "black" : "red"}>{item[0]}</li>))}</ol>: 'hi'} 
+                    {registersList ? <ol>{(registersList.map((item, index) =><li key={index} className={item.hs ? "black" : "red"}>{item.name}</li>))}</ol>: 'hi'} 
 
                     </div>
                 </div>

@@ -72,11 +72,11 @@ class App extends Component {
     console.log(tmpData);
     for (let i=0; i < tmpData.length; i++){
         if (countDic[tmpData[i].arrivaldate]){
-            countDic[tmpData[i].arrivaldate].push([tmpData[i].name, tmpData[i].hs]);
+            countDic[tmpData[i].arrivaldate].push({name: tmpData[i].name, hs: tmpData[i].hs});
 
         }
         else{
-            countDic[tmpData[i].arrivaldate]=[[tmpData[i].name, tmpData[i].hs]];
+            countDic[tmpData[i].arrivaldate]=[{name: tmpData[i].name, hs: tmpData[i].hs}];
         }
     }
     this.setState({mapRegistersByDay : countDic})
