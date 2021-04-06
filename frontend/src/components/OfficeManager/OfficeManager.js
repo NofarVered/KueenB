@@ -1,11 +1,11 @@
 import React, {Component } from 'react';
 import Button from 'react-bootstrap/Button';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Klogo from "../Klogo.png";
+
 import {Link} from "react-router-dom";
 import "./OfficeManager.css"
-import Calendar from "./Calendar/Calendar.jsx";
-import Registers from "./Registers/Registers.js";
+import Calendar from "../Calendar/Calendar.jsx";
+import Registers from "../Registers/Registers.js";
 import format from "date-fns/format";
 import { json } from 'body-parser';
 
@@ -33,7 +33,6 @@ class OfficeManager extends Component {
     render(){
         let temp = {};
         console.log(typeof(temp));
-        const list = [{"id":40,"email":"asd@g.com","name":"akflk","hs":false,"arrivaldate":"11/04/2021"},{"id":37,"email":"asd@g.com","name":"skdsa","hs":false,"arrivaldate":"11/04/2021"}]
         const registersList = this.props.mapRegistersByDay[format(this.state.selectedDate,"dd/MM/yyyy")];
         console.log(registersList);
 

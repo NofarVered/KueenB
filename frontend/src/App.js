@@ -3,7 +3,7 @@ import Home from './components/Home';
 import HealthStatement from './components/HealthStatement'
 import Calendar from "./components/Calendar/Calendar.jsx";
 import Registers from "./components/Registers/Registers";
-import OfficeManager from './components/OfficeManager';
+import OfficeManager from './components/OfficeManager/OfficeManager';
 
 import {BrowserRouter as Router, Route} from "react-router-dom";
 import UserCalendar from './components/UserCalendar';
