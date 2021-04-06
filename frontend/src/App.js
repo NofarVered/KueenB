@@ -3,9 +3,10 @@ import Home from './components/Home';
 import HealthStatement from './components/HealthStatement/HealthStatement'
 import Calendar from "./components/Calendar/Calendar.jsx";
 import Registers from "./components/Registers/Registers";
+import OfficeManager from './components/OfficeManager/OfficeManager';
 import format from "date-fns/format";
-
 import {BrowserRouter as Router, Route} from "react-router-dom";
+import UserCalendar from './components/UserCalendar';
 
 class App extends Component {
     state = {
@@ -15,6 +16,7 @@ class App extends Component {
       REG_Date: '',
       data: [],
       mapRegistersByDay: {},
+      selectedDate: ''
       currentDate: format(new Date(), "dd/MM/yyyy")  //today date
   }
 
@@ -101,6 +103,11 @@ insertRegistryToDB = (async (email, name, hs, date)=> {
     return false;
   };
 
+  setSelectedDate = (selectedDate) => {
+    this.setState({selectedDate});
+    // console.log(this.state.selectedDate);
+  }
+
   countRegisters = () => {
     // update mapRegistersByDate dic {DATE: [NAME, NAME ....], ....}
     let countDic={};
@@ -108,11 +115,10 @@ insertRegistryToDB = (async (email, name, hs, date)=> {
     console.log(tmpData);
     for (let i=0; i < tmpData.length; i++){
         if (countDic[tmpData[i].arrivaldate]){
-            countDic[tmpData[i].arrivaldate].push(tmpData[i].name); 
-
+            countDic[tmpData[i].arrivaldate].push({name: tmpData[i].name, hs: tmpData[i].hs});
         }
         else{
-            countDic[tmpData[i].arrivaldate]=[tmpData[i].name];
+            countDic[tmpData[i].arrivaldate]=[{name: tmpData[i].name, hs: tmpData[i].hs}];
         }
     }
     this.setState({mapRegistersByDay : countDic})
@@ -124,9 +130,10 @@ insertRegistryToDB = (async (email, name, hs, date)=> {
         <Router>
           <div className="App">
             <Route exact path='/' render={(props) => (<Home {...props} addUser={this.addUser} />)}/>
+            <Route path="/calendar" render={(props) => (<UserCalendar {...props} name={this.state.name} email={this.state.email} mapRegistersByDay={this.state.mapRegistersByDay} setSelectedDate={this.setSelectedDate}/>)} />
+            <Route path="/registers" render={(props) => (<Registers {...props} mapRegistersByDay={this.state.mapRegistersByDay} selectedDate={this.state.selectedDate}/>)} />
+            <Route exact path='/office-manager' render={(props) => (<OfficeManager {...props} mapRegistersByDay={this.state.mapRegistersByDay} setSelectedDate={this.setSelectedDate} selectedDate={this.state.selectedDate} data={this.state.data}/>)}/>
             <Route path="/health-statement" render={(props) => (<HealthStatement {...props} name={this.state.name} email={this.state.email} addHS={this.addHS}/>)} />
-            <Route path="/calendar" render={(props) => (<Calendar {...props} name={this.state.name} email={this.state.email} mapRegistersByDay={this.state.mapRegistersByDay} insertRegistryToDB={this.insertRegistryToDB}/>)} />
-            <Route path="/registers" render={(props) => (<Registers {...props} mapRegistersByDay={this.state.mapRegistersByDay}/>)} />
           </div>
         </Router>
 

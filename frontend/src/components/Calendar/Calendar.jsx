@@ -11,14 +11,17 @@ import Button from "react-bootstrap/Button";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {HiArrowLeft} from "react-icons/hi";
 import {Link} from "react-router-dom";
+import {BrowserRouter as Router, Route} from "react-router-dom";
 
 import "./calendar.css"
+import Registers from "../Registers/Registers";
 
 class Calendar extends React.Component {
     state = {
         currentMonth: new Date(),
         selectedDate: new Date(),
-        currentDay: new Date()
+        currentDay: new Date(),
+        registersList: []
     };
 
     renderHeader() {
@@ -93,7 +96,7 @@ class Calendar extends React.Component {
                     <div
                         className={`col cell ${this.getCellClass(day, lastDay, calendarStart)}`}
                         key={day}
-                        onClick={() => this.onDateClick(parsed)}
+                        onClick={() => this.props.onDateClick(parsed)}
                     >
                         <span className="number">{formattedDate}</span>
                     </div>
@@ -109,25 +112,6 @@ class Calendar extends React.Component {
         }
         return <div className="box"><div className="body">{rows}</div></div>;
     }
-
-
-    onDateClick = day => {
-        this.setState({
-            selectedDate: day
-        });
-    };
-    
-    onContinueClick = () =>{
-        if (this.props.mapRegistersByDay[this.state.selectedDate] && 
-            this.props.mapRegistersByDay[this.state.selectedDate].length>=12){
-            console.log("Day is full");
-        }
-        else{
-            this.props.insertRegistryToDB(this.props.email, this.props.name, false, format(this.state.selectedDate, "dd/MM/yyyy"));
-            console.log(this.props.email, this.props.name, false, format(this.state.selectedDate, "dd/MM/yyyy"));
-        }
-    }
-
     nextMonth = () => {
         this.setState({
             currentMonth: addMonths(this.state.currentMonth, 1)
@@ -140,45 +124,16 @@ class Calendar extends React.Component {
         });
     };
 
-    render() {
-        let dicValue = this.props.mapRegistersByDay[format(this.state.selectedDate, 
-            "dd/MM/yyyy")];
-            const maxPeople = 20;
-        return (
-            <div>
-                <div className="headlineBox">
-                    <Link to="/">
-                            <div className="arrow" onClick={this.handleSubmit} data-testid={'arrow'}>
-                            <HiArrowLeft />
-                            
-                            </div>
-                            </Link>   
-                    <h4 className="calendarHeadline">When are you coming?</h4>
-                </div>  
 
-                <div className="calendar">
-                    {this.renderHeader()}
-                    {this.renderDays()}
-                    {this.renderCells()}
-                </div>
-                <div className="box">
-                        <div className="dayWindow">
-                            <p className="dateHeadline">{format(this.state.selectedDate, "EEEE")}, {format(this.state.selectedDate, "dd.MM")}</p>
-                            <div className="numOfRegisters">
-                                {dicValue == null ? "0 registered ("+ maxPeople+ " available)" : 
-                                dicValue.length+" registered ("+ maxPeople-dicValue.length+") available"}
-                            </div>
-                            <Link to="/registers">
-                            <div className="registersButton" onClick={this.handleSubmit}>
-                                See who registered
-                            </div>
-                            </Link>              
-                        </div>
-                </div>
-                    <Button variant="primary" size="sm" onClick={this.onContinueClick}>
-                        Continue
-                    </Button>
-            </div>
+    render() {
+        return (
+            <div className="calendar">
+                {this.renderHeader()}
+                {this.renderDays()}
+                {this.renderCells()}
+</div>
+            
+
         );
     }
 }
