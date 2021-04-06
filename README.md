@@ -21,7 +21,7 @@
     - use the command : `INSERT INTO employees (email, name, HS, arrivalDate) VALUES ('John', 'Doe', FALSE, '2021-01-01');`
     - you should see a new line at the terminal saying : 'INSERT 0 1'
 6. open a **new** terminal in the backend folder
-7. use the commend `npm install cors express pg`
+7. use the commend `npm install`
 8. use the commend `node index.js`
 9. open a **new** terminal in the frontend folder
 10. use the commend `npm start`
