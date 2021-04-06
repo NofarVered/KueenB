@@ -116,24 +116,14 @@ class Calendar extends React.Component {
             selectedDate: day
         });
     };
-
-    insertRegistryToDB = (async (email, name, date)=> {
-        const jsonRequest = {}
-        jsonRequest.employees = {email: email, name: name, HS: false, arrivalDate:date}
-        console.log(jsonRequest);
-        let result = await fetch("http://localhost:3001/registry", {method: "POST", 
-                      headers: {"content-type": "application/json"}, body: JSON.stringify(jsonRequest) })
-                      result = await result.json();
-                      if (!result.success)  alert("FAILED! ")
-    })
-
+    
     onContinueClick = () =>{
         if (this.props.mapRegistersByDay[this.state.selectedDate] && 
-            this.props.mapRegistersByDay[this.state.selectedDate].length>12){
+            this.props.mapRegistersByDay[this.state.selectedDate].length>=12){
             console.log("Day is full");
         }
         else{
-            this.insertRegistryToDB(this.props.email, this.props.name, format(this.state.selectedDate, "dd/MM/yyyy"));
+            this.props.insertRegistryToDB(this.props.email, this.props.name, false, format(this.state.selectedDate, "dd/MM/yyyy"));
             console.log(this.props.email, this.props.name, false, format(this.state.selectedDate, "dd/MM/yyyy"));
         }
     }
@@ -160,6 +150,7 @@ class Calendar extends React.Component {
                     <Link to="/">
                             <div className="arrow" onClick={this.handleSubmit} data-testid={'arrow'}>
                             <HiArrowLeft />
+                            
                             </div>
                             </Link>   
                     <h4 className="calendarHeadline">When are you coming?</h4>
