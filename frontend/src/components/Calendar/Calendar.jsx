@@ -7,14 +7,10 @@ import isSameDay from "date-fns/isSameDay";
 import { parseJSON, isPast , isAfter} from 'date-fns'
 import addMonths from "date-fns/addMonths";
 import subMonths from "date-fns/subMonths";
-import Button from "react-bootstrap/Button";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {HiArrowLeft} from "react-icons/hi";
-import {Link} from "react-router-dom";
-import {BrowserRouter as Router, Route} from "react-router-dom";
 
-import "./calendar.css"
-import Registers from "../Registers/Registers";
+
+import "./calendar.css";
 
 class Calendar extends React.Component {
     state = {
@@ -22,6 +18,12 @@ class Calendar extends React.Component {
         selectedDate: new Date(),
         currentDay: new Date(),
         registersList: []
+    };
+
+    onDateClick = day => {
+        this.setState({
+            selectedDate: day
+        }, () => this.props.onDateClick(day));
     };
 
     renderHeader() {
@@ -96,7 +98,7 @@ class Calendar extends React.Component {
                     <div
                         className={`col cell ${this.getCellClass(day, lastDay, calendarStart)}`}
                         key={day}
-                        onClick={() => this.props.onDateClick(parsed)}
+                        onClick={() => this.onDateClick(parsed)}
                     >
                         <span className="number">{formattedDate}</span>
                     </div>

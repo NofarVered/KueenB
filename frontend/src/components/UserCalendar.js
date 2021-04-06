@@ -1,17 +1,9 @@
 import React from "react";
 import format from "date-fns/format";
-import startOfWeek from "date-fns/startOfWeek";
-import addDays from "date-fns/addDays";
-import endOfWeek from "date-fns/endOfWeek";
-import isSameDay from "date-fns/isSameDay";
-import { parseJSON, isPast , isAfter} from 'date-fns'
-import addMonths from "date-fns/addMonths";
-import subMonths from "date-fns/subMonths";
 import Button from "react-bootstrap/Button";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {HiArrowLeft} from "react-icons/hi";
 import {Link} from "react-router-dom";
-import {BrowserRouter as Router, Route} from "react-router-dom";
 
 import "./Calendar/calendar.css";
 import Calendar from "./Calendar/Calendar";

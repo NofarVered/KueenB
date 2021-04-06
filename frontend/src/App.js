@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import Home from './components/Home';
+import Home from './components/Home/Home';
 import HealthStatement from './components/HealthStatement/HealthStatement'
-import Calendar from "./components/Calendar/Calendar.jsx";
 import Registers from "./components/Registers/Registers";
 import OfficeManager from './components/OfficeManager/OfficeManager';
 import format from "date-fns/format";
@@ -16,7 +15,7 @@ class App extends Component {
       REG_Date: '',
       data: [],
       mapRegistersByDay: {},
-      selectedDate: ''
+      selectedDate: '',
       currentDate: format(new Date(), "dd/MM/yyyy")  //today date
   }
 

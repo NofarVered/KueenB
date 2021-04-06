@@ -1,6 +1,5 @@
-import React, {Component } from 'react';
+import React from 'react';
 import format from "date-fns/format";
-import Calendar from "../Calendar/Calendar";
 import "./Registers.css"
 import {HiArrowLeft} from "react-icons/hi";
 import {Link} from "react-router-dom";
@@ -11,7 +10,7 @@ class Registers extends React.Component {
     render(){
         const date = format(this.props.selectedDate,"dd/MM/yyyy");
         let registersList = this.props.mapRegistersByDay[format(this.props.selectedDate,"dd/MM/yyyy")];
-        if (registersList) {registersList = registersList.map((item) =><li>{item.name}</li>)}
+        if (registersList) {registersList = registersList.map((item, index) =><li key={index}>{item.name}</li>)}
               return (
                 <div>
                     <div className="head_box">

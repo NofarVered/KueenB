@@ -21,7 +21,7 @@ class HealthStatement extends Component {
                     <div className="headpage">Health Statement</div>
                     <div className="dateFill">{format(this.state.Today_Date, "dd/MM/yyyy")}</div>
                 </div>
-                <div className="contentPage" >
+                <div>
                     <Link to="/">
                         <div className="arrow" onClick={this.handleSubmit}>
                             <HiArrowLeft />
@@ -44,8 +44,8 @@ class HealthStatement extends Component {
                     <br></br>
                     <br></br>
                     <br></br>
-                    <button onClick={this.handleOnSubmit} className="sendButton" type='submit'>send</button>
                 </div>
+                    <button onClick={this.handleOnSubmit} className="sendButton" type='submit'>send</button>
             </div>
         )
     }
