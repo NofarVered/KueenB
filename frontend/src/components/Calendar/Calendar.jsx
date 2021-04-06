@@ -112,7 +112,6 @@ class Calendar extends React.Component {
         }
         return <div className="box"><div className="body">{rows}</div></div>;
     }
-
     nextMonth = () => {
         this.setState({
             currentMonth: addMonths(this.state.currentMonth, 1)
@@ -132,7 +131,7 @@ class Calendar extends React.Component {
                 {this.renderHeader()}
                 {this.renderDays()}
                 {this.renderCells()}
-            </div>
+</div>
             
 
         );
