@@ -158,7 +158,7 @@ class Calendar extends React.Component {
             <div>
                 <div className="headlineBox">
                     <Link to="/">
-                            <div className="arrow" onClick={this.handleSubmit}>
+                            <div className="arrow" onClick={this.handleSubmit} data-testid={'arrow'}>
                             <HiArrowLeft />
                             </div>
                             </Link>   
