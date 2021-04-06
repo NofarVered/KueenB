@@ -1,13 +1,8 @@
 import React, {Component } from 'react';
-import Button from 'react-bootstrap/Button';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
-import {Link} from "react-router-dom";
 import "./OfficeManager.css"
 import Calendar from "../Calendar/Calendar.jsx";
-import Registers from "../Registers/Registers.js";
 import format from "date-fns/format";
-import { json } from 'body-parser';
 
 
 class OfficeManager extends Component {
@@ -41,7 +36,7 @@ class OfficeManager extends Component {
                 <div className ="manager_headpage">
                     <h2>office manager page</h2>
                     <div className ="registers_list">
-                    {registersList ? <ol>{(registersList.map((item, index) =><li key={index} className={item.hs ? "black" : "red"}>{item.name}</li>))}</ol>: 'hi'} 
+                    {registersList ? <ol>{(registersList.map((item, index) =><li key={index} className={item.hs ? "black" : "red"}>{item.name}</li>))}</ol>: ''} 
 
                     </div>
                 </div>
