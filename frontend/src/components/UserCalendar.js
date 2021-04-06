@@ -33,9 +33,9 @@ class UserCalendar extends React.Component {
         });
     };
 
-    insertRegistryToDB = (async (email, name, date)=> {
+    insertRegistryToDB = (async (email, name, hs, date)=> {
         const jsonRequest = {}
-        jsonRequest.employees = {email: email, name: name, HS: false, arrivalDate:date}
+        jsonRequest.employees = {email: email, name: name, HS: hs, arrivalDate:date}
         console.log(jsonRequest);
         let result = await fetch("http://localhost:3001/registry", {method: "POST", 
                       headers: {"content-type": "application/json"}, body: JSON.stringify(jsonRequest) })
@@ -49,7 +49,7 @@ class UserCalendar extends React.Component {
             console.log("Day is full");
         }
         else{
-            this.insertRegistryToDB(this.props.email, this.props.name, format(this.state.selectedDate, "dd/MM/yyyy"));
+            this.insertRegistryToDB(this.props.email, this.props.name, false, format(this.state.selectedDate, "dd/MM/yyyy"));
             console.log(this.props.email, this.props.name, false, format(this.state.selectedDate, "dd/MM/yyyy"));
         }
     }
