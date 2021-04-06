@@ -1,34 +1,35 @@
-const express = require('express')
-const bodyParser = require('body-parser')
-const cors = require('cors')
-const app = express()
-const port = 3001
-const Pool = require('pg').Pool
-const pool = new Pool({
-  host: 'localhost', //when we run localy
-  //when we want to run with docker we need to change to postgers
-  port: 5432,
-  user: 'admin',
-  password: 'p',
-  database: 'testdata'
-})
-app.use(cors())
-app.use(bodyParser.json())
-app.use(
-  bodyParser.urlencoded({ extended: true })
-)
-app.get('/', (request, response) => {
-  response.json({ info: 'It works!' })
-})
+// const express = require('express') // app
+// //const bodyParser = require('body-parser') 
+// const cors = require('cors') //server
+// const app = express() //app
+// const port = 3001 //server
+// const Pool = require('pg').Pool
+// const pool = new Pool({
+//   host: 'localhost', //when we run localy
+//   //when we want to run with docker we need to change to postgers
+//   port: 5432,
+//   user: 'admin',
+//   password: 'p',
+//   database: 'testdata'
+// })
+// app.use(cors()) //server
+//app.use(bodyParser.json())
+// app.use(
+//   bodyParser.urlencoded({ extended: true })
+// )
+// app.get('/', (request, response) => { //app
+//   response.json({ info: 'It works!' })
+// })
 
 
 //readData
-app.get("/registry", async (req, res) => {
-    const rows = await readData();
-    res.setHeader("content-type", "application/json")
-    res.send(JSON.stringify(rows))
-})
-
+// app.get("/registry", async (req, res) => {
+//     const rows = await readData();
+//     res.setHeader("content-type", "application/json")
+//     res.send(JSON.stringify(rows))
+// })
+const server = require('./server');
+const pool = server.pool;
 async function readData() {
     try {
     const results = await pool.query('SELECT * FROM employees ORDER BY arrivalDate DESC');
@@ -40,22 +41,22 @@ async function readData() {
 }
 
 //insert
-app.post("/registry", async (req, res) => {
-    let result = {}
-    try{
-        const reqJson = req.body;
-        console.log(reqJson.employees);
-        result.success = await createEmployee(reqJson.employees)
-    }
-    catch(e){
-        result.success=false;
-    }
-    finally{
-        res.setHeader("content-type", "application/json")
-        res.send(JSON.stringify(result))
-    }
+// app.post("/registry", async (req, res) => {
+//     let result = {}
+//     try{
+//         const reqJson = req.body;
+//         console.log(reqJson.employees);
+//         result.success = await createEmployee(reqJson.employees)
+//     }
+//     catch(e){
+//         result.success=false;
+//     }
+//     finally{
+//         res.setHeader("content-type", "application/json")
+//         res.send(JSON.stringify(result))
+//     }
    
-})
+// })
 
 async function createEmployee(employeeDetails){
 
@@ -72,22 +73,22 @@ async function createEmployee(employeeDetails){
 
 //updateHS
 
-app.put("/registry", async (req, res) => {
-    let result = {}
-    try{
-        const reqJson = req.body;
-        console.log(reqJson.employee);
-        result.success = await updateEmployee(reqJson.employee)
-    }
-    catch(e){
-        result.success=false;
-    }
-    finally{
-        res.setHeader("content-type", "application/json")
-        res.send(JSON.stringify(result))
-    }
+// app.put("/registry", async (req, res) => {
+//     let result = {}
+//     try{
+//         const reqJson = req.body;
+//         console.log(reqJson.employee);
+//         result.success = await updateEmployee(reqJson.employee)
+//     }
+//     catch(e){
+//         result.success=false;
+//     }
+//     finally{
+//         res.setHeader("content-type", "application/json")
+//         res.send(JSON.stringify(result))
+//     }
    
-})
+// })
 
 async function updateEmployee(employeeDetails){
 
@@ -106,6 +107,8 @@ async function updateEmployee(employeeDetails){
 }
 
 
-app.listen(port, () => {
-  console.log(`running on port ${port}.`)
-})
+// app.listen(port, () => { // server
+//   console.log(`running on port ${port}.`)
+// })
+
+module.exports = {readData, createEmployee, updateEmployee};
