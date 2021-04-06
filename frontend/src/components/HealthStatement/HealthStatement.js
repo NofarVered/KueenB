@@ -44,7 +44,7 @@ class HealthStatement extends Component {
                     <br></br>
                     <br></br>
                     <br></br>
-                    <button onClick={this.handleOnSubmit} className="sendButton" type='submit'>sent</button>
+                    <button onClick={this.handleOnSubmit} className="sendButton" type='submit'>send</button>
                 </div>
             </div>
         )
