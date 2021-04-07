@@ -17,13 +17,22 @@ class Calendar extends React.Component {
         currentMonth: new Date(),
         selectedDate: new Date(),
         currentDay: new Date(),
-        registersList: []
+        registersList: [],
+        isAvailable: true
     };
 
-    onDateClick = day => {
-        this.setState({
-            selectedDate: day
-        }, () => this.props.onDateClick(day));
+    onDateClick = (day, className) => {
+        if (className==="disabled"){
+           this.setState({
+               isAvailable: false
+           })
+        }
+        else {
+            this.setState({
+                selectedDate: day
+            }, () => this.props.onDateClick(day));
+        }
+
     };
 
     renderHeader() {
@@ -94,11 +103,12 @@ class Calendar extends React.Component {
                 formattedDate = format(day, dateFormat);
                 const cloneDay = day;
                 const parsed = parseJSON(cloneDay)
+                const cellName = this.getCellClass(day, lastDay, calendarStart)
                 days.push(
                     <div
-                        className={`col cell ${this.getCellClass(day, lastDay, calendarStart)}`}
+                        className={`col cell ${cellName}`}
                         key={day}
-                        onClick={() => this.onDateClick(parsed)}
+                        onClick={() => this.onDateClick(parsed, cellName)}
                     >
                         <span className="number">{formattedDate}</span>
                     </div>

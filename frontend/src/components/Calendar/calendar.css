@@ -255,6 +255,7 @@ main {
 }
 
 .calendar .body .disabled{
+    cursor: default;
     border-style: solid;
     color: #BDBDBD;
     border-color: #BDBDBD;
@@ -319,6 +320,7 @@ main {
     height: 124px;
     left: 15px;
     top: 387px;
+    background: #F2F2F2;
     background: #F2F2F2;
     border-radius: 4px;
     font-family: sofiapro-regular;

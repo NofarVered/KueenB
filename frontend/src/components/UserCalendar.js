@@ -42,7 +42,11 @@ class UserCalendar extends React.Component {
         }
         else{
             this.insertRegistryToDB(this.props.email, this.props.name, false, format(this.state.selectedDate, "dd/MM/yyyy"));
+            alert("You have successfully signed for "+format(this.state.selectedDate, "dd/MM/yyyy"));
             console.log(this.props.email, this.props.name, false, format(this.state.selectedDate, "dd/MM/yyyy"));
+            this.setState({
+                isAvailable: false
+            });
         }
     }
 
@@ -81,7 +85,7 @@ class UserCalendar extends React.Component {
                             </Link>              
                         </div>
                 </div>
-                    <Button variant="primary" size="sm" onClick={this.onContinueClick}>
+                    <Button variant="primary" size="sm" onClick={this.isAvailable ? this.onContinueClick : null}>
                         Continue
                     </Button>
             </div>
