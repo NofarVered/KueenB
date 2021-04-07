@@ -57,7 +57,10 @@ class UserCalendar extends React.Component {
     render() {
         const dicValue = this.props.mapRegistersByDay[format(this.state.selectedDate, 
             "dd/MM/yyyy")];
-            const maxPeople = 20;
+        const maxPeople = 20;
+        const numOfRegistersString = dicValue ? ` ${dicValue.length} registered (${maxPeople-(dicValue.length)} available)` : 
+        `0 registered (${maxPeople} available)`;
+
         return (
             <div>
                 <div className="headlineBox">
@@ -74,8 +77,7 @@ class UserCalendar extends React.Component {
                         <div className="dayWindow">
                             <p className="dateHeadline">{format(this.state.selectedDate, "EEEE")}, {format(this.state.selectedDate, "dd.MM")}</p>
                             <div className="numOfRegisters">
-                                {dicValue === undefined ? ("0 registered ("+ maxPeople+ " available)"): 
-                                (dicValue.length+" registered ("+ maxPeople-(dicValue.length)+") available")}
+                                {numOfRegistersString}
                             </div>
                             <Link to="/registers">
                             <div className="registersButton" onClick={this.handleSubmit}>
