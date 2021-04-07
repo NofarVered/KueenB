@@ -42,6 +42,7 @@ class UserCalendar extends React.Component {
         }
         else{
             this.insertRegistryToDB(this.props.email, this.props.name, false, format(this.state.selectedDate, "dd/MM/yyyy"));
+            alert("You have successfully signed for "+format(this.state.selectedDate, "dd/MM/yyyy"));
             console.log(this.props.email, this.props.name, false, format(this.state.selectedDate, "dd/MM/yyyy"));
         }
     }
@@ -50,6 +51,8 @@ class UserCalendar extends React.Component {
         console.log(this.state);
         this.props.setSelectedDate(this.state.selectedDate);
     }
+
+
 
     render() {
         const dicValue = this.props.mapRegistersByDay[format(this.state.selectedDate, 
