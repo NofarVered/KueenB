@@ -14,9 +14,9 @@ class App extends Component {
       HS_Fill: false, //defult obj in the reg time
       REG_Date: '',
       data: [],
-      mapRegistersByDay: {},
-      selectedDate: '',
-      currentDate: format(new Date(), "dd/MM/yyyy")  //today date
+      mapRegistersByDay: {}, // a dic with a date (key) and all the people that registered to this date (value)
+      selectedDate: '', // save the pressed date in the calender
+      currentDate: format(new Date(), "dd/MM/yyyy")  // today date
   }
 
   componentDidMount() {
@@ -102,6 +102,7 @@ insertRegistryToDB = (async (email, name, hs, date)=> {
     return false;
   };
 
+  // update selectedDate to be the pressed date
   setSelectedDate = (selectedDate) => {
     this.setState({selectedDate});
     // console.log(this.state.selectedDate);
