@@ -1,66 +1,66 @@
-.head_box {   
-    position: absolute;
-    width: 375px;
-    height: 83px;
-    left: 0px;
-    top: 0px;
-    background: #FFFFFF;
-    box-shadow: 0px 4px 10px rgba(51, 51, 51, 0.12);
-  }
-
-  .headpage {    
-    position: absolute;
-    width: 255px;
-    height: 58px;
-    left: calc(50% - 130px + 11.5px);
-    top: 26px;
-    font-family: sofiapro-regular;
-    font-style: normal;
-    font-weight: bold;
-    font-size: 16px;
-    line-height: 120%;
-    text-align: center;
-    color: #00406B;
-  }
-  
-  .dateFill{
-    position: absolute;
-    width: 162px;
-    height: 16px;
-    left: calc(50% - 170px/2 + 11.5px);
-    top: 59px;
-    font-family: sofiapro-regular;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 13px;
-    line-height: 120%;
-    text-align: center;
-    color: #00406B;
-  }
-  .contentPage {
-    position: absolute;
-    width: 100px;
-    height: 183px;
-    left: 44px;
-    top: 130px;
+.head_box {
+  position: absolute;
+  width: 375px;
+  height: 83px;
+  left: 0px;
+  top: 0px;
+  background: #ffffff;
+  box-shadow: 0px 4px 10px rgba(51, 51, 51, 0.12);
 }
 
-  li{
-    font-family: sofiapro-regular;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 18px;
-    line-height: 150%;
-    /* or 27px */  
-    color: #000000;
-    text-align: left;
-  }
+.headpage {
+  position: absolute;
+  width: 255px;
+  height: 58px;
+  left: calc(50% - 130px + 11.5px);
+  top: 26px;
+  font-family: sofiapro-regular;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 120%;
+  text-align: center;
+  color: #00406b;
+}
 
-  .arrow{
-    margin-top: 26px;
-    margin-bottom: 1rem;
-    position: absolute;
-    margin-left: 26px;
-    cursor: pointer;
-    color:#00406B;;
+.dateFill {
+  position: absolute;
+  width: 162px;
+  height: 16px;
+  left: calc(50% - 170px / 2 + 11.5px);
+  top: 59px;
+  font-family: sofiapro-regular;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 13px;
+  line-height: 120%;
+  text-align: center;
+  color: #00406b;
+}
+.contentPage {
+  position: absolute;
+  width: 100px;
+  height: 183px;
+  left: 44px;
+  top: 130px;
+}
+
+li {
+  font-family: sofiapro-regular;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 150%;
+  /* or 27px */
+  color: #000000;
+  text-align: left;
+}
+
+.arrow {
+  margin-top: 26px;
+  margin-bottom: 1rem;
+  position: absolute;
+  margin-left: 26px;
+  cursor: pointer;
+  color: #00406b;
 }
