@@ -7,6 +7,9 @@ import isSameDay from "date-fns/isSameDay";
 import { parseJSON, isPast, isAfter } from "date-fns";
 import addMonths from "date-fns/addMonths";
 import subMonths from "date-fns/subMonths";
+import startOfMonth from 'date-fns/startOfMonth';
+import endOfMonth from 'date-fns/endOfMonth';
+import getMonth from 'date-fns/getMonth';
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import "./calendar.css";
@@ -85,25 +88,35 @@ class Calendar extends React.Component {
       return "disabled";
     if (isPast(day, calendarStart) && !isSameDay(day, currentDay))
       return "disabled";
-    if (isAfter(day, lastDay)) return "disabled";
+    if (isAfter(day, lastDay) || isAfter(day,addDays(selectedDate,14))) return "disabled";
     if (isSameDay(day, selectedDate)) return "selected";
     return "available";
   }
 
   renderCells() {
     const { currentMonth, currentDay } = this.state;
-    const calendarStart = startOfWeek(currentMonth);
-    const lastDay = addDays(currentDay, 14);
+    const calendarStart = getMonth(currentMonth)===getMonth(currentDay) ? startOfWeek(currentMonth) :
+        startOfMonth(currentMonth);
+    const lastDay = getMonth(currentMonth)===getMonth(currentDay) ? addDays(currentDay, 14) : 
+        endOfMonth(currentMonth);
     const calendarEnd = endOfWeek(lastDay);
     const startDate = startOfWeek(calendarStart);
     const endDate = endOfWeek(calendarEnd);
-
+    
     const dateFormat = "d";
     const rows = [];
 
     let days = [];
     let day = startDate;
     let formattedDate = "";
+
+    console.log("currentDay ", currentDay);
+    console.log("currentMonth ", currentMonth);
+    console.log("startDate",startDate );
+    console.log("calendarEnd", calendarEnd);
+    console.log("lastDay", lastDay);
+    console.log("endDate ", endDate);
+    console.log("day ", day);
 
     while (day <= endDate) {
       for (let i = 0; i < 7; i++) {
