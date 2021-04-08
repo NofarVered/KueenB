@@ -9,7 +9,8 @@ class DaysInOffice extends React.Component {
         currentMonth: new Date(),
         selectedDate: new Date(),
         currentDay: new Date(),
-        registersList: []
+        daysList: this.props.mapDaysByRegister,
+        email:this.props.email
     };
 
 
@@ -19,11 +20,12 @@ class DaysInOffice extends React.Component {
     
 
     render() {
+        let registersDays = this.state.daysList[this.state.email];
+        console.log(registersDays);
         return (
             <div>
                 <Calendar onDateClick={this.onDateClick}></Calendar>
-            </div>
-                
+            </div>             
         );
     }
 }

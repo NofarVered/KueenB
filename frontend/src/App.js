@@ -16,6 +16,7 @@ class App extends Component {
     REG_Date: "",
     data:[],
     mapRegistersByDay: {},
+    mapDaysByRegister:{},
     selectedDate: "",
     currentDate: format(new Date(), "dd/MM/yyyy"), //today date
   };
@@ -26,6 +27,7 @@ class App extends Component {
       .then((result) =>
         this.setState({ data: result }, () => {
           this.countRegisters();
+          this.countDaysPerRegister();
         })
       );
   }
@@ -144,10 +146,9 @@ class App extends Component {
   };
 
   countRegisters = () => {
-    // update mapRegistersByDate dic {DATE: [NAME, NAME ....], ....}
+    // update mapRegistersByDate dic {DATE: [{NAME, HS}, {NAME, HS} ....], ....}
     let countDic = {};
     let tmpData = this.state.data;
-    console.log(tmpData);
     for (let i = 0; i < tmpData.length; i++) {
       if (countDic[tmpData[i].arrivaldate]) {
         countDic[tmpData[i].arrivaldate].push({
@@ -162,6 +163,21 @@ class App extends Component {
     }
     this.setState({ mapRegistersByDay: countDic });
   };
+
+  countDaysPerRegister = () => {
+    let countDic = {};
+    let tmpData = this.state.data;
+    for (let i = 0; i < tmpData.length; i++) {
+      if (countDic[tmpData[i].email]) {
+        countDic[tmpData[i].email].push(tmpData[i].arrivaldate);
+      } else {
+        countDic[tmpData[i].email] = [tmpData[i].arrivaldate];
+      }
+    }
+    this.setState({ mapDaysByRegister: countDic });
+  };
+
+  
 
   render() {
     return (
@@ -222,6 +238,9 @@ class App extends Component {
               path="/days-in-office"
               render={(props) => (
                   <DaysInOffice
+                  {...props}
+                  email={this.state.email}
+                  mapDaysByRegister={this.state.mapDaysByRegister}
                   />
               )}
           />
