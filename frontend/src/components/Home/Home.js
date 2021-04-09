@@ -90,31 +90,38 @@ class Home extends Component {
                 variant="light"
                 className="nav-buttons"
               >
-                <img src={regLogo} width="45px" height="45px" alt="" />
-                <br />
+                <img src={regLogo} className="btn_img" width="45px" height="45px" alt="" />
+                <div className="btn_text">
                 Register to a day in the office
+                </div>
               </Button>
             </Link>
+          </div>
+          <div className="box">
             <Link to="/health-statement">
               <Button
                 onClick={this.handleSubmit}
                 variant="light"
                 className="nav-buttons"
               >
-                <img src={healthLogo} width="45px" height="45px" alt="" />
-                <br />
+                <img src={healthLogo} className="btn_img" width="45px" height="45px" alt="" />
+                <div className="btn_text">
                 Fill a health statement
+                </div>
               </Button>
             </Link>
+          </div>
+          <div className="box">
             <Link to="/days-in-office">
               <Button
                   onClick={this.handleSubmit}
                   variant="light"
                   className="nav-buttons"
               >
-                <img src={days_in_office_btn} width="45px" height="45px" alt="" />
-                <br />
+                <img src={days_in_office_btn} className="btn_img" width="45px" height="45px" alt="" />
+                <div className="btn_text">
                 Check you office days
+                </div>
               </Button>
             </Link>
           </div>

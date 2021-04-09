@@ -13,14 +13,28 @@
   text-align: center;
   color: #333333;
   border-radius: 100px;
-  margin: 40px 6px 20px 6px;
-  width: 132px;
-  height: 144px;
+  margin: 5px;
+  width: 264px;
+  height: 79px;
   background: #fcfdff;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 5px;
 }
 
+.btn_text{
+  width: 112px;
+  text-align: left;
+  font-size: 15px;
+  position: relative;
+  left: 60px;
+  top: -30px;
+}
+
+.btn_img{
+  position: relative;
+  left: -95px;
+  top: 5px;
+}
 .navlogo {
   margin: 50px;
 }
