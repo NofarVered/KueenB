@@ -28,6 +28,8 @@ class App extends Component {
         this.setState({ data: result }, () => {
           this.countRegisters();
           this.countDaysPerRegister();
+          console.log(this.state.data);
+          console.log(this.state.mapDaysByRegister);
         })
       );
   }
@@ -174,7 +176,11 @@ class App extends Component {
         countDic[tmpData[i].email] = [tmpData[i].arrivaldate];
       }
     }
-    this.setState({ mapDaysByRegister: countDic });
+    this.setState({ mapDaysByRegister: countDic },
+      () => {
+        console.log(this.state);
+      }
+  );
   };
 
   

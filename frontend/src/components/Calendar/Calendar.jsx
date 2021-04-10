@@ -21,6 +21,7 @@ class Calendar extends React.Component {
     currentDay: new Date(),
     registersList: [],
     isAvailable: true,
+    registersDays: Array.isArray(this.props.registersDays) ? this.props.registersDays:[]
   };
 
   onDateClick = (day, className) => {
@@ -84,6 +85,11 @@ class Calendar extends React.Component {
 
   getCellClass(day, lastDay, calendarStart) {
     const { selectedDate, currentDay } = this.state;
+    if (this.state.registersDays.length){
+      if (this.state.registersDays.indexOf(format(day, "dd/MM/yyyy")) > -1){
+        return "selected";
+      }
+    }
     if (format(day, "iiii") === "Friday" || format(day, "iiii") === "Saturday")
       return "disabled";
     if (isPast(day, calendarStart) && !isSameDay(day, currentDay))
@@ -110,13 +116,13 @@ class Calendar extends React.Component {
     let day = startDate;
     let formattedDate = "";
 
-    console.log("currentDay ", currentDay);
-    console.log("currentMonth ", currentMonth);
-    console.log("startDate",startDate );
-    console.log("calendarEnd", calendarEnd);
-    console.log("lastDay", lastDay);
-    console.log("endDate ", endDate);
-    console.log("day ", day);
+    // console.log("currentDay ", currentDay);
+    // console.log("currentMonth ", currentMonth);
+    // console.log("startDate",startDate );
+    // console.log("calendarEnd", calendarEnd);
+    // console.log("lastDay", lastDay);
+    // console.log("endDate ", endDate);
+    // console.log("day ", day);
 
     while (day <= endDate) {
       for (let i = 0; i < 7; i++) {
