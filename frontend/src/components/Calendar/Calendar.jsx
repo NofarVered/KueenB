@@ -85,19 +85,27 @@ class Calendar extends React.Component {
 
   getCellClass(day, lastDay, calendarStart) {
     const { selectedDate, currentDay } = this.state;
-    if (this.state.registersDays.length){
-      if (this.state.registersDays.indexOf(format(day, "dd/MM/yyyy")) > -1){
-        return "selected";
-      }
-    }
     if (format(day, "iiii") === "Friday" || format(day, "iiii") === "Saturday")
       return "disabled";
     if (isPast(day, calendarStart) && !isSameDay(day, currentDay))
       return "disabled";
-    if (isAfter(day, lastDay) || isAfter(day,addDays(selectedDate,14))) return "disabled";
+    if (isAfter(day, lastDay) || isAfter(day,addDays(selectedDate,14))) 
+      return "disabled";
     if (isSameDay(day, selectedDate)) return "selected";
-    return "available";
+
+    if (this.state.registersDays.length){
+      if (this.state.registersDays.indexOf(format(day, "dd/MM/yyyy")) > -1)
+        return "selected";
+      else{
+        return "disabled_office_day";
+      }
+    }
+    else{
+      return "available";
+    }
   }
+  
+
 
   renderCells() {
     const { currentMonth, currentDay } = this.state;

@@ -245,7 +245,7 @@ main {
   border-width: 2px;
 }
 
-.calendar .body .disabled {
+.calendar .body .disabled , .calendar .body .disabled_office_day {
   cursor: default;
   border-style: solid;
   color: #bdbdbd;
