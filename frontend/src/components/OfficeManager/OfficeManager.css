@@ -48,6 +48,16 @@
     
   }
 
+  .settings_tab{
+      height: 900px;
+      width: 400px;
+      right: 0px;
+      top: 0px;
+      border-radius: 0px;
+      position: absolute;
+      background: #F5FAFF;
+  }
+
   .red{
       color: red;
   }
