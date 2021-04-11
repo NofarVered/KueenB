@@ -238,6 +238,12 @@ main {
   color: #003355;
 }
 
+.calendar .body .selected_office_day {
+  background-color: #3b4742;
+  color: #F2F2F2  ;
+  border: #3b4742;
+}
+
 .calendar .body .available {
   color: #6fcf97;
   border-color: #6fcf97;

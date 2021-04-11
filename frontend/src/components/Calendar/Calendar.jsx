@@ -21,7 +21,10 @@ class Calendar extends React.Component {
     currentDay: new Date(),
     registersList: [],
     isAvailable: true,
-    registersDays: Array.isArray(this.props.registersDays) ? this.props.registersDays:[]
+    registersDays: Array.isArray(this.props.registersDays) ? this.props.registersDays:[],
+    graychoice1: null,
+    graychoice2: null 
+
   };
 
   onDateClick = (day, className) => {
@@ -29,13 +32,44 @@ class Calendar extends React.Component {
       this.setState({
         isAvailable: false,
       });
-    } else {
-      this.setState(
-        {
-          selectedDate: day,
-        },
-        () => this.props.onDateClick(day)
-      );
+    } 
+    else {
+      if (this.state.registersDays.length){
+        if (this.state.graychoice1===null && this.state.graychoice2===null){
+          this.setState(
+            {
+              graychoice1: day
+            },
+            () => {this.props.onDateClick(day); }
+          );
+        }
+        else if (!isSameDay(this.state.graychoice1, day)&& this.state.graychoice1!=null && this.state.graychoice2===null){
+        this.setState(
+          {
+            graychoice2: day
+          },
+          () => {this.props.onDateClick(day); }
+        );
+        }
+        else{
+          this.setState(
+            {
+              graychoice1: day,
+              graychoice2: null
+            },
+            () => {this.props.onDateClick(day); }
+          );
+        }
+       }
+      else{
+        this.setState(
+          {
+            selectedDate: day,
+          },
+          () => {this.props.onDateClick(day); }
+        );
+  
+      }
     }
   };
 
@@ -85,6 +119,19 @@ class Calendar extends React.Component {
 
   getCellClass(day, lastDay, calendarStart) {
     const { selectedDate, currentDay } = this.state;
+    if (this.state.registersDays.length){
+      if (isSameDay(this.state.graychoice1, day) ){
+        return "selected_office_day";
+      }
+      if (isSameDay(this.state.graychoice2, day) ){
+        return "selected_office_day";
+      }
+      if (this.state.registersDays.indexOf(format(day, "dd/MM/yyyy")) > -1)
+        return "selected";
+      else{
+        return "disabled_office_day";
+      }
+    }
     if (format(day, "iiii") === "Friday" || format(day, "iiii") === "Saturday")
       return "disabled";
     if (isPast(day, calendarStart) && !isSameDay(day, currentDay))
@@ -92,17 +139,7 @@ class Calendar extends React.Component {
     if (isAfter(day, lastDay) || isAfter(day,addDays(selectedDate,14))) 
       return "disabled";
     if (isSameDay(day, selectedDate)) return "selected";
-
-    if (this.state.registersDays.length){
-      if (this.state.registersDays.indexOf(format(day, "dd/MM/yyyy")) > -1)
-        return "selected";
-      else{
-        return "disabled_office_day";
-      }
-    }
-    else{
-      return "available";
-    }
+    return "available";
   }
   
 

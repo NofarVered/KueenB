@@ -12,17 +12,37 @@ class DaysInOffice extends React.Component {
         selectedDate: new Date(),
         currentDay: new Date(),
         daysList: this.props.mapDaysByRegister,
-        email:this.props.email
+        email:this.props.email,
+        firstChoice: null,
+        secondChoice: null
     };
 
     onDateClick = day => {
-        //change !
+        if (this.state.firstChoice==null){
+            this.setState({
+                firstChoice: day
+            });
+        }
+        else if (this.state.secondChoice==null){
+            this.setState({
+                secondChoice: day
+            });
+        }
+        else{
+            this.setState({
+                firstChoice: day,
+                secondChoice: null
+            });
+
+        }
     };
+
     
     render() {
         let registersDays = this.state.daysList[this.state.email];
         console.log(registersDays);
-
+        console.log("firstChoice", this.state.firstChoice);
+        console.log("secondChoice", this.state.secondChoice);
         return (
             <div>
                 {/* the head box of this page: */}
