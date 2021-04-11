@@ -3,12 +3,18 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import "./OfficeManager.css"
 import Calendar from "../Calendar/Calendar.jsx";
 import format from "date-fns/format";
+import Button from "react-bootstrap/Button";
 
 
 class OfficeManager extends Component {
     state = {
         selectedDate: new Date(),
-        registersList: []
+        registersList: [],
+        maxPeople: 20 //maybe we need to save the last value in db and initialize this value accordingly
+    }
+
+    sendUpdateMaxPeople = () =>{
+        this.props.updateMaxPeople(this.state.maxPeople);
     }
 
     onDateClick = day => {
@@ -25,12 +31,19 @@ class OfficeManager extends Component {
 
         };
 
+    handleChange = (e) => {
+        this.setState({
+            maxPeople: e.target.value
+        });
+    }
+
+    onSaveClick = () =>{
+        this.sendUpdateMaxPeople();
+    }
+
     render(){
         let temp = {};
-        console.log(typeof(temp));
         const registersList = this.props.mapRegistersByDay[format(this.state.selectedDate,"dd/MM/yyyy")];
-        console.log(registersList);
-
         return(
             <div>
                 <div className ="manager_headpage">
@@ -44,7 +57,16 @@ class OfficeManager extends Component {
                     <Calendar onDateClick={this.onDateClick}></Calendar>
 
                 </div>
-                
+                <div>
+                    <h2>Settings</h2>
+                    <p>Number of people allowed in the office</p>
+                    <input className="forms" type="text" placeholder=" " onChange={this.handleChange} value={this.state.maxPeople}></input>
+                     <div>
+                    <Button variant="primary" size="sm" onClick={this.onSaveClick}>
+                        Save
+                    </Button>
+                     </div>
+                </div>
                     
             </div>
         )

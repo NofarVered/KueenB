@@ -14,6 +14,7 @@ class App extends Component {
       HS_Fill: false, //defult obj in the reg time
       REG_Date: '',
       data: [],
+        maxPeople: null,
       mapRegistersByDay: {}, // a dic with a date (key) and all the people that registered to this date (value)
       selectedDate: '', // save the pressed date in the calender
       currentDate: format(new Date(), "dd/MM/yyyy")  // today date
@@ -124,6 +125,11 @@ insertRegistryToDB = (async (email, name, hs, date)=> {
     this.setState({mapRegistersByDay : countDic})
   };
 
+  updateMaxPeople = (maxPeopleFromOfficeManager) => {
+      this.setState ({maxPeople: maxPeopleFromOfficeManager});
+      console.log (this.state.maxPeople);
+  }
+
 
   render() {
     return (
@@ -132,7 +138,8 @@ insertRegistryToDB = (async (email, name, hs, date)=> {
             <Route exact path='/' render={(props) => (<Home {...props} addUser={this.addUser} />)}/>
             <Route path="/calendar" render={(props) => (<UserCalendar {...props} name={this.state.name} email={this.state.email} mapRegistersByDay={this.state.mapRegistersByDay} setSelectedDate={this.setSelectedDate}/>)} />
             <Route path="/registers" render={(props) => (<Registers {...props} mapRegistersByDay={this.state.mapRegistersByDay} selectedDate={this.state.selectedDate}/>)} />
-            <Route exact path='/office-manager' render={(props) => (<OfficeManager {...props} mapRegistersByDay={this.state.mapRegistersByDay} setSelectedDate={this.setSelectedDate} selectedDate={this.state.selectedDate} data={this.state.data}/>)}/>
+            <Route exact path='/office-manager' render={(props) => (<OfficeManager {...props} mapRegistersByDay={this.state.mapRegistersByDay} setSelectedDate={this.setSelectedDate} selectedDate={this.state.selectedDate} data={this.state.data}
+            updateMaxPeople={this.updateMaxPeople}/>)}/>
             <Route path="/health-statement" render={(props) => (<HealthStatement {...props} name={this.state.name} email={this.state.email} addHS={this.addHS}/>)} />
           </div>
         </Router>

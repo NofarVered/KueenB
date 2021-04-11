@@ -13,8 +13,10 @@ class UserCalendar extends React.Component {
         currentMonth: new Date(),
         selectedDate: new Date(),
         currentDay: new Date(),
-        registersList: []
+        registersList: [],
+        maxPeople: null
     };
+    
 
 
     onDateClick = day => {
