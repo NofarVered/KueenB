@@ -40,7 +40,6 @@ class DaysInOffice extends React.Component {
     
     render() {
         let registersDays = this.state.daysList[this.state.email];
-        console.log(registersDays);
         console.log("firstChoice", this.state.firstChoice);
         console.log("secondChoice", this.state.secondChoice);
         return (

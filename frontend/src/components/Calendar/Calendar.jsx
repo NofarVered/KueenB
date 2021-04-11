@@ -120,11 +120,15 @@ class Calendar extends React.Component {
   getCellClass(day, lastDay, calendarStart) {
     const { selectedDate, currentDay } = this.state;
     if (this.state.registersDays.length){
-      if (isSameDay(this.state.graychoice1, day) ){
+      console.log("1");
+      if (isSameDay(this.state.graychoice1, day) && this.state.graychoice2==null){
         return "selected_office_day";
       }
-      if (isSameDay(this.state.graychoice2, day) ){
+      else if (isSameDay(this.state.graychoice2, day) && this.state.graychoice1!=null){
         return "selected_office_day";
+      }
+      else{
+
       }
       if (this.state.registersDays.indexOf(format(day, "dd/MM/yyyy")) > -1)
         return "selected";
