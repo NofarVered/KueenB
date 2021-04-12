@@ -5,6 +5,7 @@ import Calendar from "../Calendar/Calendar.jsx";
 import format from "date-fns/format";
 import Button from "react-bootstrap/Button";
 import settings_img from "./settings.png";
+import {MdClear} from 'react-icons/md';
 
 
 class OfficeManager extends Component {
@@ -67,6 +68,7 @@ class OfficeManager extends Component {
                         <img src={settings_img}/>
                     </button>
                     {this.state.openSettings ? <div className="settings_tab">
+                        <div onClick={this.openSettings} className="clear_btn"><MdClear/></div>
                         <h2>Settings</h2>
                         <p>Number of people allowed in the office</p>
                         <input className="forms" type="text" placeholder=" " onChange={this.handleChange} value={this.state.maxPeople}></input>
