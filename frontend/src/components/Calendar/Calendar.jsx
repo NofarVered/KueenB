@@ -22,8 +22,8 @@ class Calendar extends React.Component {
     registersList: [],
     isAvailable: true,
     registersDays: Array.isArray(this.props.registersDays) ? this.props.registersDays:[],
-    graychoice1: null,
-    graychoice2: null 
+    graychoice1:  Array.isArray(this.props.registersDays) ? this.props.first: null,
+    graychoice2: Array.isArray(this.props.registersDays) ? this.props.second: null 
 
   };
 
@@ -35,15 +35,16 @@ class Calendar extends React.Component {
     } 
     else {
       if (this.state.registersDays.length){
-        if (this.state.graychoice1===null && this.state.graychoice2===null){
-          this.setState(
-            {
-              graychoice1: day
-            },
-            () => {this.props.onDateClick(day); }
-          );
-        }
-        else if (!isSameDay(this.state.graychoice1, day)&& this.state.graychoice1!=null && this.state.graychoice2===null){
+        // if (this.state.graychoice1===null && this.state.graychoice2===null){
+        //   this.setState(
+        //     {
+        //       graychoice1: day
+        //     },
+        //     () => {this.props.onDateClick(day); }
+        //   );
+        // }
+        // else
+         if (!isSameDay(this.state.graychoice1, day)&& this.state.graychoice1!=null && this.state.graychoice2===null){
         this.setState(
           {
             graychoice2: day
@@ -120,6 +121,7 @@ class Calendar extends React.Component {
   getCellClass(day, lastDay, calendarStart) {
     const { selectedDate, currentDay } = this.state;
     if (this.state.registersDays.length){
+
       if (isSameDay(this.state.graychoice1, day) ){
         return "selected_office_day";
       }
@@ -218,6 +220,8 @@ class Calendar extends React.Component {
         {this.renderDays()}
         {this.renderCells()}
       </div>
+      
+
     );
   }
 }
