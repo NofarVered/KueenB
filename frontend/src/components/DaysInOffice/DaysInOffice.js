@@ -17,8 +17,8 @@ class DaysInOffice extends React.Component {
         currentDay: new Date(),
         daysList: this.props.mapDaysByRegister,
         email:this.props.email,
-        firstChoice: new Date(), 
-        secondChoice: addDays(new Date(), 14) 
+        firstChoice: null, 
+        secondChoice: null
     };
 
     onDateClick = day => {
@@ -47,13 +47,13 @@ class DaysInOffice extends React.Component {
             firstDate = new Date();
             secondDate = addDays(new Date(), 14);
         }
-
         else if (this.state.firstChoice != null && this.state.secondChoice != null){
             firstDate = min([this.state.firstChoice, this.state.secondChoice]);
             secondDate = max([this.state.firstChoice, this.state.secondChoice]);
         }
-        else{
-            return 0; // think about if one is null
+        else{// think about if one is null
+            firstDate = this.state.firstChoice;
+            secondDate = firstDate; 
         }
         console.log('hi',firstDate);
         console.log(secondDate);
@@ -64,27 +64,28 @@ class DaysInOffice extends React.Component {
         console.log(format(cur_day, "dd/MM/yyyy"));
         let counter = 0;
 
-        // while(i < totalDays){
-        //     for (let j = 0; j < registersDays.length; j++){
-        //         if (registersDays[j] === format(cur_day, "dd/MM/yyyy")){
-        //             counter ++ ;
-        //         }      
-        //     }
-        //     cur_day.setDate(addDays(cur_day,1));
-        //     i++;
-        // }
+        while(i <= totalDays){
+            if (registersDays.indexOf(format(cur_day, "dd/MM/yyyy")) > -1){
+                counter ++;
+            }
+            cur_day = addDays(cur_day,1);
+            i++;
+        }
         return counter;
     }   
 
     render() {
         let registersDays = this.state.daysList[this.state.email];
+        console.log(registersDays);
         console.log("firstChoice", this.state.firstChoice);
         console.log("secondChoice", this.state.secondChoice);
-
+        let firstDate = (this.state.firstChoice || this.state.secondChoice) ? min([this.state.firstChoice, this.state.secondChoice]): new Date();
+        let secondDate = (this.state.firstChoice || this.state.secondChoice) ? max([this.state.firstChoice, this.state.secondChoice]): new Date();
+        
         //console.log(format(this.state.firstChoice.getDate(), "dd/MM/yyyy"));
 
-        //let numOfRegisteredDays = (registersDays) ? this.calcOfficeDays(registersDays) : 0;
-        let numOfRegisteredDays = 0;
+        let numOfRegisteredDays = (registersDays) ? this.calcOfficeDays(registersDays) : 0;
+        //let numOfRegisteredDays = this.calcOfficeDays(registersDays);
         return (
             <div>
                 {/* the head box of this page: */}
@@ -102,7 +103,7 @@ class DaysInOffice extends React.Component {
               </div>
               <div className="box-days">
                         <div className="daysWindow">
-                            <p className="daysHeadline">{format(this.state.firstChoice, "dd.MM")} - {format(this.state.secondChoice, "dd.MM")}</p>
+                            <p className="daysHeadline">{format(firstDate, "dd.MM")} - {format(secondDate, "dd.MM")}</p>
                             <div className="numOfDays">
                                 {numOfRegisteredDays} office days
                             </div>        
