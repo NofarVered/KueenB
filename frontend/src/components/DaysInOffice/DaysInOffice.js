@@ -102,7 +102,7 @@ class DaysInOffice extends React.Component {
               </div>
               <div className="box-days">
                         <div className="daysWindow">
-                            <p className="daysHeadline">{format(this.state.firstChoice, "EEEE")}, {format(this.state.firstChoice, "dd.MM")}</p>
+                            <p className="daysHeadline">{format(this.state.firstChoice, "dd.MM")} - {format(this.state.secondChoice, "dd.MM")}</p>
                             <div className="numOfDays">
                                 {numOfRegisteredDays} office days
                             </div>        
