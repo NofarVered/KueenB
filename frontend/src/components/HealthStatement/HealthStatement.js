@@ -33,7 +33,7 @@ class HealthStatement extends Component {
                     I do not have a cough (other than coughing or difficulty bredthing as a result of a chronic condition, asthma or other allergy).
                 <br></br>
                     <br></br>
-                I do not have a themerature over 38 degrees celsius.
+                I do not have a temperature over 38 degrees celsius.
                 <br></br>
                     <br></br>
                 I have not had a fever (over 38 degrees celsius) over the last week.

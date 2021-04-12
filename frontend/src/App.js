@@ -77,6 +77,17 @@ class App extends Component {
       }
     }
   }
+
+  insertMaxPeopleToDB = (async (maxPeople)=> {
+        const jsonRequest = {}
+        jsonRequest.maxPeople = {maxPeople: maxPeople}
+        console.log(jsonRequest);
+        let result = await fetch("http://localhost:3001/maxPeople", {method: "PUT",
+            headers: {"content-type": "application/json"}, body: JSON.stringify(jsonRequest) })
+        result = await result.json();
+        if (!result.success)  alert("FAILED! ")
+    })
+
   
 insertRegistryToDB = (async (email, name, hs, date)=> {
   // for calender and hs

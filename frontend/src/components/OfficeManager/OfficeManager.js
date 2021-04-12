@@ -62,28 +62,29 @@ class OfficeManager extends Component {
         const registersList = this.props.mapRegistersByDay[format(this.state.selectedDate,"dd/MM/yyyy")];
         return(
             <div>
-                <div className ="manager_headpage">
-                    <h2>office manager page</h2>
+                <div className ="head_box">
+                    <button className="settings_btn" onClick={this.openSettings}>
+                        <img src={settings_img}/>
+                    </button>
+                    {this.state.openSettings ? <div className="settings_tab">
+                        <h2>Settings</h2>
+                        <p>Number of people allowed in the office</p>
+                        <input className="forms" type="text" placeholder=" " onChange={this.handleChange} value={this.state.maxPeople}></input>
+                        <div>
+                            <Button className="sendButton" variant="primary" size="sm" onClick={this.onSaveClick}>
+                                Save
+                            </Button>
+                        </div>
+                    </div> : null}
+
+                </div>
                     <div className ="registers_list">
                     {registersList ? <ol>{(registersList.map((item, index) =><li key={index} className={item.hs ? "black" : "red"}>{item.name}</li>))}</ol>: ''}
                     </div>
-                </div>
                 <div className = "calendar_tab">
                     <Calendar onDateClick={this.onDateClick}></Calendar>
                 </div>
-                <button onClick={this.openSettings}>
-                    <img src={settings_img}/>
-                </button>
-                {this.state.openSettings ? <div className="settings_tab">
-                    <h2>Settings</h2>
-                    <p>Number of people allowed in the office</p>
-                    <input className="forms" type="text" placeholder=" " onChange={this.handleChange} value={this.state.maxPeople}></input>
-                    <div>
-                        <Button variant="primary" size="sm" onClick={this.onSaveClick}>
-                            Save
-                        </Button>
-                    </div>
-                </div> : null}
+
             </div>
         )
     }
