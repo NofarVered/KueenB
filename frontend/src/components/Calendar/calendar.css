@@ -254,7 +254,7 @@ main {
     border-width: 2px;
 }
 
-.calendar .body .disabled{
+.calendar .body .disabled , .calendar .body .past{
     cursor: default;
     border-style: solid;
     color: #BDBDBD;

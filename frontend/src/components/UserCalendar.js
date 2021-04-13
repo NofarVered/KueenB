@@ -19,7 +19,8 @@ class UserCalendar extends React.Component {
     
 
 
-    onDateClick = day => {
+    onDateClick = (day,className) => {
+        if (className==="past") return;
         this.setState({
             selectedDate: day,
             registersList: this.props.mapRegistersByDay[format(day, 

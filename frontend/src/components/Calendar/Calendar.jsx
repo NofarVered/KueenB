@@ -30,7 +30,7 @@ class Calendar extends React.Component {
         else {
             this.setState({
                 selectedDate: day
-            }, () => this.props.onDateClick(day));
+            }, () => this.props.onDateClick(day,className));
         }
 
     };
@@ -77,7 +77,7 @@ class Calendar extends React.Component {
     getCellClass(day, lastDay, calendarStart) {
         const { selectedDate, currentDay } = this.state;
         if (format(day, "iiii")==="Friday" ||format(day, "iiii")==="Saturday") return "disabled";
-        if (isPast(day, calendarStart) && !isSameDay(day, currentDay))  return "disabled";
+        if (isPast(day, calendarStart) && !isSameDay(day, currentDay))  return "past";
         if (isAfter(day, lastDay)) return "disabled";
         if (isSameDay(day, selectedDate)) return "selected";
         return "available";

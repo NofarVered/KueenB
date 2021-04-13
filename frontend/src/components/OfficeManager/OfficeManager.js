@@ -21,7 +21,7 @@ class OfficeManager extends Component {
         this.props.updateMaxPeople(this.state.maxPeople);
     }
 
-    onDateClick = day => {
+    onDateClick = (day,className) => {
         this.setState({
             selectedDate: day,
             registersList: this.props.mapRegistersByDay[format(day, 
@@ -58,6 +58,7 @@ class OfficeManager extends Component {
 
     render(){
         // let temp = {};
+        const dateAsString = ` ${format(this.state.selectedDate,"EEEE")} , ${format(this.state.selectedDate,"d")} , ${format(this.state.selectedDate,"y")} `;
         const registersList = this.props.mapRegistersByDay[format(this.state.selectedDate,"dd/MM/yyyy")];
         return(
             <div>
@@ -66,7 +67,7 @@ class OfficeManager extends Component {
                     <img src={settings_img}  alt=""/>
                     </button>
                     {this.state.openSettings ? <div className="settings_tab">
-                        <h2>Settings</h2>
+                        <h3>Settings</h3>
                         <MdClear className="clear_btn" onClick={this.openSettings}/>
                         <p>Number of people allowed in the office</p>
                         <input className="forms" type="text" placeholder=" " onChange={this.handleChange} value={this.state.maxPeople}></input>
@@ -79,6 +80,7 @@ class OfficeManager extends Component {
 
                 </div>
                     <div className ="registers_list">
+                        <h3 className="dateHeadline">{dateAsString}</h3>
                     {registersList ? <ol>{(registersList.map((item, index) =><li key={index} className={item.hs ? "black" : "red"}>{item.name}</li>))}</ol>: ''}
                     </div>
                 <div className = "calendar_tab">

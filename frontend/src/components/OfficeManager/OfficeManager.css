@@ -72,6 +72,19 @@ p{
 
   }
 
+  .dateHeadline{
+      font-family: 'sofiapro-regular';
+      top: 25px;
+      position: absolute;
+      font-size: 23px !important;
+      width: max-content;
+  }
+
+  ol{
+      position: absolute;
+      top: 80px;
+  }
+
   .registers_list{
       top: 60px;
     position: absolute;
