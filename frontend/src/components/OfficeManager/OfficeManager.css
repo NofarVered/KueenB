@@ -73,6 +73,7 @@ p{
   }
 
   .registers_list{
+      top: 60px;
     position: absolute;
     width: 205px;
     height: 270px;
