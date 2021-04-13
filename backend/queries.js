@@ -44,12 +44,9 @@ async function updateEmployee(employeeDetails){
 }
 
 async function updateMaxPeople(maxPeople){
-
     try {   
-        await pool.query(`UPDATE maxPeople SET numberOfPeople = $1 WHERE ID = $2`, [maxPeople.numOfPeople, 1]);
+        await pool.query(`UPDATE maxPeople SET numberOfPeople = $1 WHERE ID = $2`, [maxPeople, 1]);
         const results = await pool.query('SELECT * FROM maxPeople');
-        console.log("maxPeople" , results.rows);
-
         return true
     }
     catch(e){
@@ -60,7 +57,7 @@ async function updateMaxPeople(maxPeople){
 
 async function readMaxPeople() {
     try {
-    const results = await pool.query('SELECT * FROM maxPeople');
+    const results = await pool.query('SELECT numberOfPeople FROM maxPeople');
     return results.rows;
     }
     catch(e){

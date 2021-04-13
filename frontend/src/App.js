@@ -29,7 +29,7 @@ class App extends Component {
     fetch(`http://localhost:3001/maxPeople`)
     .then(result =>result.json())
     .then((result) => this.setState({maxPeople: result}
-      ));
+    )); 
   }
 
   addUser = (user_copy) => {
@@ -133,10 +133,8 @@ insertRegistryToDB = (async (email, name, hs, date)=> {
 
   // update the field max number of people in the office in the DB
   updateMaxPeople = (async (maxPeople)=> {
-    // this.setState ({numberOfPeople : maxPeople});
     const jsonRequest = {}
-    jsonRequest.maxPeople = {numberOfPeople: maxPeople};
-    console.log(maxPeople + "ccc")
+    jsonRequest.maxPeople = maxPeople;
     let result = await fetch("http://localhost:3001/MaxPeople", {method: "PUT", 
                   headers: {"content-type": "application/json"}, body: JSON.stringify(jsonRequest) })
                   result = await result.json();
@@ -144,6 +142,7 @@ insertRegistryToDB = (async (email, name, hs, date)=> {
   })
 
   render() {
+    console.log(this.state.maxPeople + "checkcheck");
     return (
         <Router>
           <div className="App">
