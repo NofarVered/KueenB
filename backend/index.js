@@ -51,19 +51,30 @@ app.put("/registry", async (req, res) => {
    
 })
 
+//read the field max people in the office
+app.get("/MaxPeople", async (req, res) => {
+    const rows = await query.readMaxPeople();
+    res.setHeader("content-type", "application/json")
+    res.send(JSON.stringify(rows))
+})
+
+//update the field max people in the office
 app.put("/MaxPeople", async (req, res) => {
     let result = {}
+    console.log("hi2");
     try{
         const reqJson = req.body;
-        console.log(reqJson.employee);
+        console.log(reqJson.maxPeople);
         result.success = await query.updateMaxPeople(reqJson.maxPeople)
     }
     catch(e){
         result.success=false;
     }
     finally{
+        console.log("hi1");
         res.setHeader("content-type", "application/json")
         res.send(JSON.stringify(result))
     }
-
 })
+
+

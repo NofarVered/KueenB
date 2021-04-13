@@ -5,7 +5,6 @@ import Calendar from "../Calendar/Calendar.jsx";
 import format from "date-fns/format";
 import Button from "react-bootstrap/Button";
 import settings_img from "./settings.png";
-import {MdClear} from 'react-icons/md';
 
 
 class OfficeManager extends Component {
@@ -13,11 +12,12 @@ class OfficeManager extends Component {
         selectedDate: new Date(),
         registersList: [],
         openSettings: false,
-        maxPeople: 20 //maybe we need to save the last value in db and initialize this value accordingly
+        maxPeople: 0 //maybe we need to save the last value in db and initialize this value accordingly
 
     }
 
     sendUpdateMaxPeople = () =>{
+        console.log(this.state.maxPeople + "ddd");
         this.props.updateMaxPeople(this.state.maxPeople);
     }
 
@@ -29,8 +29,6 @@ class OfficeManager extends Component {
         });
     };
     
-
-
     componentDidMount(){
 
         };
@@ -59,16 +57,15 @@ class OfficeManager extends Component {
     }
 
     render(){
-        let temp = {};
+        // let temp = {};
         const registersList = this.props.mapRegistersByDay[format(this.state.selectedDate,"dd/MM/yyyy")];
         return(
             <div>
                 <div className ="head_box">
                     <button className="settings_btn" onClick={this.openSettings}>
-                        <img src={settings_img}/>
+                    <img src={settings_img}  alt=""/>
                     </button>
                     {this.state.openSettings ? <div className="settings_tab">
-                        <div onClick={this.openSettings} className="clear_btn"><MdClear/></div>
                         <h2>Settings</h2>
                         <p>Number of people allowed in the office</p>
                         <input className="forms" type="text" placeholder=" " onChange={this.handleChange} value={this.state.maxPeople}></input>

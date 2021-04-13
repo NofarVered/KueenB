@@ -26,7 +26,12 @@ class App extends Component {
     .then((result) => this.setState({data: result}, () => {
       this.countRegisters();
     }));
+    fetch(`http://localhost:3001/maxPeople`)
+    .then(result =>result.json())
+    .then((result) => this.setState({maxPeople: result}
+      ));
   }
+
   addUser = (user_copy) => {
     //add to state email and name 
     const username=user_copy.name;
@@ -63,7 +68,7 @@ class App extends Component {
     else{
       console.log(this.state.mapRegistersByDay);
       if (this.state.mapRegistersByDay[this.state.currentDate] && 
-        this.state.mapRegistersByDay[this.state.currentDate].length>=12){
+        this.state.mapRegistersByDay[this.state.currentDate].length>=this.state.maxPeople){
           // defult max people per day- need to be change... 
           alert("error");
       }  
@@ -77,16 +82,6 @@ class App extends Component {
       }
     }
   }
-
-  insertMaxPeopleToDB = (async (maxPeople)=> {
-        const jsonRequest = {}
-        jsonRequest.maxPeople = {maxPeople: maxPeople}
-        console.log(jsonRequest);
-        let result = await fetch("http://localhost:3001/maxPeople", {method: "PUT",
-            headers: {"content-type": "application/json"}, body: JSON.stringify(jsonRequest) })
-        result = await result.json();
-        if (!result.success)  alert("FAILED! ")
-    })
 
   
 insertRegistryToDB = (async (email, name, hs, date)=> {
@@ -136,11 +131,17 @@ insertRegistryToDB = (async (email, name, hs, date)=> {
     this.setState({mapRegistersByDay : countDic})
   };
 
-  updateMaxPeople = (maxPeopleFromOfficeManager) => {
-      this.setState ({maxPeople: maxPeopleFromOfficeManager});
-      console.log (this.state.maxPeople);
-  }
-
+  // update the field max number of people in the office in the DB
+  updateMaxPeople = (async (maxPeople)=> {
+    // this.setState ({numberOfPeople : maxPeople});
+    const jsonRequest = {}
+    jsonRequest.maxPeople = {numberOfPeople: maxPeople};
+    console.log(maxPeople + "ccc")
+    let result = await fetch("http://localhost:3001/MaxPeople", {method: "PUT", 
+                  headers: {"content-type": "application/json"}, body: JSON.stringify(jsonRequest) })
+                  result = await result.json();
+                  if (!result.success) alert("FAILED! ")
+  })
 
   render() {
     return (
