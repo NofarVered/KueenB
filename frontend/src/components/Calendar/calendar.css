@@ -251,15 +251,17 @@ main {
   border-width: 2px;
 }
 .calendar .body .between {
-  border-color: #676b69;
+  color: #ffffff;
+  background-color: #C4C4C4;
+  border-color: #C4C4C4;
   border-style: solid;
   border-width: 1.7px;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.12);
 }
 .calendar .body .between_selected {
-  background-color: #6fcf97;
-  color: #003355;
-  border-color: #676b69;
+  background-color: #B7EACC  ;
+  color: #ffffff;
+  border-color: #B7EACC  ;
   border-style: solid;
   border-width: 1.7px;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.12);
