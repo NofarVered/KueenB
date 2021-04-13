@@ -35,16 +35,7 @@ class Calendar extends React.Component {
     } 
     else {
       if (this.state.registersDays.length){
-        // if (this.state.graychoice1===null && this.state.graychoice2===null){
-        //   this.setState(
-        //     {
-        //       graychoice1: day
-        //     },
-        //     () => {this.props.onDateClick(day); }
-        //   );
-        // }
-        // else
-         if (!isSameDay(this.state.graychoice1, day)&& this.state.graychoice1!=null && this.state.graychoice2===null){
+        if ( this.state.graychoice1!=null && this.state.graychoice2===null){
         this.setState(
           {
             graychoice2: day
@@ -125,11 +116,25 @@ class Calendar extends React.Component {
       if (isSameDay(this.state.graychoice1, day) ){
         return "selected_office_day";
       }
-      if (isSameDay(this.state.graychoice2, day) ){
+      else if (isSameDay(this.state.graychoice2, day) ){
         return "selected_office_day";
       }
-      if (this.state.registersDays.indexOf(format(day, "dd/MM/yyyy")) > -1)
+      else if (this.state.registersDays.indexOf(format(day, "dd/MM/yyyy")) > -1){
+        if (this.state.graychoice1!=null && 
+        this.state.graychoice2!=null && (
+          (day>this.state.graychoice1 && day<this.state.graychoice2) || 
+          ( day>this.state.graychoice2 && day<this.state.graychoice1)
+          ))
+          return "between_selected";
         return "selected";
+      }
+      else if (this.state.graychoice1!=null && 
+        this.state.graychoice2!=null && (
+          (day>this.state.graychoice1 && day<this.state.graychoice2) || 
+          ( day>this.state.graychoice2 && day<this.state.graychoice1)
+          )){
+            return "between"
+          }
       else{
         return "disabled_office_day";
       }
@@ -162,14 +167,6 @@ class Calendar extends React.Component {
     let days = [];
     let day = startDate;
     let formattedDate = "";
-
-    // console.log("currentDay ", currentDay);
-    // console.log("currentMonth ", currentMonth);
-    // console.log("startDate",startDate );
-    // console.log("calendarEnd", calendarEnd);
-    // console.log("lastDay", lastDay);
-    // console.log("endDate ", endDate);
-    // console.log("day ", day);
 
     while (day <= endDate) {
       for (let i = 0; i < 7; i++) {

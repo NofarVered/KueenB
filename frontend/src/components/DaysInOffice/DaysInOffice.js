@@ -55,13 +55,9 @@ class DaysInOffice extends React.Component {
             firstDate = this.state.firstChoice;
             secondDate = firstDate; 
         }
-        console.log('hi',firstDate);
-        console.log(secondDate);
         let totalDays = diffDays(secondDate, firstDate);
-        console.log(totalDays);
         let i = 0;
         let cur_day = firstDate;
-        console.log(format(cur_day, "dd/MM/yyyy"));
         let counter = 0;
 
         while(i <= totalDays){
@@ -76,16 +72,13 @@ class DaysInOffice extends React.Component {
 
     render() {
         let registersDays = this.state.daysList[this.state.email];
-        console.log(registersDays);
-        console.log("firstChoice", this.state.firstChoice);
-        console.log("secondChoice", this.state.secondChoice);
-        let firstDate = (this.state.firstChoice || this.state.secondChoice) ? min([this.state.firstChoice, this.state.secondChoice]): new Date();
-        let secondDate = (this.state.firstChoice || this.state.secondChoice) ? max([this.state.firstChoice, this.state.secondChoice]): new Date();
-        
-        //console.log(format(this.state.firstChoice.getDate(), "dd/MM/yyyy"));
+        let firstDate = (this.state.firstChoice && this.state.secondChoice) ? min([this.state.firstChoice, this.state.secondChoice]): null;
+        let secondDate = (this.state.firstChoice && this.state.secondChoice) ? max([this.state.firstChoice, this.state.secondChoice]): null;
 
         let numOfRegisteredDays = (registersDays) ? this.calcOfficeDays(registersDays) : 0;
-        //let numOfRegisteredDays = this.calcOfficeDays(registersDays);
+        let datesPresented = (secondDate != null && firstDate != null) ? format(firstDate, "dd.MM") + "-" + format(secondDate, "dd.MM") : null;
+        console.log(this.state.firstChoice);
+        console.log(this.state.secondChoice);
         return (
             <div>
                 {/* the head box of this page: */}
@@ -103,7 +96,8 @@ class DaysInOffice extends React.Component {
               </div>
               <div className="box-days">
                         <div className="daysWindow">
-                            <p className="daysHeadline">{format(firstDate, "dd.MM")} - {format(secondDate, "dd.MM")}</p>
+
+                            <p className="daysHeadline">{datesPresented} </p>
                             <div className="numOfDays">
                                 {numOfRegisteredDays} office days
                             </div>        
