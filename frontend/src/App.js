@@ -9,6 +9,7 @@ import UserCalendar from "./components/UserCalendar";
 import DaysInOffice from "./components/DaysInOffice/DaysInOffice";
 
 class App extends Component {
+
   state = {
     name: "",
     email: "",
@@ -20,7 +21,6 @@ class App extends Component {
     selectedDate: "",
     currentDate: format(new Date(), "dd/MM/yyyy"), //today date
   };
-
   componentDidMount() {
     fetch(`http://localhost:3001/registry`)
       .then((result) => result.json())
@@ -142,6 +142,7 @@ class App extends Component {
     return false;
   };
 
+  // update selectedDate to be the pressed date
   setSelectedDate = (selectedDate) => {
     this.setState({ selectedDate });
     // console.log(this.state.selectedDate);
