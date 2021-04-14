@@ -80,6 +80,11 @@ p{
       width: max-content;
   }
 
+  .arrowOM {
+      cursor: pointer;
+  }
+
+
   ol{
       position: absolute;
       top: 80px;

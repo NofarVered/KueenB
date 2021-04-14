@@ -90,8 +90,8 @@ class OfficeManager extends Component {
 
                 </div>
                     <div className ="registers_list">
-                        <h3 className="dateHeadline"><IoIosArrowBack onClick={()=>this.onArrowClick(-1)}/>
-                            {dateAsString}<IoIosArrowForward onClick={()=>this.onArrowClick(1)}/></h3>
+                        <h3 className="dateHeadline"><IoIosArrowBack className="arrowOM" onClick={()=>this.onArrowClick(-1)}/>
+                            {dateAsString}<IoIosArrowForward className="arrowOM" onClick={()=>this.onArrowClick(1)}/></h3>
                     {registersList ? <ol>{(registersList.map((item, index) =><li key={index} className={item.hs ? "black" : "red"}>{item.name}</li>))}</ol>: ''}
                     </div>
                 <div className = "calendar_tab">
