@@ -5,7 +5,10 @@ import Calendar from "../Calendar/Calendar.jsx";
 import format from "date-fns/format";
 import Button from "react-bootstrap/Button";
 import settings_img from "./settings.png";
-import {MdClear} from "react-icons/md"
+import {MdClear} from "react-icons/md";
+import {IoIosArrowBack} from "react-icons/io";
+import {IoIosArrowForward} from "react-icons/io";
+import addDays from "date-fns/addDays";
 
 class OfficeManager extends Component {
     state = {
@@ -56,6 +59,13 @@ class OfficeManager extends Component {
         }
     }
 
+    onArrowClick = (direction) =>{
+        let moveToDay = addDays(this.state.selectedDate, direction); //1 if arrow is forward, -1 otherwise
+       this.setState({
+           selectedDate: moveToDay,
+       });
+    }
+
     render(){
         // let temp = {};
         const dateAsString = ` ${format(this.state.selectedDate,"EEEE")} , ${format(this.state.selectedDate,"d")} , ${format(this.state.selectedDate,"y")} `;
@@ -80,7 +90,8 @@ class OfficeManager extends Component {
 
                 </div>
                     <div className ="registers_list">
-                        <h3 className="dateHeadline">{dateAsString}</h3>
+                        <h3 className="dateHeadline"><IoIosArrowBack onClick={()=>this.onArrowClick(-1)}/>
+                            {dateAsString}<IoIosArrowForward onClick={()=>this.onArrowClick(1)}/></h3>
                     {registersList ? <ol>{(registersList.map((item, index) =><li key={index} className={item.hs ? "black" : "red"}>{item.name}</li>))}</ol>: ''}
                     </div>
                 <div className = "calendar_tab">
