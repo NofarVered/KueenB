@@ -15,6 +15,7 @@ class HealthStatement extends Component {
         this.props.addHS();
     }
     render() {
+        console.log(this.props.maxPeople);
         return (
             <div>
                 <div className="head_box">
@@ -27,6 +28,7 @@ class HealthStatement extends Component {
                             <HiArrowLeft />
                         </div>
                     </Link>
+                    
                     <h5 className="declare"> I, {this.state.name} declare that: </h5>
                 </div>
                 <div className="form-check-label">

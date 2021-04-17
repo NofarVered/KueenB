@@ -14,7 +14,7 @@ class UserCalendar extends React.Component {
         selectedDate: new Date(),
         currentDay: new Date(),
         registersList: [],
-        maxPeople: null
+        maxPeople: this.props.maxPeople
     };
     
 
@@ -39,7 +39,7 @@ class UserCalendar extends React.Component {
 
     onContinueClick = () =>{
         if (this.props.mapRegistersByDay[this.state.selectedDate] && 
-            this.props.mapRegistersByDay[this.state.selectedDate].length>12){
+            this.props.mapRegistersByDay[this.state.selectedDate].length>this.state.maxPeople){
             console.log("Day is full");
         }
         else{
@@ -59,9 +59,9 @@ class UserCalendar extends React.Component {
     render() {
         const dicValue = this.props.mapRegistersByDay[format(this.state.selectedDate, 
             "dd/MM/yyyy")];
-        const maxPeople = 20;
-        const numOfRegistersString = dicValue ? ` ${dicValue.length} registered (${maxPeople-(dicValue.length)} available)` : 
-        `0 registered (${maxPeople} available)`;
+        // const maxPeople = 20;
+        const numOfRegistersString = dicValue ? ` ${dicValue.length} registered (${this.state.maxPeople-(dicValue.length)} available)` : 
+        `0 registered (${this.state.maxPeople} available)`;
 
         return (
             <div>

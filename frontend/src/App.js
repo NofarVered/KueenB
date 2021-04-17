@@ -14,7 +14,7 @@ class App extends Component {
       HS_Fill: false, //defult obj in the reg time
       REG_Date: '',
       data: [],
-        maxPeople: null,
+      maxPeople: 0,
       mapRegistersByDay: {}, // a dic with a date (key) and all the people that registered to this date (value)
       selectedDate: '', // save the pressed date in the calender
       currentDate: format(new Date(), "dd/MM/yyyy")  // today date
@@ -28,7 +28,7 @@ class App extends Component {
     }));
     fetch(`http://localhost:3001/maxPeople`)
     .then(result =>result.json())
-    .then((result) => this.setState({maxPeople: result}
+    .then((result) => this.setState({maxPeople: result[0].numberofpeople}
     )); 
   }
 
@@ -134,24 +134,25 @@ insertRegistryToDB = (async (email, name, hs, date)=> {
   // update the field max number of people in the office in the DB
   updateMaxPeople = (async (maxPeople)=> {
     const jsonRequest = {}
+    this.setState({maxPeople});
     jsonRequest.maxPeople = maxPeople;
     let result = await fetch("http://localhost:3001/MaxPeople", {method: "PUT", 
                   headers: {"content-type": "application/json"}, body: JSON.stringify(jsonRequest) })
                   result = await result.json();
                   if (!result.success) alert("FAILED! ")
+    
   })
 
   render() {
-    console.log(this.state.maxPeople + "checkcheck");
     return (
         <Router>
           <div className="App">
             <Route exact path='/' render={(props) => (<Home {...props} addUser={this.addUser} />)}/>
-            <Route path="/calendar" render={(props) => (<UserCalendar {...props} name={this.state.name} email={this.state.email} mapRegistersByDay={this.state.mapRegistersByDay} setSelectedDate={this.setSelectedDate}/>)} />
+            <Route path="/calendar" render={(props) => (<UserCalendar {...props} name={this.state.name} email={this.state.email} mapRegistersByDay={this.state.mapRegistersByDay} setSelectedDate={this.setSelectedDate} maxPeople = {this.state.maxPeople}/>)} />
             <Route path="/registers" render={(props) => (<Registers {...props} mapRegistersByDay={this.state.mapRegistersByDay} selectedDate={this.state.selectedDate}/>)} />
             <Route exact path='/office-manager' render={(props) => (<OfficeManager {...props} mapRegistersByDay={this.state.mapRegistersByDay} setSelectedDate={this.setSelectedDate} selectedDate={this.state.selectedDate} data={this.state.data}
             updateMaxPeople={this.updateMaxPeople}/>)}/>
-            <Route path="/health-statement" render={(props) => (<HealthStatement {...props} name={this.state.name} email={this.state.email} addHS={this.addHS}/>)} />
+            <Route path="/health-statement" render={(props) => (<HealthStatement {...props} name={this.state.name} email={this.state.email} addHS={this.addHS} maxPeople = {this.state.maxPeople}/>)} />
           </div>
         </Router>
 
