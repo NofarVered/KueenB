@@ -15,6 +15,7 @@ class HealthStatement extends Component {
         this.props.addHS();
     }
     render() {
+        console.log(this.props.maxPeople);
         return (
             <div>
                 <div className="head_box">
@@ -27,13 +28,14 @@ class HealthStatement extends Component {
                             <HiArrowLeft />
                         </div>
                     </Link>
+                    
                     <h5 className="declare"> I, {this.state.name} declare that: </h5>
                 </div>
                 <div className="form-check-label">
                     I do not have a cough (other than coughing or difficulty bredthing as a result of a chronic condition, asthma or other allergy).
                 <br></br>
                     <br></br>
-                I do not have a themerature over 38 degrees celsius.
+                I do not have a temperature over 38 degrees celsius.
                 <br></br>
                     <br></br>
                 I have not had a fever (over 38 degrees celsius) over the last week.

@@ -50,3 +50,30 @@ app.put("/registry", async (req, res) => {
     }
    
 })
+
+//read the field max people in the office
+app.get("/MaxPeople", async (req, res) => {
+    const rows = await query.readMaxPeople();
+    res.setHeader("content-type", "application/json")
+    console.log(rows);
+    res.send(JSON.stringify(rows))
+})
+
+//update the field max people in the office
+app.put("/MaxPeople", async (req, res) => {
+    let result = {}
+    try{
+        const reqJson = req.body;
+        console.log(reqJson.maxPeople + "orel");
+        result.success = await query.updateMaxPeople(reqJson.maxPeople)
+    }
+    catch(e){
+        result.success=false;
+    }
+    finally{
+        res.setHeader("content-type", "application/json")
+        res.send(JSON.stringify(result))
+    }
+})
+
+
