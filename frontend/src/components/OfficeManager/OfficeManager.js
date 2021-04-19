@@ -5,7 +5,10 @@ import Calendar from "../Calendar/Calendar.jsx";
 import format from "date-fns/format";
 import Button from "react-bootstrap/Button";
 import settings_img from "./settings.png";
-import {MdClear} from "react-icons/md"
+import {MdClear} from "react-icons/md";
+import {IoIosArrowBack} from "react-icons/io";
+import {IoIosArrowForward} from "react-icons/io";
+import addDays from "date-fns/addDays";
 
 class OfficeManager extends Component {
     state = {
@@ -20,7 +23,7 @@ class OfficeManager extends Component {
         this.props.updateMaxPeople(this.state.maxPeople);
     }
 
-    onDateClick = day => {
+    onDateClick = (day,className) => {
         this.setState({
             selectedDate: day,
             registersList: this.props.mapRegistersByDay[format(day, 
@@ -55,8 +58,16 @@ class OfficeManager extends Component {
         }
     }
 
+    onArrowClick = (direction) =>{
+        let moveToDay = addDays(this.state.selectedDate, direction); //1 if arrow is forward, -1 otherwise
+       this.setState({
+           selectedDate: moveToDay,
+       });
+    }
+
     render(){
         // let temp = {};
+        const dateAsString = ` ${format(this.state.selectedDate,"EEEE")} , ${format(this.state.selectedDate,"d")} , ${format(this.state.selectedDate,"y")} `;
         const registersList = this.props.mapRegistersByDay[format(this.state.selectedDate,"dd/MM/yyyy")];
         return(
             <div>
@@ -65,7 +76,7 @@ class OfficeManager extends Component {
                     <img src={settings_img}  alt=""/>
                     </button>
                     {this.state.openSettings ? <div className="settings_tab">
-                        <h2>Settings</h2>
+                        <h3>Settings</h3>
                         <MdClear className="clear_btn" onClick={this.openSettings}/>
                         <p>Number of people allowed in the office</p>
                         <input className="forms" type="text" placeholder=" " onChange={this.handleChange} value={this.state.maxPeople}></input>
@@ -78,6 +89,8 @@ class OfficeManager extends Component {
 
                 </div>
                     <div className ="registers_list">
+                        <h3 className="dateHeadline"><IoIosArrowBack className="arrowOM" onClick={()=>this.onArrowClick(-1)}/>
+                            {dateAsString}<IoIosArrowForward className="arrowOM" onClick={()=>this.onArrowClick(1)}/></h3>
                     {registersList ? <ol>{(registersList.map((item, index) =><li key={index} className={item.hs ? "black" : "red"}>{item.name}</li>))}</ol>: ''}
                     </div>
                 <div className = "calendar_tab">

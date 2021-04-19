@@ -43,14 +43,16 @@ class Calendar extends React.Component {
           () => {this.props.onDateClick(day); }
         );
         }
+
         else{
           this.setState(
             {
               graychoice1: day,
               graychoice2: null
             },
-            () => {this.props.onDateClick(day); }
+            () => {this.props.onDateClick(day,className); }
           );
+
         }
        }
       else{
@@ -100,6 +102,7 @@ class Calendar extends React.Component {
           {shortWeekDaysArray[i]}
         </div>
       );
+
     }
 
     return (
@@ -142,7 +145,7 @@ class Calendar extends React.Component {
     if (format(day, "iiii") === "Friday" || format(day, "iiii") === "Saturday")
       return "disabled";
     if (isPast(day, calendarStart) && !isSameDay(day, currentDay))
-      return "disabled";
+      return "past";
     if (isAfter(day, lastDay) || isAfter(day,addDays(selectedDate,14))) 
       return "disabled";
     if (isSameDay(day, selectedDate)) return "selected";
