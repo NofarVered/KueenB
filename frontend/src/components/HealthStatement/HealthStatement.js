@@ -1,21 +1,20 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 import format from "date-fns/format";
 import { HiArrowLeft } from "react-icons/hi";
-import {Link} from "react-router-dom";
-import "./HS.css"
+import { Link } from "react-router-dom";
+import "./HS.css";
 
 class HealthStatement extends Component {
-    state = {
-        name: this.props.name,
-        email: this.props.email,
-        Today_Date: new Date(),
-    };
+  state = {
+    name: this.props.name,
+    email: this.props.email,
+    Today_Date: new Date(),
+  };
 
     handleOnSubmit = (e) => {
         this.props.addHS();
     }
     render() {
-        console.log(this.props.maxPeople);
         return (
             <div>
                 <div className="head_box">
@@ -26,6 +25,7 @@ class HealthStatement extends Component {
                     <Link to="/">
                         <div className="arrow" onClick={this.handleSubmit}>
                             <HiArrowLeft />
+                          
                         </div>
                     </Link>
                     
@@ -48,8 +48,8 @@ class HealthStatement extends Component {
                     <br></br>
                 </div>
                     <button onClick={this.handleOnSubmit} className="sendButton" type='submit'>send</button>
-            </div>
-        )
-    }
+      </div>
+    );
+  }
 }
 export default HealthStatement;

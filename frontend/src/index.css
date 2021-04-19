@@ -1,10 +1,11 @@
 @font-face {
   font-family: sofiapro-regular;
-  src: local(sofiapro-regular), url("./fonts/sofiapro-regular.otf") format('truetype');
+  src: local(sofiapro-regular),
+    url("./fonts/sofiapro-regular.otf") format("truetype");
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
 
@@ -32,7 +33,7 @@ code {
   margin: 40px 6px 20px 6px;
   width: 132px;
   height: 144px;
-  background: #FCFDFF;
+  background: #fcfdff;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 5px;
 }
@@ -48,19 +49,19 @@ code {
   font-size: 18px;
   line-height: 120%;
   text-align: center;
-  color: #2B8FFF;
+  color: #2b8fff;
 }
 
 .forms {
   border: none;
-  border-bottom: 1px solid #62758B;;
+  border-bottom: 1px solid #62758b;
   font-family: sofiapro-regular;
   font-style: normal;
   font-weight: normal;
   font-size: 16px;
   line-height: 120%;
   margin-top: 40px;
-  color: #A4A8AC;
+  color: #a4a8ac;
   width: 300px;
 }
 .declare {
@@ -70,7 +71,7 @@ code {
   font-size: 16px;
   line-height: 120%;
   text-align: left;
-  color: #00406B;
+  color: #00406b;
   position: absolute;
   width: 320px;
   height: 24px;
@@ -88,7 +89,7 @@ code {
   font-weight: normal;
   font-size: 16px;
   line-height: 120%;
-  color: #00406B;
+  color: #00406b;
 }
 .warp1 {
   position: absolute;
@@ -103,11 +104,11 @@ code {
   right: 25%;
   top: 25%;
   bottom: 25%;
-  background: #2B8FFF;
-  border: 3px solid #2B8FFF;
+  background: #2b8fff;
+  border: 3px solid #2b8fff;
   box-sizing: border-box;
   border-radius: 4px;
-  }
+}
 .warp2 {
   position: absolute;
   width: 29px;
@@ -127,21 +128,20 @@ code {
   width: 29px;
   height: 29px;
   left: 28px;
-  top: 370px;    
+  top: 370px;
 }
 
-.head_box {   
+.head_box {
   position: absolute;
   width: 375px;
   height: 83px;
   left: 0px;
   top: 0px;
-  background: #FFFFFF;
+  background: #ffffff;
   box-shadow: 0px 4px 10px rgba(51, 51, 51, 0.12);
 }
 
-
-.headpage {    
+.headpage {
   position: absolute;
   width: 255px;
   height: 58px;
@@ -153,14 +153,14 @@ code {
   font-size: 16px;
   line-height: 120%;
   text-align: center;
-  color: #00406B;
+  color: #00406b;
 }
 
-.dateFill{
+.dateFill {
   position: absolute;
   width: 162px;
   height: 16px;
-  left: calc(50% - 162px/2 + 11.5px);
+  left: calc(50% - 162px / 2 + 11.5px);
   top: 59px;
   font-family: sofiapro-regular;
   font-style: normal;
@@ -168,7 +168,7 @@ code {
   font-size: 13px;
   line-height: 120%;
   text-align: center;
-  color: #00406B;
+  color: #00406b;
 }
 
 .sendButton {
@@ -180,9 +180,9 @@ code {
   position: absolute;
   width: 155px;
   height: 40px;
-  left: calc(50% - 155px/2);
+  left: calc(50% - 155px / 2);
   top: 450px;
-  background: #2B8FFF;
+  background: #2b8fff;
   box-shadow: 0px 1px 4px rgba(51, 51, 51, 0.25);
   border-radius: 20px;
   font-family: sofiapro-regular;
@@ -193,7 +193,7 @@ code {
   display: flex;
   align-items: center;
   text-align: center;
-  color: #FFFFFF;
+  color: #ffffff;
   flex: none;
   order: 0;
   flex-grow: 0;

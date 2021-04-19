@@ -1,6 +1,6 @@
-import React, {Component } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import "./OfficeManager.css"
+import React, { Component } from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./OfficeManager.css";
 import Calendar from "../Calendar/Calendar.jsx";
 import format from "date-fns/format";
 import Button from "react-bootstrap/Button";
@@ -17,7 +17,6 @@ class OfficeManager extends Component {
     }
 
     sendUpdateMaxPeople = () =>{
-        console.log(this.state.maxPeople + "ddd");
         this.props.updateMaxPeople(this.state.maxPeople);
     }
 
@@ -88,6 +87,5 @@ class OfficeManager extends Component {
             </div>
         )
     }
-
 }
 export default OfficeManager;

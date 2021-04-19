@@ -70,7 +70,7 @@ class UserCalendar extends React.Component {
                             <div className="arrow" onClick={this.handleSubmit}>
                             <HiArrowLeft />
                             </div>
-                            </Link>   
+                    </Link>   
                     <h4 className="calendarHeadline">When are you coming?</h4>
                 </div>  
 
