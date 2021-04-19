@@ -9,18 +9,18 @@ import UserCalendar from "./components/UserCalendar";
 import DaysInOffice from "./components/DaysInOffice/DaysInOffice";
 
 class App extends Component {
-
-  state = {
-    name: "",
-    email: "",
-    HS_Fill: false, //defult obj in the reg time
-    REG_Date: "",
-    data:[],
-    mapRegistersByDay: {},
-    mapDaysByRegister:{},
-    selectedDate: "",
-    currentDate: format(new Date(), "dd/MM/yyyy"), //today date
+    state = {
+      name: '' ,
+      email: '',
+      HS_Fill: false, //defult obj in the reg time
+      REG_Date: '',
+      data: [],
+      maxPeople: 0,
+      mapRegistersByDay: {}, // a dic with a date (key) and all the people that registered to this date (value)
+      selectedDate: '', // save the pressed date in the calender
+      currentDate: format(new Date(), "dd/MM/yyyy")  // today date
   };
+
   componentDidMount() {
     fetch(`http://localhost:3001/registry`)
       .then((result) => result.json())
@@ -28,11 +28,14 @@ class App extends Component {
         this.setState({ data: result }, () => {
           this.countRegisters();
           this.countDaysPerRegister();
-          console.log(this.state.data);
-          console.log(this.state.mapDaysByRegister);
         })
       );
+    fetch(`http://localhost:3001/maxPeople`)
+    .then(result =>result.json())
+    .then((result) => this.setState({maxPeople: result[0].numberofpeople}
+    )); 
   }
+
   addUser = (user_copy) => {
     //add to state email and name
     const username = user_copy.name;
@@ -80,13 +83,13 @@ class App extends Component {
       );
     } else {
       console.log(this.state.mapRegistersByDay);
-      if (
-        this.state.mapRegistersByDay[this.state.currentDate] &&
-        this.state.mapRegistersByDay[this.state.currentDate].length >= 12
-      ) {
-        // defult max people per day- need to be change...
-        alert("error");
-      } else {
+      
+            if (this.state.mapRegistersByDay[this.state.currentDate] && 
+        this.state.mapRegistersByDay[this.state.currentDate].length>=this.state.maxPeople){
+          // defult max people per day- need to be change... 
+          alert("error");
+      }  
+    else {
         this.insertRegistryToDB(
           this.state.email,
           this.state.name,
@@ -127,6 +130,7 @@ class App extends Component {
     result = await result.json();
     if (!result.success) alert("FAILED! ");
   };
+  
   searchByEmailAndDate = () => {
     // return true if there is email&currentDate in db
     // else false
@@ -184,7 +188,17 @@ class App extends Component {
   );
   };
 
-  
+  // update the field max number of people in the office in the DB
+  updateMaxPeople = (async (maxPeople)=> {
+    const jsonRequest = {}
+    this.setState({maxPeople});
+    jsonRequest.maxPeople = maxPeople;
+    let result = await fetch("http://localhost:3001/MaxPeople", {method: "PUT", 
+                  headers: {"content-type": "application/json"}, body: JSON.stringify(jsonRequest) })
+                  result = await result.json();
+                  if (!result.success) alert("FAILED! ")
+    
+  })
 
   render() {
     return (
@@ -204,6 +218,7 @@ class App extends Component {
                 email={this.state.email}
                 mapRegistersByDay={this.state.mapRegistersByDay}
                 setSelectedDate={this.setSelectedDate}
+                maxPeople = {this.state.maxPeople}
               />
             )}
           />
@@ -227,6 +242,8 @@ class App extends Component {
                 setSelectedDate={this.setSelectedDate}
                 selectedDate={this.state.selectedDate}
                 data={this.state.data}
+            updateMaxPeople={this.updateMaxPeople}
+
               />
             )}
           />
@@ -238,6 +255,7 @@ class App extends Component {
                 name={this.state.name}
                 email={this.state.email}
                 addHS={this.addHS}
+                maxPeople = {this.state.maxPeople}
               />
             )}
           />
@@ -253,8 +271,5 @@ class App extends Component {
           />
         </div>
       </Router>
-    );
-  }
-}
 
 export default App;
