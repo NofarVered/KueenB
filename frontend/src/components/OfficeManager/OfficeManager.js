@@ -70,7 +70,7 @@ class OfficeManager extends Component {
         const dateAsString = ` ${format(this.state.selectedDate,"EEEE")} , ${format(this.state.selectedDate,"d")} , ${format(this.state.selectedDate,"y")} `;
         const registersList = this.props.mapRegistersByDay[format(this.state.selectedDate,"dd/MM/yyyy")];
         return(
-            <div>
+            <div className="office_manager_div">
                 <div className ="head_box">
                     <button className="settings_btn" onClick={this.openSettings}>
                     <img src={settings_img}  alt=""/>
@@ -79,7 +79,7 @@ class OfficeManager extends Component {
                         <h3>Settings</h3>
                         <MdClear className="clear_btn" onClick={this.openSettings}/>
                         <p>Number of people allowed in the office</p>
-                        <input className="forms" type="text" placeholder=" " onChange={this.handleChange} value={this.state.maxPeople}></input>
+                        <input className="office_manager_forms" type="text" placeholder=" " onChange={this.handleChange} value={this.state.maxPeople}></input>
                         <div>
                             <Button className="sendButton" variant="primary" size="sm" onClick={this.onSaveClick}>
                                 Save
