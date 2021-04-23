@@ -98,13 +98,12 @@ class UserCalendar extends React.Component {
                     </Button>
                     {this.props.showModal ? 
                     <div>
-                                        
-                    <MessageModal
-                        className="modal"
-                        show={this.props.showModal}
-                        message = {`You have successfully signed for  ${format(this.state.selectedDate, "dd/MM/yyyy")}`}
-                        close={this.props.closeModalHandler}>
-                    </MessageModal>
+                        <MessageModal
+                            className="modal"
+                            show={this.props.showModal}
+                            message = {`You have successfully signed for  ${format(this.state.selectedDate, "dd/MM/yyyy")}`}
+                            close={this.props.closeModalHandler}>
+                        </MessageModal>
                 </div> : null}
                 
             </div>

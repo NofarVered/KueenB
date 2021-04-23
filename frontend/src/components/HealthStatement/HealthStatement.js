@@ -52,13 +52,12 @@ class HealthStatement extends Component {
                     <button onClick={this.handleOnSubmit} className="sendButton" type='submit'>send</button>
                     {this.props.showModal ? 
                     <div>
-                                        
-                    <MessageModal
-                        className="modal"
-                        show={this.props.showModal}
-                        message = {this.props.modalMessage}
-                        close={this.props.closeModalHandler}>
-                    </MessageModal>
+                        <MessageModal
+                            className="modal"
+                            show={this.props.showModal}
+                            message = {this.props.modalMessage}
+                            close={this.props.closeModalHandler}>
+                        </MessageModal>
                 </div> : null}
       </div>
     );
