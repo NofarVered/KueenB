@@ -66,10 +66,11 @@
     height: 900px;
     width: 400px;
     left: 0px;
-    top: 60px;
+    top: 80px;
     border-radius: 0px;
     position: absolute;
     background: #F5FAFF;
+    
   }
 
   .manager_headpage {    
@@ -82,11 +83,14 @@
   }
 
   .office_manager_div .dateHeadline{
-      font-family: 'sofiapro-regular';
-      top: 25px;
-      position: absolute;
-      font-size: 23px !important;
-      width: max-content;
+    font-family: 'sofiapro-regular';
+    top: 25px;
+    left: 75%;
+    position: center;
+    font-size: 23px !important;
+    width: max-content;
+    color: #00406B;
+
   }
 
   .arrowOM {
@@ -99,25 +103,34 @@
       top: 80px;
   }
 
-  .registers_list{
-      top: 60px;
+  .office_manager_div .bodyBox{
+    top: 80px;
     position: absolute;
     width: 205px;
     height: 270px;
-    left: 504px;
+    left: 500px;
+  }
+
+  .registers_list{
     
+    position: absolute;
     font-family: Sofia Pro;
     font-style: normal;
     font-weight: normal;
-    font-size: 18px;
-    line-height: 150%;
-    /* or 27px */
-    
-    
-    /* Text / General */
-    
+    font-size: 18px;  
     color: #00406B;
+    top:50px;
     
+  }
+
+  .registers_names{
+    position: absolute;
+    font-family: Sofia Pro;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;  
+    color: #00406B;
+    top:40px;
   }
 
   .settings_tab{
@@ -130,11 +143,38 @@
       background: #F5FAFF;
   }
 
+  .numOfRegisters_officeManager{
+    font-family: 'sofiapro-regular';
+    top: 25px;
+    left: 75%;
+    position: center;
+    font-size: 23px !important;
+    width: max-content;
+    color: #00406B;
+    bottom: 10px;
+
+  }
+
+
   .red{
       color: red;
   }
 
   .black{
       color: black;
+  }
+
+  .officeManager_solidLine{
+    position: absolute;
+    width: 800px;
+    border: 1px solid #BEBEBE;
+  }
+
+  .klogohealth{    
+    left: 31px;
+    position: absolute;
+    top: 9px;
+    background: #FFFFFF;
+    border: none;
   }
  

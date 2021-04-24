@@ -5,6 +5,7 @@ import Calendar from "../Calendar/Calendar.jsx";
 import format from "date-fns/format";
 import Button from "react-bootstrap/Button";
 import settings_img from "./settings.png";
+import Klogo from "../Home/Klogo.png"
 import {MdClear} from "react-icons/md";
 import {IoIosArrowBack} from "react-icons/io";
 import {IoIosArrowForward} from "react-icons/io";
@@ -15,7 +16,7 @@ class OfficeManager extends Component {
         selectedDate: new Date(),
         registersList: [],
         openSettings: false,
-        maxPeople: 0 //maybe we need to save the last value in db and initialize this value accordingly
+        maxPeople: this.props.maxPeople //maybe we need to save the last value in db and initialize this value accordingly
 
     }
 
@@ -69,9 +70,17 @@ class OfficeManager extends Component {
         // let temp = {};
         const dateAsString = ` ${format(this.state.selectedDate,"EEEE")} , ${format(this.state.selectedDate,"d")} , ${format(this.state.selectedDate,"y")} `;
         const registersList = this.props.mapRegistersByDay[format(this.state.selectedDate,"dd/MM/yyyy")];
+        const numOfRegistersString = registersList ? ` ${registersList.length} registered (${this.props.maxPeople-(registersList.length)} available)` : 
+        `0 registered (${this.state.maxPeople} available)`;
+
         return(
             <div className="office_manager_div">
                 <div className ="head_box">
+                    <button className="klogohealth">
+                    <img src={Klogo}/>
+                    health
+                    </button>
+
                     <button className="settings_btn" onClick={this.openSettings}>
                     <img src={settings_img}  alt=""/>
                     </button>
@@ -88,11 +97,22 @@ class OfficeManager extends Component {
                     </div> : null}
 
                 </div>
-                    <div className ="registers_list">
+                    <div className ="bodyBox">
                         <h3 className="dateHeadline"><IoIosArrowBack className="arrowOM" onClick={()=>this.onArrowClick(-1)}/>
-                            {dateAsString}<IoIosArrowForward className="arrowOM" onClick={()=>this.onArrowClick(1)}/></h3>
-                    {registersList ? <ol>{(registersList.map((item, index) =><li key={index} className={item.hs ? "black" : "red"}>{item.name}</li>))}</ol>: ''}
+                            {dateAsString}<IoIosArrowForward className="arrowOM" onClick={()=>this.onArrowClick(1)}/>
+                            </h3>
+                    
+                        <div><hr class="officeManager_solidLine"></hr></div>
+                        <div className = "registers_list">
+                            <h2 className="numOfRegisters_officeManager">
+                                    {numOfRegistersString}
+                                </h2>
+                        <h3 className = "registers_names">{registersList ? <ol>{(registersList.map((item, index) =><li key={index} className={item.hs ? "black" : "red"}>{item.name}</li>))}</ol>: ''}
+                            </h3>
+                        </div>
                     </div>
+                    
+                    
                 <div className = "calendar_tab">
                     <Calendar onDateClick={this.onDateClick}></Calendar>
                 </div>
