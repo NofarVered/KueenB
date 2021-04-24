@@ -355,3 +355,126 @@ svg{
     font-weight: normal;
     
 }
+
+.calendar .body .selected_office_day {
+    background-color: #3b4742;
+    color: #F2F2F2  ;
+    border: #3b4742;
+}
+
+.calendar .body .available {
+    color: #6fcf97;
+    border-color: #6fcf97;
+    border-style: solid;
+    border-width: 2px;
+}
+.calendar .body .between {
+    color: #ffffff;
+    background-color: #C4C4C4;
+    border-color: #C4C4C4;
+    border-style: solid;
+    border-width: 1.7px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.12);
+}
+.calendar .body .between_selected {
+    background-color: #B7EACC  ;
+    color: #ffffff;
+    border-color: #B7EACC  ;
+    border-style: solid;
+    border-width: 1.7px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.12);
+}
+
+.calendar .body .disabled , .calendar .body .disabled_office_day {
+    cursor: default;
+    border-style: solid;
+    color: #bdbdbd;
+    border-color: #bdbdbd;
+    border-width: 2px;
+}
+
+.calendar .body .row {
+    cursor: pointer;
+}
+
+.calendar .body .cell .number {
+    position: absolute;
+    font-size: 82.5%;
+    line-height: 1;
+    top: 0.75em;
+    right: 0.75em;
+    font-weight: 700;
+}
+
+.calendar .body .col {
+    flex-grow: 0;
+    flex-basis: 46px;
+    margin: 4px;
+    height: 43px;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+}
+
+.headlineBox {
+    height: 83px;
+    left: 0px;
+    top: 0px;
+
+    /* Backgrounds / Not Chat */
+
+    background: #ffffff;
+    /* Header shadow */
+
+    box-shadow: 0px 4px 10px rgba(51, 51, 51, 0.12);
+    color: #00406b;
+}
+
+.calendarHeadline {
+    font-family: sofiapro-regular;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 120%;
+    padding-top: 16px;
+    /* or 19px */
+
+    text-align: center;
+    color: #00406b;
+}
+
+.dayWindow {
+    width: 349px;
+    height: 124px;
+    left: 15px;
+    top: 387px;
+    background: #f2f2f2;
+    background: #f2f2f2;
+    border-radius: 4px;
+    font-family: sofiapro-regular;
+    font-style: normal;
+    font-weight: bold;
+    line-height: 120%;
+    text-align: left;
+    color: #00406b;
+    margin: 20px 5px;
+    padding-top: 10px;
+}
+
+svg {
+    text-align: left;
+}
+
+.dateHeadline {
+    font-size: 14px;
+}
+.numOfRegisters {
+    margin-top: 22px;
+    font-size: 22x;
+}
+
+.registersButton {
+    color: #2b8fff;
+    font-size: 14px;
+    margin-top: 4px;
+    font-weight: normal;
+}

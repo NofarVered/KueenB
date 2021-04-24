@@ -38,11 +38,13 @@
 }
 
 .office_manager_forms{
+    border: none;
     top: 152px;
     position: absolute;
     left: 10px;
     border-bottom: 2px solid #2B8FFF;
     background: bottom;
+
 }
 
 .clear_btn{
