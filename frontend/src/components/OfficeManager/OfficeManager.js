@@ -76,18 +76,15 @@ class OfficeManager extends Component {
         return(
             <div className="office_manager_div">
                 <div className ="head_box">
-                    <button className="klogohealth">
-                    <img src={Klogo}/>
-                    health
-                    </button>
-
+                    <img className="klogohealth" src={Klogo}/>
+                    <p className="health">health</p>
                     <button className="settings_btn" onClick={this.openSettings}>
                     <img src={settings_img}  alt=""/>
                     </button>
                     {this.state.openSettings ? <div className="settings_tab">
                         <h3>Settings</h3>
                         <MdClear className="clear_btn" onClick={this.openSettings}/>
-                        <p>Number of people allowed in the office</p>
+                        <p className="settings_p">Number of people allowed in the office</p>
                         <input className="office_manager_forms" type="text" placeholder=" " onChange={this.handleChange} value={this.state.maxPeople}></input>
                         <div>
                             <Button className="sendButton" variant="primary" size="sm" onClick={this.onSaveClick}>
@@ -122,4 +119,5 @@ class OfficeManager extends Component {
         )
     }
 }
+
 export default OfficeManager;
