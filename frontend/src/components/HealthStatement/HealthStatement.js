@@ -50,15 +50,13 @@ class HealthStatement extends Component {
                     <br></br>
                 </div>
                     <button onClick={this.handleOnSubmit} className="sendButton" type='submit'>send</button>
-                    {this.props.showModal ? 
-                    <div>
+                    {this.props.showModal ?
                         <MessageModal
                             className="modal"
                             show={this.props.showModal}
                             message = {this.props.modalMessage}
                             close={this.props.closeModalHandler}>
-                        </MessageModal>
-                </div> : null}
+                        </MessageModal> : null}
       </div>
     );
   }

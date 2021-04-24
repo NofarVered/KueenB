@@ -9,6 +9,8 @@ import addMonths from "date-fns/addMonths";
 import subMonths from "date-fns/subMonths";
 import startOfMonth from 'date-fns/startOfMonth';
 import endOfMonth from 'date-fns/endOfMonth';
+import isFriday from 'date-fns/isFriday';
+import isSaturday from 'date-fns/isSaturday';
 import getMonth from 'date-fns/getMonth';
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -142,7 +144,7 @@ class Calendar extends React.Component {
         return "disabled_office_day";
       }
     }
-    if (format(day, "iiii") === "Friday" || format(day, "iiii") === "Saturday")
+    if (isFriday(day) || isSaturday(day))
       return "disabled";
     if (isPast(day, calendarStart) && !isSameDay(day, currentDay))
       return "past";
