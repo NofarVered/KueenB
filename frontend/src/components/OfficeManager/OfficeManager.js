@@ -110,6 +110,7 @@ class OfficeManager extends Component {
                         <h3 className = "registers_names">{registersList ? <ol>{(registersList.map((item, index) =><li key={index} className={item.hs ? "black" : "red"}>{item.name}</li>))}</ol>: ''}
                             </h3>
                         </div>
+                        <div className="explaination"><li className="red">Missing health statement</li></div>
                     </div>
                     
                     
