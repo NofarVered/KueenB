@@ -7,7 +7,6 @@ import {Link} from "react-router-dom";
 
 import "./Calendar/calendar.css";
 import Calendar from "./Calendar/Calendar";
-import MessageModal from "./MessageModal/MessageModal";
 
 class UserCalendar extends React.Component {
     state = {
@@ -15,8 +14,7 @@ class UserCalendar extends React.Component {
         selectedDate: new Date(),
         currentDay: new Date(),
         registersList: [],
-        maxPeople: this.props.maxPeople,
-        // showModal: this.props.showModal
+        maxPeople: this.props.maxPeople
     };
     
 
@@ -47,9 +45,8 @@ class UserCalendar extends React.Component {
         }
         else{
             this.insertRegistryToDB(this.props.email, this.props.name, false, format(this.state.selectedDate, "dd/MM/yyyy"));
-            // alert("You have successfully signed for "+format(this.state.selectedDate, "dd/MM/yyyy"));
+            alert("You have successfully signed for "+format(this.state.selectedDate, "dd/MM/yyyy"));
             console.log(this.props.email, this.props.name, false, format(this.state.selectedDate, "dd/MM/yyyy"));
-            this.props.openModalHandler();
         }
     }
 
@@ -61,7 +58,6 @@ class UserCalendar extends React.Component {
 
 
     render() {
-        console.log("showModal ==== ", this.props.showModal);
         const dicValue = this.props.mapRegistersByDay[format(this.state.selectedDate, 
             "dd/MM/yyyy")];
         // const maxPeople = 20;
@@ -96,17 +92,6 @@ class UserCalendar extends React.Component {
                     <Button variant="primary" size="sm" onClick={this.onContinueClick}>
                         Continue
                     </Button>
-                    {this.props.showModal ? 
-                    <div>
-                                        
-                    <MessageModal
-                        className="modal"
-                        show={this.props.showModal}
-                        message = {`You have successfully signed for  ${format(this.state.selectedDate, "dd/MM/yyyy")}`}
-                        close={this.props.closeModalHandler}>
-                    </MessageModal>
-                </div> : null}
-                
             </div>
         );
     }
