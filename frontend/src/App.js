@@ -111,7 +111,7 @@ class App extends Component {
           {
             // update state
             HS_Fill: true,
-            modalMessage: `You haven't registered for today... The system registered you for today and confirmed your HS`
+            modalMessage: `You didn't register for today... The system automatically registered you and confirmed your health statement`
           },
           () => {
             console.log(this.state);
