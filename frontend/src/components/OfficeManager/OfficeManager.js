@@ -19,6 +19,7 @@ class OfficeManager extends Component {
         maxPeople: this.props.maxPeople //maybe we need to save the last value in db and initialize this value accordingly
 
     }
+    
 
     sendUpdateMaxPeople = () =>{
         this.props.updateMaxPeople(this.state.maxPeople);
