@@ -6,7 +6,24 @@
     top: 0px;
     background: #FFFFFF;
     box-shadow: 0px 4px 10px rgba(51, 51, 51, 0.12);
-  }
+}
+
+.settings_p{
+    font-size: 14px;
+}
+
+.office_manager_div .head_box .health{
+    left: 75px;
+    position: absolute;
+    top: 13px;
+    background: #FFFFFF;
+    border: none;
+    width: 40px;
+    height: 40px;
+    color: #2B8FFF;
+    font-size: 23px;
+    font-weight: 600
+}
 
 .office_manager_div h2 {
     position: absolute;
@@ -22,7 +39,7 @@
     color: #00406B;
 }
 
-.office_manager_div p {
+.office_manager_div .head_box .settings_p{
     position: absolute;
     left: 10px;
 
@@ -38,6 +55,7 @@
 }
 
 .office_manager_forms{
+    border: none;
     top: 152px;
     position: absolute;
     left: 10px;
@@ -62,79 +80,140 @@
     border: none;
 }
 
-.calendar_tab {   
+.calendar_tab {
     height: 900px;
     width: 400px;
     left: 0px;
-    top: 60px;
+    top: 80px;
     border-radius: 0px;
     position: absolute;
     background: #F5FAFF;
-  }
 
-  .manager_headpage {    
+}
+
+.manager_headpage {
     height: 80px;
     width: 1819px;
     left: 0px;
     top: 0px;
     border-radius: 0px;
 
-  }
+}
 
-  .office_manager_div .dateHeadline{
-      font-family: 'sofiapro-regular';
-      top: 25px;
-      position: absolute;
-      font-size: 23px !important;
-      width: max-content;
-  }
+.office_manager_div .dateHeadline{
+    font-family: 'sofiapro-regular';
+    top: 25px;
+    left: 75%;
+    position: center;
+    font-size: 23px !important;
+    width: max-content;
+    color: #00406B;
 
-  .arrowOM {
-      cursor: pointer;
-  }
+}
+
+.arrowOM {
+    cursor: pointer;
+}
 
 
-  ol{
-      position: absolute;
-      top: 80px;
-  }
+ol{
+    position: absolute;
+    top: 80px;
+}
 
-  .registers_list{
-      top: 60px;
+.office_manager_div .bodyBox{
+    top: 80px;
     position: absolute;
     width: 205px;
     height: 270px;
-    left: 504px;
-    
+    left: 500px;
+}
+li{
+    position: absolute;
+    left: -242px;
+}
+
+.registers_list{
+
+    position: absolute;
+    font-family: Sofia Pro;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    color: #00406B;
+    top:50px;
+
+}
+
+.registers_names{
+    position: absolute;
+    font-family: Sofia Pro;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    color: #00406B;
+    top:40px;
+}
+
+.settings_tab{
+    height: 900px;
+    width: 400px;
+    right: 0px;
+    top: 0px;
+    border-radius: 0px;
+    position: absolute;
+    background: #F5FAFF;
+    z-index: 9;
+}
+
+.numOfRegisters_officeManager{
+    font-family: 'sofiapro-regular';
+    top: 25px;
+    left: 75%;
+    position: center;
+    font-size: 23px !important;
+    width: max-content;
+    color: #00406B;
+    bottom: 10px;
+
+}
+
+
+.red{
+    color: red;
+}
+
+.black{
+    color: black;
+}
+
+.officeManager_solidLine{
+    border: none;
+    position: absolute;
+    width: 800px;
+    border-bottom: 1px solid #BEBEBE;
+}
+
+.klogohealth{
+    left: 31px;
+    position: absolute;
+    top: 9px;
+    background: #FFFFFF;
+    border: none;
+    width: 40px;
+    height: 40px;
+}
+
+.explaination{
+    position: absolute;
+    width: 296px;
+    height: 27px;
+    left: 240px;
+    top: 500px;
     font-family: Sofia Pro;
     font-style: normal;
     font-weight: normal;
     font-size: 18px;
     line-height: 150%;
-    /* or 27px */
-    
-    
-    /* Text / General */
-    
-    color: #00406B;
-    
-  }
-
-  .settings_tab{
-      height: 900px;
-      width: 400px;
-      right: 0px;
-      top: 0px;
-      border-radius: 0px;
-      position: absolute;
-      background: #F5FAFF;
-  }
-
-  .red{
-      color: red;
-  }
-
-  .black{
-      color: black;
-  }
- 
+    color: #FF0000;
+}

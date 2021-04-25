@@ -3,6 +3,7 @@ import format from "date-fns/format";
 import { HiArrowLeft } from "react-icons/hi";
 import { Link } from "react-router-dom";
 import "./HS.css";
+import MessageModal from "../MessageModal/MessageModal.js";
 
 class HealthStatement extends Component {
   state = {
@@ -13,6 +14,7 @@ class HealthStatement extends Component {
 
     handleOnSubmit = (e) => {
         this.props.addHS();
+        this.props.openModalHandler();
     }
     render() {
         return (
@@ -48,6 +50,16 @@ class HealthStatement extends Component {
                     <br></br>
                 </div>
                     <button onClick={this.handleOnSubmit} className="sendButton" type='submit'>send</button>
+                    {this.props.showModal ? 
+                    <div>
+                                        
+                    <MessageModal
+                        className="modal"
+                        show={this.props.showModal}
+                        message = {this.props.modalMessage}
+                        close={this.props.closeModalHandler}>
+                    </MessageModal>
+                </div> : null}
       </div>
     );
   }
