@@ -105,8 +105,90 @@
     position: absolute;
     width: 205px;
     height: 270px;
-    left: 504px;
-    
+    left: 500px;
+}
+li{
+    position: absolute;
+    left: -242px;
+}
+
+.registers_list{
+
+    position: absolute;
+    font-family: Sofia Pro;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    color: #00406B;
+    top:50px;
+}
+
+.registers_names{
+    position: absolute;
+    font-family: Sofia Pro;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    color: #00406B;
+    top:40px;
+}
+
+.settings_tab{
+    height: 900px;
+    width: 400px;
+    right: 0px;
+    top: 0px;
+    border-radius: 0px;
+    position: absolute;
+    background: #F5FAFF;
+    z-index: 9;
+}
+
+.numOfRegisters_officeManager{
+    font-family: 'sofiapro-regular';
+    top: 25px;
+    left: 75%;
+    position: center;
+    font-size: 23px !important;
+    width: max-content;
+    color: #00406B;
+    bottom: 10px;
+
+}
+
+
+.red{
+    color: red;
+}
+
+.black{
+    color: black;
+}
+
+.officeManager_solidLine{
+    border: none;
+    position: absolute;
+    width: 800px;
+    border-bottom: 1px solid #BEBEBE;
+}
+
+.klogohealth{
+    left: 31px;
+    position: absolute;
+    top: 9px;
+    background: #FFFFFF;
+    border: none;
+    width: 40px;
+    height: 40px;
+}
+
+.explaination{
+    position: absolute;
+    width: 296px;
+    height: 27px;
+    left: 240px;
+    top: 500px;
+
     font-family: Sofia Pro;
     font-style: normal;
     font-weight: normal;
