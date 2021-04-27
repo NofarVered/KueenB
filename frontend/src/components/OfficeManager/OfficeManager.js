@@ -72,7 +72,7 @@ class OfficeManager extends Component {
         const registersList = this.props.mapRegistersByDay[format(this.state.selectedDate,"dd/MM/yyyy")];
         const numOfRegistersString = registersList ? ` ${registersList.length} registered (${this.props.maxPeople-(registersList.length)} available)` :
           `0 registered (${this.state.maxPeople} available)`;
-
+        
         return(
           <div className="office_manager_div">
               <div className ="head_box">
