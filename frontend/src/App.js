@@ -7,6 +7,7 @@ import format from "date-fns/format";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import UserCalendar from "./components/UserCalendar";
 import DaysInOffice from "./components/DaysInOffice/DaysInOffice";
+import MessageModal from "./components/MessageModal/MessageModal";
 
 class App extends Component {
     state = {
@@ -18,7 +19,9 @@ class App extends Component {
       maxPeople: 0,
       mapRegistersByDay: {}, // a dic with a date (key) and all the people that registered to this date (value)
       selectedDate: '', // save the pressed date in the calender
-      currentDate: format(new Date(), "dd/MM/yyyy")  // today date
+      currentDate: format(new Date(), "dd/MM/yyyy"),   // today date
+      showModal: false, //for MessageModal
+      modalMessage: ''
   };
 
   componentDidMount() {
@@ -87,7 +90,14 @@ class App extends Component {
             if (this.state.mapRegistersByDay[this.state.currentDate] && 
         this.state.mapRegistersByDay[this.state.currentDate].length>=this.state.maxPeople){
           // defult max people per day- need to be change... 
-          alert("error");
+          //alert("error");
+          
+          this.setState({
+            modalMessage: 'error'
+          });
+          
+            console.log(this.state.modalMessage);
+          
       }  
     else {
         this.insertRegistryToDB(
@@ -96,18 +106,21 @@ class App extends Component {
           true,
           this.state.currentDate
         ); //sign for today
+
         this.setState(
           {
             // update state
             HS_Fill: true,
+            modalMessage: `You haven't registered for today... The system registered you for today and confirmed your HS`
           },
           () => {
             console.log(this.state);
           }
         );
-        alert(
-          "You never registered for today... Now, the system has registered you for today and confirmed your HS"
-        );
+        // alert(
+        //   "You never registered for today... Now, the system has registered you for today and confirmed your HS"
+        // );
+        
       }
     }
   };
@@ -200,7 +213,41 @@ class App extends Component {
     
   })
 
+  openModalHandler = () => {
+      this.setState({
+          showModal: true
+      });
+      console.log("changed");
+  }
+
+  closeModalHandler = () => {
+      this.setState({
+          showModal: false
+      });
+      console.log("showModal - close changed");
+  }
+
+  useMessageModal = () => {
+    console.log("hiiii");  
+    return(
+           <div>
+            { this.state.isShowing ? <div onClick={this.closeModalHandler} className="back-drop"></div> : null }
+            <button className="open-modal-btn" onClick={this.openModalHandler}>Open Modal</button>
+
+            <MessageModal
+                className="modal"
+                show={this.state.showModal}
+                message={this.state.MessageModal}
+                close={this.closeModalHandler}>
+            </MessageModal>
+          </div>
+          
+      );
+      
+  }
+
   render() {
+    console.log("APP showModal ==== ", this.state.showModal);
     return (
       <Router>
         <div className="App">
@@ -209,6 +256,7 @@ class App extends Component {
             path="/"
             render={(props) => <Home {...props} addUser={this.addUser} />}
           />
+          
           <Route
             path="/calendar"
             render={(props) => (
@@ -219,6 +267,10 @@ class App extends Component {
                 mapRegistersByDay={this.state.mapRegistersByDay}
                 setSelectedDate={this.setSelectedDate}
                 maxPeople = {this.state.maxPeople}
+                openModalHandler = {this.openModalHandler}
+                closeModalHandler = {this.closeModalHandler}
+                useMessageModal = {this.useMessageModal}
+                showModal = {this.state.showModal}
               />
             )}
           />
@@ -256,6 +308,11 @@ class App extends Component {
                 email={this.state.email}
                 addHS={this.addHS}
                 maxPeople = {this.state.maxPeople}
+                openModalHandler = {this.openModalHandler}
+                closeModalHandler = {this.closeModalHandler}
+                useMessageModal = {this.useMessageModal}
+                showModal = {this.state.showModal}
+                modalMessage = {this.state.modalMessage}
               />
             )}
           />

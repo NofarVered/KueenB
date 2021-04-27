@@ -7,6 +7,7 @@ import {Link} from "react-router-dom";
 
 import "./Calendar/calendar.css";
 import Calendar from "./Calendar/Calendar";
+import MessageModal from "./MessageModal/MessageModal";
 
 class UserCalendar extends React.Component {
     state = {
@@ -14,7 +15,8 @@ class UserCalendar extends React.Component {
         selectedDate: new Date(),
         currentDay: new Date(),
         registersList: [],
-        maxPeople: this.props.maxPeople
+        maxPeople: this.props.maxPeople,
+        // showModal: this.props.showModal
     };
     
 
@@ -45,8 +47,9 @@ class UserCalendar extends React.Component {
         }
         else{
             this.insertRegistryToDB(this.props.email, this.props.name, false, format(this.state.selectedDate, "dd/MM/yyyy"));
-            alert("You have successfully signed for "+format(this.state.selectedDate, "dd/MM/yyyy"));
+            // alert("You have successfully signed for "+format(this.state.selectedDate, "dd/MM/yyyy"));
             console.log(this.props.email, this.props.name, false, format(this.state.selectedDate, "dd/MM/yyyy"));
+            this.props.openModalHandler();
         }
     }
 
@@ -58,12 +61,13 @@ class UserCalendar extends React.Component {
 
 
     render() {
+        console.log("showModal ==== ", this.props.showModal);
         const dicValue = this.props.mapRegistersByDay[format(this.state.selectedDate, 
             "dd/MM/yyyy")];
         // const maxPeople = 20;
         const numOfRegistersString = dicValue ? ` ${dicValue.length} registered (${this.state.maxPeople-(dicValue.length)} available)` : 
         `0 registered (${this.state.maxPeople} available)`;
-
+        const {showModal, modalMessage, closeModalHandler} = this.props
         return (
             <div>
                 <div className="headlineBox">
@@ -92,6 +96,15 @@ class UserCalendar extends React.Component {
                     <Button variant="primary" size="sm" onClick={this.onContinueClick}>
                         Continue
                     </Button>
+                    {showModal ?
+                        <MessageModal
+                            className="modal"
+                            show={showModal}
+                            message = {`You have successfully signed for  ${format(this.state.selectedDate, "dd/MM/yyyy")}`}
+                            close={closeModalHandler}>
+                        </MessageModal>
+                 : null}
+                
             </div>
         );
     }
