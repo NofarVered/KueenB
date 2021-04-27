@@ -67,7 +67,7 @@ class UserCalendar extends React.Component {
         // const maxPeople = 20;
         const numOfRegistersString = dicValue ? ` ${dicValue.length} registered (${this.state.maxPeople-(dicValue.length)} available)` : 
         `0 registered (${this.state.maxPeople} available)`;
-
+        const {showModal, modalMessage, closeModalHandler} = this.props
         return (
             <div>
                 <div className="headlineBox">
@@ -96,12 +96,12 @@ class UserCalendar extends React.Component {
                     <Button variant="primary" size="sm" onClick={this.onContinueClick}>
                         Continue
                     </Button>
-                    {this.props.showModal ?
+                    {showModal ?
                         <MessageModal
                             className="modal"
-                            show={this.props.showModal}
+                            show={showModal}
                             message = {`You have successfully signed for  ${format(this.state.selectedDate, "dd/MM/yyyy")}`}
-                            close={this.props.closeModalHandler}>
+                            close={closeModalHandler}>
                         </MessageModal>
                  : null}
                 

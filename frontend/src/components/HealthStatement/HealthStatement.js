@@ -17,6 +17,7 @@ class HealthStatement extends Component {
         this.props.openModalHandler();
     }
     render() {
+        const {showModal, modalMessage, closeModalHandler} = this.props
         return (
             <div>
                 <div className="head_box">
@@ -50,12 +51,12 @@ class HealthStatement extends Component {
                     <br></br>
                 </div>
                     <button onClick={this.handleOnSubmit} className="sendButton" type='submit'>send</button>
-                    {this.props.showModal ?
+                    {showModal ?
                         <MessageModal
                             className="modal"
-                            show={this.props.showModal}
-                            message = {this.props.modalMessage}
-                            close={this.props.closeModalHandler}>
+                            show={showModal}
+                            message = {modalMessage}
+                            close={closeModalHandler}>
                         </MessageModal> : null}
       </div>
     );

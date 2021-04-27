@@ -237,6 +237,7 @@ class App extends Component {
             <MessageModal
                 className="modal"
                 show={this.state.showModal}
+                message={this.state.MessageModal}
                 close={this.closeModalHandler}>
             </MessageModal>
           </div>
