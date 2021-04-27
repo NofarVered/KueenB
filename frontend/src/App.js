@@ -242,8 +242,8 @@ class App extends Component {
                 setSelectedDate={this.setSelectedDate}
                 selectedDate={this.state.selectedDate}
                 data={this.state.data}
-            updateMaxPeople={this.updateMaxPeople}
-
+                updateMaxPeople={this.updateMaxPeople}
+                maxPeople = {this.state.maxPeople}
               />
             )}
           />
