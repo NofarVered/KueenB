@@ -16,6 +16,7 @@ class UserCalendar extends React.Component {
         currentDay: new Date(),
         registersList: [],
         maxPeople: this.props.maxPeople,
+        modalMessage: ''
         // showModal: this.props.showModal
     };
     
@@ -41,15 +42,23 @@ class UserCalendar extends React.Component {
     })
 
     onContinueClick = () =>{
-        if (this.props.mapRegistersByDay[this.state.selectedDate] && 
-            this.props.mapRegistersByDay[this.state.selectedDate].length>this.state.maxPeople){
+        const list_reg = this.props.mapRegistersByDay[format(this.state.selectedDate,"dd/MM/yyyy")] ;
+        if (list_reg && list_reg.length > this.props.maxPeople){
+            this.setState({
+                modalMessage: "Day is full"
+            })
             console.log("Day is full");
+            this.props.openModalHandler();
         }
         else{
             this.insertRegistryToDB(this.props.email, this.props.name, false, format(this.state.selectedDate, "dd/MM/yyyy"));
             // alert("You have successfully signed for "+format(this.state.selectedDate, "dd/MM/yyyy"));
             console.log(this.props.email, this.props.name, false, format(this.state.selectedDate, "dd/MM/yyyy"));
+            this.setState({
+                modalMessage: `You have successfully signed for  ${format(this.state.selectedDate, "dd/MM/yyyy")}`
+            })
             this.props.openModalHandler();
+            
         }
     }
 
@@ -100,7 +109,7 @@ class UserCalendar extends React.Component {
                         <MessageModal
                             className="modal"
                             show={showModal}
-                            message = {`You have successfully signed for  ${format(this.state.selectedDate, "dd/MM/yyyy")}`}
+                            message = {this.state.modalMessage}
                             close={closeModalHandler}>
                         </MessageModal>
                  : null}
