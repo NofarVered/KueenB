@@ -8,6 +8,9 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import UserCalendar from "./components/UserCalendar";
 import DaysInOffice from "./components/DaysInOffice/DaysInOffice";
 import MessageModal from "./components/MessageModal/MessageModal";
+import LoginPage from "./components/LoginPage/LoginPage";
+import SignUpPage from "./components/SignUpPage/SignUpPage";
+import SendEmail from "./components/SendEmail/SendEmail";
 
 class App extends Component {
     state = {
@@ -247,16 +250,29 @@ class App extends Component {
   }
 
   render() {
-    console.log("APP showModal ==== ", this.state.showModal);
     return (
       <Router>
         <div className="App">
           <Route
             exact
             path="/"
+            render={(props) => <LoginPage {...props} addUser={this.addUser} />}
+          />
+          <Route
+            exact
+            path="/sign-up"
+            render={(props) => <SignUpPage {...props} />}
+          />
+          <Route
+            exact
+            path="/send-email"
+            render={(props) => <SendEmail {...props} addUser={this.addUser} />}
+          />
+          <Route
+            exact
+            path="/home"
             render={(props) => <Home {...props} addUser={this.addUser} />}
           />
-          
           <Route
             path="/calendar"
             render={(props) => (
