@@ -16,6 +16,7 @@ class App extends Component {
     state = {
       name: '' ,
       email: '',
+      password: '',
       HS_Fill: false, //defult obj in the reg time
       REG_Date: '',
       data: [],
@@ -40,17 +41,21 @@ class App extends Component {
     .then(result =>result.json())
     .then((result) => this.setState({maxPeople: result[0].numberofpeople}
     )); 
+    fetch(`http://localhost:3001/sign-up`)
+    .then(result =>result.json())
   }
 
   addUser = (user_copy) => {
     //add to state email and name
     const username = user_copy.name;
     const useremail = user_copy.email;
+    const userpassword = user_copy.password;
     console.log(username);
     this.setState(
       {
         name: username,
         email: useremail,
+        password: userpassword
       },
       () => {
         console.log(this.state);
@@ -230,8 +235,7 @@ class App extends Component {
       console.log("showModal - close changed");
   }
 
-  useMessageModal = () => {
-    console.log("hiiii");  
+  useMessageModal = () => { 
     return(
            <div>
             { this.state.isShowing ? <div onClick={this.closeModalHandler} className="back-drop"></div> : null }
@@ -256,12 +260,13 @@ class App extends Component {
           <Route
             exact
             path="/"
-            render={(props) => <LoginPage {...props} addUser={this.addUser} />}
+            render={(props) => <LoginPage {...props}  />}
           />
           <Route
             exact
             path="/sign-up"
-            render={(props) => <SignUpPage {...props} />}
+            render={(props) => <SignUpPage {...props} addUser={this.addUser} name={this.state.name}
+            email={this.state.email} password={this.state.password}/>}
           />
           <Route
             exact

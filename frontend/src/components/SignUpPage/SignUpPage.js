@@ -27,14 +27,25 @@ class SignUpPage extends Component {
 
   handleChange_password = (e) => {
     this.setState({
-      email: e.target.value,
+      password: e.target.value,
     });
     console.log(this.state.password);
   };
 
   handleSubmit = (e) => {
     this.props.addUser(this.state);
+    this.insertSignUpToDB(this.props.email, this.props.name, this.props.password);
   };
+
+  insertSignUpToDB = (async (email, name, password)=> {
+    const jsonRequest = {}
+    jsonRequest.employees = {email: email, name: name, password:password, verified:false}
+    console.log(jsonRequest);
+    let result = await fetch("http://localhost:3001/sign-up", {method: "POST", 
+                  headers: {"content-type": "application/json"}, body: JSON.stringify(jsonRequest) })
+                  result = await result.json();
+                  if (!result.success)  alert("FAILED! ")
+})
 
   render() {
     return (
