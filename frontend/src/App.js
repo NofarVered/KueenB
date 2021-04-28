@@ -57,8 +57,8 @@ class App extends Component {
   setHsByEmail = async (email, currentDate) => {
     //update hs in DB to be TRUE exited email and date (today date)
     //used in addHS function
-    const jsonRequest = {};
-    jsonRequest.employee = { email: email, arrivalDate: currentDate };
+    let jsonRequest = {};
+    jsonRequest = { email: email, arrivalDate: currentDate };
     let result = await fetch("http://localhost:3001/registry", {
       method: "PUT",
       headers: { "content-type": "application/json" },
@@ -127,8 +127,8 @@ class App extends Component {
 
   insertRegistryToDB = async (email, name, hs, date) => {
     // for calender and hs
-    const jsonRequest = {};
-    jsonRequest.employees = {
+    let jsonRequest = {};
+    jsonRequest = {
       email: email,
       name: name,
       HS: hs,

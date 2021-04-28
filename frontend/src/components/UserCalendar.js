@@ -31,8 +31,8 @@ class UserCalendar extends React.Component {
     };
 
     insertRegistryToDB = (async (email, name, hs, date)=> {
-        const jsonRequest = {}
-        jsonRequest.employees = {email: email, name: name, HS: hs, arrivalDate:date}
+        let jsonRequest = {}
+        jsonRequest = {email: email, name: name, HS: hs, arrivalDate:date}
         console.log(jsonRequest);
         let result = await fetch("http://localhost:3001/registry", {method: "POST", 
                       headers: {"content-type": "application/json"}, body: JSON.stringify(jsonRequest) })

@@ -5,16 +5,25 @@ services:
   #   build: ./backend/
   #   ports:
   #     - "3001:3001"
-  pg:
-    image: "postgres:12"
-    container_name: "postgres"
+  postgres:
+    image: postgres:13.1
+    healthcheck:
+      test: [ "CMD", "pg_isready", "-q", "-d", "postgres", "-U", "admin" ]
+      timeout: 45s
+      interval: 10s
+      retries: 10
+    restart: always
     environment:
-      # POSTGRES_USER: 'admin'
-      POSTGRES_PASSWORD: "p"
-    ports:
-      - "5432:5432"
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=password
+      - APP_DB_USER=docker
+      - APP_DB_PASS=docker
+      - APP_DB_NAME=docker
     volumes:
-      - ./pg/db_data:/var/lib/postgresql/employees
+      - ./db:/docker-entrypoint-initdb.d/
+    ports:
+      - 5432:5432
+
   # frontend:
   #   container_name: "frontend"
   #   build: ./frontend/
