@@ -34,8 +34,10 @@ handleChange_name = (e) => {
   };
 
   handleSubmit = (e) => {
-    this.props.addUser(this.state);
-    this.insertSignUpToDB(this.props.email, this.props.name, this.props.password);
+    if (this.state.name!=='' && this.state.email!=='' && this.state.password!=='') {
+      this.props.addUser(this.state);
+      this.insertSignUpToDB(this.props.email, this.props.name, this.props.password);
+    }
   };
 
   insertSignUpToDB = (async (email, name, password)=> {
@@ -49,6 +51,7 @@ handleChange_name = (e) => {
 })
 
   render() {
+    const allDetails = (this.state.name!=='' && this.state.email!=='' && this.state.password!=='');
     return (
       <div>
         <Link
@@ -102,7 +105,7 @@ handleChange_name = (e) => {
           <button className="sign-up-showPassword" onClick={(e)=>{e.preventDefault(); this.setState({hidePassword: !this.state.hidePassword})}}>Show Password</button>
           <div style={{height: "80px"}}/>
           <div className="box">
-            <Link to="/send-email">
+            <Link to= {allDetails ? "/send-email" : "/sign-up"}>
               <button
                 onClick={this.handleSubmit}
                 className="loginButton"

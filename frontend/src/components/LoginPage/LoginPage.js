@@ -30,6 +30,7 @@ class LoginPage extends Component {
   };
 
   render() {
+    const allDetails = (this.state.email!=="" && this.state.password!=="");
     return (
       <div>
         <Link
@@ -75,7 +76,7 @@ class LoginPage extends Component {
           <button className="login-showPassword" onClick={(e)=>{e.preventDefault(); this.setState({hidePassword: !this.state.hidePassword})}}>Show Password</button>
           <br/>
           <div className="box">
-            <Link to="/home">
+            <Link to={allDetails ? "/home" : "/"}>
               <button
                 onClick={this.handleSubmit}
                 className="loginButton"
