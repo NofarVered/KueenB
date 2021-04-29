@@ -9,27 +9,28 @@ class SignUpPage extends Component {
     name: "",
     password: "",
     email: "",
+    hidePassword: true,
   };
 
-  handleChange_name = (e) => {
+
+
+
+handleChange_name = (e) => {
     this.setState({
       name: e.target.value,
     });
-    console.log(this.state.name);
   };
 
   handleChange_email = (e) => {
     this.setState({
       email: e.target.value,
     });
-    console.log(this.state.email);
   };
 
   handleChange_password = (e) => {
     this.setState({
       password: e.target.value,
     });
-    console.log(this.state.password);
   };
 
   handleSubmit = (e) => {
@@ -90,13 +91,15 @@ class SignUpPage extends Component {
           <div className="box">
             <input
               className="forms"
-              type="text"
+              type= {this.state.hidePassword ? "password" : "text"}
               placeholder="Password"
               onChange={this.handleChange_password}
               value={this.state.password}
             />
           </div>
         </form>
+          <br/>
+          <button className="sign-up-showPassword" onClick={(e)=>{e.preventDefault(); this.setState({hidePassword: !this.state.hidePassword})}}>Show Password</button>
           <div style={{height: "80px"}}/>
           <div className="box">
             <Link to="/send-email">

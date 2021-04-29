@@ -15,6 +15,17 @@
     font-weight: normal;
 }
 
+.login-showPassword{
+    border: none;
+    background: none;
+    color: #2b8fff;
+    width: 135px;
+    font-size: small;
+    position: fixed;
+    left: 58%;
+    top: 48%;
+}
+
 .signupButton{
     border:none;
     background: none;

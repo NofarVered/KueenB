@@ -8,6 +8,7 @@ class LoginPage extends Component {
   state = {
     password: "",
     email: "",
+    hidePassword: true,
   };
 
 
@@ -25,7 +26,7 @@ class LoginPage extends Component {
 
   handleSubmit = (e) => {
     console.log(this.state);
-    this.props.addUser(this.state);
+    //this.props.addUser(this.state);
   };
 
   render() {
@@ -64,13 +65,15 @@ class LoginPage extends Component {
           <div className="box">
             <input
               className="forms"
-              type="text"
+              type= {this.state.hidePassword ? "password" : "text"}
               placeholder="Password"
               onChange={this.handleChange_password}
               value={this.state.password}
             />
           </div>
-          <div style={{height: "30px"}}/>
+          <br/>
+          <button className="login-showPassword" onClick={(e)=>{e.preventDefault(); this.setState({hidePassword: !this.state.hidePassword})}}>Show Password</button>
+          <br/>
           <div className="box">
             <Link to="/home">
               <button
