@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 class SendEmail extends Component {
   state = {
     send: false,
+    email: this.props.email,
   };
 
   render() {

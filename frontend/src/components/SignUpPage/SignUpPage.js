@@ -43,7 +43,7 @@ handleChange_name = (e) => {
   insertSignUpToDB = (async (email, name, password)=> {
     const jsonRequest = {}
     jsonRequest.employees = {email: email, name: name, password:password, verified:false}
-    console.log(jsonRequest);
+    //console.log(jsonRequest);
     let result = await fetch("http://localhost:3001/sign-up", {method: "POST", 
                   headers: {"content-type": "application/json"}, body: JSON.stringify(jsonRequest) })
                   result = await result.json();

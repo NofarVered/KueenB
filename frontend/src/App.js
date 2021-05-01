@@ -260,13 +260,12 @@ class App extends Component {
           <Route
             exact
             path="/"
-            render={(props) => <LoginPage {...props}  />}
+            render={(props) => <LoginPage {...props} name={this.state.name}/>}
           />
           <Route
             exact
             path="/sign-up"
-            render={(props) => <SignUpPage {...props} addUser={this.addUser} name={this.state.name}
-            email={this.state.email} password={this.state.password}/>}
+            render={(props) => <SignUpPage {...props} addUser={this.addUser} />}
           />
           <Route
             exact
@@ -276,7 +275,7 @@ class App extends Component {
           <Route
             exact
             path="/home"
-            render={(props) => <Home {...props} addUser={this.addUser} />}
+            render={(props) => <Home {...props} name={this.state.name} addUser={this.addUser} />}
           />
           <Route
             path="/calendar"

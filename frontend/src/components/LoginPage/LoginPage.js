@@ -30,7 +30,7 @@ class LoginPage extends Component {
   };
 
   render() {
-    const allDetails = (this.state.email!=="" && this.state.password!=="");
+    const allDetails = (this.state.email!=='' && this.state.password!=='');
     return (
       <div>
         <Link
