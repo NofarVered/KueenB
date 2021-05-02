@@ -27,7 +27,7 @@ npm start
 cd frontend
 
 npm install
-nmp start
+npm start
 ```
 
 ### How to run the project
