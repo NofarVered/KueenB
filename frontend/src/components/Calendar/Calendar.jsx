@@ -9,6 +9,8 @@ import addMonths from "date-fns/addMonths";
 import subMonths from "date-fns/subMonths";
 import startOfMonth from 'date-fns/startOfMonth';
 import endOfMonth from 'date-fns/endOfMonth';
+import isFriday from 'date-fns/isFriday';
+import isSaturday from 'date-fns/isSaturday';
 import getMonth from 'date-fns/getMonth';
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -43,14 +45,16 @@ class Calendar extends React.Component {
           () => {this.props.onDateClick(day); }
         );
         }
+
         else{
           this.setState(
             {
               graychoice1: day,
               graychoice2: null
             },
-            () => {this.props.onDateClick(day); }
+            () => {this.props.onDateClick(day,className); }
           );
+
         }
        }
       else{
@@ -100,6 +104,7 @@ class Calendar extends React.Component {
           {shortWeekDaysArray[i]}
         </div>
       );
+
     }
 
     return (
@@ -139,10 +144,10 @@ class Calendar extends React.Component {
         return "disabled_office_day";
       }
     }
-    if (format(day, "iiii") === "Friday" || format(day, "iiii") === "Saturday")
+    if (isFriday(day) || isSaturday(day))
       return "disabled";
     if (isPast(day, calendarStart) && !isSameDay(day, currentDay))
-      return "disabled";
+      return "past";
     if (isAfter(day, lastDay) || isAfter(day,addDays(selectedDate,14))) 
       return "disabled";
     if (isSameDay(day, selectedDate)) return "selected";

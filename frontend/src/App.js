@@ -7,18 +7,21 @@ import format from "date-fns/format";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import UserCalendar from "./components/UserCalendar";
 import DaysInOffice from "./components/DaysInOffice/DaysInOffice";
+import MessageModal from "./components/MessageModal/MessageModal";
 
 class App extends Component {
-  state = {
-    name: "",
-    email: "",
-    HS_Fill: false, //defult obj in the reg time
-    REG_Date: "",
-    data:[],
-    mapRegistersByDay: {},
-    mapDaysByRegister:{},
-    selectedDate: "",
-    currentDate: format(new Date(), "dd/MM/yyyy"), //today date
+    state = {
+      name: '' ,
+      email: '',
+      HS_Fill: false, //defult obj in the reg time
+      REG_Date: '',
+      data: [],
+      maxPeople: 0,
+      mapRegistersByDay: {}, // a dic with a date (key) and all the people that registered to this date (value)
+      selectedDate: '', // save the pressed date in the calender
+      currentDate: format(new Date(), "dd/MM/yyyy"),   // today date
+      showModal: false, //for MessageModal
+      modalMessage: ''
   };
 
   componentDidMount() {
@@ -28,11 +31,14 @@ class App extends Component {
         this.setState({ data: result }, () => {
           this.countRegisters();
           this.countDaysPerRegister();
-          console.log(this.state.data);
-          console.log(this.state.mapDaysByRegister);
         })
       );
+    fetch(`http://localhost:3001/maxPeople`)
+    .then(result =>result.json())
+    .then((result) => this.setState({maxPeople: result[0].numberofpeople}
+    )); 
   }
+
   addUser = (user_copy) => {
     //add to state email and name
     const username = user_copy.name;
@@ -80,31 +86,41 @@ class App extends Component {
       );
     } else {
       console.log(this.state.mapRegistersByDay);
-      if (
-        this.state.mapRegistersByDay[this.state.currentDate] &&
-        this.state.mapRegistersByDay[this.state.currentDate].length >= 12
-      ) {
-        // defult max people per day- need to be change...
-        alert("error");
-      } else {
+      
+            if (this.state.mapRegistersByDay[this.state.currentDate] && 
+        this.state.mapRegistersByDay[this.state.currentDate].length>=this.state.maxPeople){
+          // defult max people per day- need to be change... 
+          //alert("error");
+          
+          this.setState({
+            modalMessage: 'error'
+          });
+          
+            console.log(this.state.modalMessage);
+          
+      }  
+    else {
         this.insertRegistryToDB(
           this.state.email,
           this.state.name,
           true,
           this.state.currentDate
         ); //sign for today
+
         this.setState(
           {
             // update state
             HS_Fill: true,
+            modalMessage: `You haven't registered for today... The system registered you for today and confirmed your HS`
           },
           () => {
             console.log(this.state);
           }
         );
-        alert(
-          "You never registered for today... Now, the system has registered you for today and confirmed your HS"
-        );
+        // alert(
+        //   "You never registered for today... Now, the system has registered you for today and confirmed your HS"
+        // );
+        
       }
     }
   };
@@ -127,6 +143,7 @@ class App extends Component {
     result = await result.json();
     if (!result.success) alert("FAILED! ");
   };
+  
   searchByEmailAndDate = () => {
     // return true if there is email&currentDate in db
     // else false
@@ -142,6 +159,7 @@ class App extends Component {
     return false;
   };
 
+  // update selectedDate to be the pressed date
   setSelectedDate = (selectedDate) => {
     this.setState({ selectedDate });
     // console.log(this.state.selectedDate);
@@ -183,9 +201,53 @@ class App extends Component {
   );
   };
 
-  
+  // update the field max number of people in the office in the DB
+  updateMaxPeople = (async (maxPeople)=> {
+    const jsonRequest = {}
+    this.setState({maxPeople});
+    jsonRequest.maxPeople = maxPeople;
+    let result = await fetch("http://localhost:3001/MaxPeople", {method: "PUT", 
+                  headers: {"content-type": "application/json"}, body: JSON.stringify(jsonRequest) })
+                  result = await result.json();
+                  if (!result.success) alert("FAILED! ")
+    
+  })
+
+  openModalHandler = () => {
+      this.setState({
+          showModal: true
+      });
+      console.log("changed");
+  }
+
+  closeModalHandler = () => {
+      this.setState({
+          showModal: false
+      });
+      console.log("showModal - close changed");
+  }
+
+  useMessageModal = () => {
+    console.log("hiiii");  
+    return(
+           <div>
+            { this.state.isShowing ? <div onClick={this.closeModalHandler} className="back-drop"></div> : null }
+            <button className="open-modal-btn" onClick={this.openModalHandler}>Open Modal</button>
+
+            <MessageModal
+                className="modal"
+                show={this.state.showModal}
+                message={this.state.MessageModal}
+                close={this.closeModalHandler}>
+            </MessageModal>
+          </div>
+          
+      );
+      
+  }
 
   render() {
+    console.log("APP showModal ==== ", this.state.showModal);
     return (
       <Router>
         <div className="App">
@@ -194,6 +256,7 @@ class App extends Component {
             path="/"
             render={(props) => <Home {...props} addUser={this.addUser} />}
           />
+          
           <Route
             path="/calendar"
             render={(props) => (
@@ -203,6 +266,11 @@ class App extends Component {
                 email={this.state.email}
                 mapRegistersByDay={this.state.mapRegistersByDay}
                 setSelectedDate={this.setSelectedDate}
+                maxPeople = {this.state.maxPeople}
+                openModalHandler = {this.openModalHandler}
+                closeModalHandler = {this.closeModalHandler}
+                useMessageModal = {this.useMessageModal}
+                showModal = {this.state.showModal}
               />
             )}
           />
@@ -226,6 +294,8 @@ class App extends Component {
                 setSelectedDate={this.setSelectedDate}
                 selectedDate={this.state.selectedDate}
                 data={this.state.data}
+                updateMaxPeople={this.updateMaxPeople}
+                maxPeople = {this.state.maxPeople}
               />
             )}
           />
@@ -237,6 +307,12 @@ class App extends Component {
                 name={this.state.name}
                 email={this.state.email}
                 addHS={this.addHS}
+                maxPeople = {this.state.maxPeople}
+                openModalHandler = {this.openModalHandler}
+                closeModalHandler = {this.closeModalHandler}
+                useMessageModal = {this.useMessageModal}
+                showModal = {this.state.showModal}
+                modalMessage = {this.state.modalMessage}
               />
             )}
           />
