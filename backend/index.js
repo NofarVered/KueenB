@@ -77,3 +77,28 @@ app.put("/MaxPeople", async (req, res) => {
 })
 
 
+app.get("/sign-up", async (req, res) => {
+    const rows = await query.readSignUp();
+    res.setHeader("content-type", "application/json")
+    console.log(rows);
+    res.send(JSON.stringify(rows))
+})
+
+
+app.post("/sign-up", async (req, res) => {
+    let result = {}
+    try{
+        const reqJson = req.body;
+        result.success = await query.createNewSignup(reqJson.employees)
+    }
+    catch(e){
+        result.success=false;
+    }
+    finally{
+        res.setHeader("content-type", "application/json")
+        res.send(JSON.stringify(result))
+    }
+   
+})
+
+

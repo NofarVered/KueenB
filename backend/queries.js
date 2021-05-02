@@ -65,4 +65,32 @@ async function readMaxPeople() {
     }
 }
 
-module.exports = {readData, createEmployee, updateEmployee, updateMaxPeople, readMaxPeople};
+
+
+async function readSignUp() {
+    try {
+    const results = await pool.query('SELECT * FROM signup');
+    return results.rows;
+    }
+    catch(e){
+        return [];
+    }
+}
+
+
+
+
+//insert
+async function createNewSignup(employeeDetails){
+
+    try {
+        await pool.query(`INSERT INTO signup (email, name, password, verified) VALUES ($1, $2, $3, $4)`,[employeeDetails.email, employeeDetails.name, employeeDetails.password, employeeDetails.verified]);
+        return true
+        }
+        catch(e){
+            console.log(e);
+            return false;
+        }
+}
+
+module.exports = {readData, createEmployee, updateEmployee, updateMaxPeople, readMaxPeople, readSignUp, createNewSignup};

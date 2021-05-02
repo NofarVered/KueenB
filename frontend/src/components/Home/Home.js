@@ -10,35 +10,15 @@ import "./home.css";
 
 class Home extends Component {
   state = {
-    name: "",
+    name: this.props.name,
     email: "",
     HS_Date: "",
     REG_Date: "",
   };
 
-  handleChange_name = (e) => {
-    this.setState({
-      name: e.target.value,
-    });
-    console.log(this.state.name);
-  };
-
-  handleChange_email = (e) => {
-    this.setState({
-      email: e.target.value,
-    });
-    console.log(this.state.email);
-  };
   handleSubmit = (e) => {
     // e.preventDefault();
-    console.log(this.state);
     this.props.addUser(this.state);
-    // this.setState({
-    //     name: '',
-    //     email: '',
-    //     HS_Date: '',
-    //     REG_Date: ''
-    // });
   };
 
   render() {
@@ -61,28 +41,10 @@ class Home extends Component {
         </div>
         <div className="box">
           <h2 className="headline" width="270px" height="45px">
-            Office registration form
+            Hi, {this.state.name}
           </h2>
         </div>
         <form>
-          <div className="box">
-            <input
-              className="forms"
-              type="text"
-              placeholder="Your name"
-              onChange={this.handleChange_name}
-              value={this.state.name}
-            />
-          </div>
-          <div className="box">
-            <input
-              className="forms"
-              type="text"
-              placeholder="Email"
-              onChange={this.handleChange_email}
-              value={this.state.email}
-            />
-          </div>
           <div className="box">
             <Link to="/calendar">
               <Button
