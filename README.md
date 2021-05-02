@@ -4,7 +4,7 @@ The project is seperated into 2 components:
 
 ## Backend
 ### How to run
-in the root directory run te following:
+In the root directory run the following:
 ```shell script
 docker-copmose up -d
 
@@ -28,6 +28,12 @@ cd frontend
 
 npm install
 nmp start
-
 ```
+
+### How to run the project
+In the Frontend directory run the following:
+```shell script
+npm run dev
+```
+
 
