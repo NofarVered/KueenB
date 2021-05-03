@@ -12,9 +12,6 @@ class SignUpPage extends Component {
     hidePassword: true,
   };
 
-
-
-
 handleChange_name = (e) => {
     this.setState({
       name: e.target.value,
@@ -88,7 +85,7 @@ handleChange_name = (e) => {
               type="text"
               placeholder="Email"
               onChange={this.handleChange_email}
-              value={this.state.email}
+              // value={this.state.email}
             />
           </div>
           <div className="box">
