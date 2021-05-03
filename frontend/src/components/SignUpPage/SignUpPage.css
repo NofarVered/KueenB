@@ -8,7 +8,7 @@
     color: #2b8fff;
     width: 135px;
     font-size: small;
-    position: fixed;
+   position: absolute;
     left: 58%;
-    top: 43.5%
+    top: 53.5%;
 }
