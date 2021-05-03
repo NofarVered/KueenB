@@ -3,6 +3,14 @@ const bodyParser = require('body-parser')
 const app = express();
 const cors = require('cors')
 const port = 3001;
+
+
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+
+// const jwtKey = "my_secret_key"
+// const jwtExpirySeconds = 300
+
 const Pool = require('pg').Pool
 const pool = new Pool({
   host: 'localhost', //when we run localy
@@ -14,6 +22,7 @@ const pool = new Pool({
 })
 app.use(cors());
 app.use(bodyParser.json());
+app.use(express.json());
 app.use(
   bodyParser.urlencoded({ extended: true }))
 
@@ -21,4 +30,4 @@ app.listen(port, () => {
     console.log(`running on port ${port}.`)
   })
 
-module.exports = {app, pool};
+module.exports = {app, pool, bcrypt, jwt};
