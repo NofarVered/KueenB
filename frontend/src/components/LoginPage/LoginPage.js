@@ -3,6 +3,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Klogo from "../Home/Klogo.png";
 import { Link } from "react-router-dom";
 import "./LoginPage.css";
+import isEmail from 'validator/lib/isEmail';
 
 class LoginPage extends Component {
   state = {
@@ -10,7 +11,6 @@ class LoginPage extends Component {
     email: "",
     hidePassword: true,
   };
-
 
   handleChange_email = (e) => {
     this.setState({
@@ -25,9 +25,22 @@ class LoginPage extends Component {
   };
 
   handleSubmit = (e) => {
+    this.setState({
+      email: e.target.value,
+    });
+    if (isEmail(this.state.email)) {
+      console.log("good email");
+      this.setState({
+      emailError: 'Valid Email :)'})}
+    else {
+      console.log("not a good email");
+      this.setState({
+      emailError: 'Enter valid Email!'})
+    }
     console.log(this.state);
     //this.props.addUser(this.state);
   };
+  
 
   render() {
     const allDetails = (this.state.email!=='' && this.state.password!=='');
@@ -60,9 +73,10 @@ class LoginPage extends Component {
               type="text"
               placeholder="Email"
               onChange={this.handleChange_email}
-              value={this.state.email}
+              value={this.state.email} 
             />
           </div>
+          <div className = "error">{this.state.emailError}</div>
           <div className="box">
             <input
               className="forms"
@@ -94,7 +108,7 @@ class LoginPage extends Component {
                 className="signupButton"
               >
                   sign up
-              </button>
+              </button>          
             </Link>
           </div>
         </form>
