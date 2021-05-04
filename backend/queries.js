@@ -1,5 +1,7 @@
 const server = require('./server');
 const pool = server.pool;
+var nodemailer = require('nodemailer');
+const mailGun = require('nodemailer-mailgun-transport');
 
 //readData
 async function readData() {
@@ -43,6 +45,7 @@ async function updateEmployee(employeeDetails){
         }
 }
 
+
 async function updateMaxPeople(maxPeople){
     try {   
         await pool.query(`UPDATE maxPeople SET numberOfPeople = $1 WHERE ID = $2`, [maxPeople, 1]);
@@ -65,4 +68,43 @@ async function readMaxPeople() {
     }
 }
 
-module.exports = {readData, createEmployee, updateEmployee, updateMaxPeople, readMaxPeople};
+
+//SIGN UP !!!! 
+async function readSignUp() {
+    try {
+    const results = await pool.query('SELECT * FROM signup');
+    return results.rows;
+    }
+    catch(e){
+        return [];
+    }
+}
+
+//insert
+async function createNewSignup(employeeDetails){
+
+    try {
+        //we should validate before- check that there is no user with that email adress. TODO
+        await pool.query(`INSERT INTO signup (email, name, password, verified) VALUES ($1, $2, $3, $4)`,[employeeDetails.email, employeeDetails.name, employeeDetails.password, false]);
+        return true
+        }
+        catch(e){
+            console.log(e);
+            return false;
+        }
+}
+
+// update signUP user from false to true
+async function updateSignup(employeeDetails){
+    try {
+        await pool.query(`UPDATE signup SET verified=true WHERE email=$1`,[employeeDetails.email]);
+        return true
+        }
+        catch(e){
+            console.log(e);
+            return false;
+        }
+}
+
+
+module.exports = {readData, createEmployee, updateEmployee, updateMaxPeople, readMaxPeople, readSignUp, createNewSignup, updateSignup};

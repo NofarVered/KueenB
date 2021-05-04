@@ -1,0 +1,14 @@
+.signup-forms{
+    position: relative;
+    top: 100px;
+}
+.sign-up-showPassword{
+    border: none;
+    background: none;
+    color: #2b8fff;
+    width: 135px;
+    font-size: small;
+   position: absolute;
+    left: 58%;
+    top: 53.5%;
+}

@@ -77,3 +77,66 @@ app.put("/MaxPeople", async (req, res) => {
 })
 
 
+app.get("/sign-up", async (req, res) => {
+    const rows = await query.readSignUp();
+    res.setHeader("content-type", "application/json")
+    console.log(rows);
+    res.send(JSON.stringify(rows))
+})
+
+
+const express = require('express')
+const bcrypt = require('bcrypt')
+app.use(express.json())
+
+app.post("/sign-up", async (req, res) => {
+    let result = {}
+    try{
+        const reqJson = req.body;
+        const saltRounds = 10;
+        const hashedPassword = await bcrypt.hash(reqJson.employees.password, saltRounds);
+        reqJson.employees.password = hashedPassword;
+        result.success = await query.createNewSignup(reqJson.employees);
+    }
+    catch(e){
+        result.success=false;
+    }
+    finally{
+        res.setHeader("content-type", "application/json")
+        res.send(JSON.stringify(result))
+    }
+   
+})
+//updateSIGN
+app.put("/sign-up", async (req, res) => {
+    let result = {}
+    try{
+        const reqJson = req.body;
+        result.success = await query.updateSignup(reqJson.employee)
+    }
+    catch(e){
+        result.success=false;
+    }
+    finally{
+        res.setHeader("content-type", "application/json")
+        res.send(JSON.stringify(result))
+    }
+})
+
+// app.post('/login', async (req, res) => {
+//     const user = await User.findOne({ email: req.body.employees.email });
+
+//     try{
+//         const match = await bcrypt.compare(req.body.employees.password, user.password);
+//         const accessToken = jwt.sign(JSON.stringify(user), process.env.TOKEN_SECRET)
+//         if(match){
+//             res.json({ accessToken: accessToken });
+//         } else {
+//             res.json({ message: "Invalid Credentials" });
+//         }
+//     } catch(e) {
+//         console.log(e)
+//     }
+// });
+
+

@@ -71,7 +71,7 @@ class UserCalendar extends React.Component {
         return (
             <div>
                 <div className="headlineBox">
-                    <Link to="/">
+                    <Link to="/home">
                             <div className="arrow" onClick={this.handleSubmit}>
                             <HiArrowLeft />
                             </div>
