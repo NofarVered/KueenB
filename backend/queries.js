@@ -91,5 +91,18 @@ async function createNewSignup(employeeDetails){
         }
 }
 
+//checkUserDetails(email, password)
+async function checkUserDetails(email, password){
+    try {
+        const res = await pool.query('SELECT * FROM signup WHERE email = $1 and password = $2', [email, password]);
+        if (res.rows.length == 1) return res.rows;
+        return false;
+    }
+    catch(e){
+        console.log(e);
+        return false;
+    }
+}
 
-module.exports = {readData, createEmployee, updateEmployee, updateMaxPeople, readMaxPeople, readSignUp, createNewSignup};
+
+module.exports = {readData, createEmployee, updateEmployee, updateMaxPeople, readMaxPeople, readSignUp, createNewSignup, checkUserDetails};

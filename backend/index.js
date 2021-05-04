@@ -83,6 +83,13 @@ app.get("/sign-up", async (req, res) => {
     res.send(JSON.stringify(rows))
 })
 
+app.get("/login", async (req, res) => {
+    const email = req.query.email;
+    const password = req.query.password;
+    const result = await query.checkUserDetails(email, password);
+    const name = JSON.stringify(result[0].name);
+    res.send(name);
+})
 
 app.post("/sign-up", async (req, res) => {
     let result = {}

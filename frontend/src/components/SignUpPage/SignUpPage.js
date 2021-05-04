@@ -36,7 +36,7 @@ handleChange_name = (e) => {
   handleSubmit = (e) => {
     if (this.state.name!=='' && this.state.email!=='' && this.state.password!=='') {
       this.props.addUser(this.state);
-      this.insertSignUpToDB(this.props.email, this.props.name, this.props.password);
+      this.insertSignUpToDB(this.state.email, this.state.name, this.state.password);
     }
   };
 

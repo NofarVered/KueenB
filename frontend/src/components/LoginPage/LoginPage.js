@@ -9,6 +9,7 @@ class LoginPage extends Component {
   state = {
     password: "",
     email: "",
+    name: "",
     hidePassword: true,
   };
 
@@ -26,21 +27,27 @@ class LoginPage extends Component {
 
   handleSubmit = (e) => {
     if (isEmail(this.state.email)) {
-      this.setState({
-      emailError: 'Valid Email :)'})}
+      this.checkUserDetails(this.state.email, this.state.password);
+      if (true) { // TODO: chnage this ! 
+        //if email ans pass OK
+        this.setState({
+          email: e.target.value,
+          emailError: 'Valid Email :)'
+        });
+      }
+    }
     else {
       this.setState({
       emailError: 'Enter valid Email!'})
     }
-    
-    //if email ans pass OK
-    this.setState({
-      email: e.target.value,
-    });
-    this.props.handleLogin(this.state.email, "name"); //todo: change "name"
   };
 
-
+  checkUserDetails = (email, password) => {
+    
+    fetch(`http://localhost:3001/login?email=${email}&password=${password}`)
+    .then(result =>result.json())
+    .then(res => {this.props.handleLogin(email, res)});
+  }
   
 
   render() {
