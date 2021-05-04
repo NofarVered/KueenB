@@ -93,15 +93,10 @@ app.post("/sign-up", async (req, res) => {
     let result = {}
     try{
         const reqJson = req.body;
-    
         const saltRounds = 10;
-
         const hashedPassword = await bcrypt.hash(reqJson.employees.password, saltRounds);
-
-      
         reqJson.employees.password = hashedPassword;
-        //reqJson.employees = {email: email, name: name, password:hashedPassword, verified:false}
-        result.success = await query.createNewSignup(reqJson.employees)
+        result.success = await query.createNewSignup(reqJson.employees);
     }
     catch(e){
         result.success=false;
