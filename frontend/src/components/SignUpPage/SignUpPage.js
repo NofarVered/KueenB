@@ -3,6 +3,9 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { Link } from "react-router-dom";
 import "./SignUpPage.css";
 import { HiArrowLeft } from "react-icons/hi";
+import{ init } from 'emailjs-com';
+import * as emailjs from "emailjs-com";
+init("user_oa03i7CUKMhB0QMFcITf3");
 
 class SignUpPage extends Component {
   state = {
@@ -35,6 +38,10 @@ handleChange_name = (e) => {
     if (this.state.name!=='' && this.state.email!=='' && this.state.password!=='' && reg.test(this.state.email) === true) {
       this.props.addUser(this.state);
       this.insertSignUpToDB(this.state.email, this.state.name, this.state.password);
+      emailjs.send("service_svzk6hv","template_21qk2cd",{
+      new_url: "http://localhost:3000/send-email/" + this.state.email ,
+      user_email: this.state.email
+          });     
     }
   };
 

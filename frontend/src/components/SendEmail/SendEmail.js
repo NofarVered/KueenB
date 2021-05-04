@@ -5,24 +5,25 @@ import { Link } from "react-router-dom";
 
 class SendEmail extends Component {
   state = {
-    email: this.props.email,
+    email: window.location.href.split("/").pop(),
     valid: false
   };
 
   componentDidMount(){
+    console.log(this.state.email);
     this.verify(this.state.email);
   }
   
   verify = (async (email)=> {
     const jsonRequest = {};
-    jsonRequest.employee = { email: this.state.email};
+    jsonRequest.employee = { email: email};
     let result = await fetch("http://localhost:3001/sign-up", {
       method: "PUT",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(jsonRequest),
     });
     result = await result.json();
-    if (!result.success) alert("FAILED! ");
+    if (!result.success) alert("FAILED! to verify ");
   })
 
   render() {

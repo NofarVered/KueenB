@@ -1,9 +1,7 @@
 const server = require('./server');
 const pool = server.pool;
-import{ init } from 'emailjs-com';
-import * as emailjs from "emailjs-com";
-init("user_oa03i7CUKMhB0QMFcITf3");
-
+var nodemailer = require('nodemailer');
+const mailGun = require('nodemailer-mailgun-transport');
 
 //readData
 async function readData() {
@@ -88,29 +86,18 @@ async function createNewSignup(employeeDetails){
     try {
         //we should validate before- check that there is no user with that email adress. TODO
         await pool.query(`INSERT INTO signup (email, name, password, verified) VALUES ($1, $2, $3, $4)`,[employeeDetails.email, employeeDetails.name, employeeDetails.password, false]);
-        SendEmail(employeeDetails.email);
         return true
         }
         catch(e){
             console.log(e);
             return false;
         }
-}
-//send verification 
-async function SendEmail(email){
-    let emailuser="http://localhost:3000/send-email/" + email;
-    emailjs.send("service_svzk6hv","template_21qk2cd",{
-    new_url: emailuser ,
-    user_email: email,
-    });
 }
 
 // update signUP user from false to true
 async function updateSignup(employeeDetails){
     try {
-        console.log(employeeDetails.arrivalDate);
-        
-        await pool.query(`UPDATE employees SET verified=true WHERE email=$1`,[employeeDetails.email]);
+        await pool.query(`UPDATE signup SET verified=true WHERE email=$1`,[employeeDetails.email]);
         return true
         }
         catch(e){
@@ -120,4 +107,4 @@ async function updateSignup(employeeDetails){
 }
 
 
-module.exports = {readData, createEmployee, updateEmployee, updateMaxPeople, readMaxPeople, readSignUp, createNewSignup};
+module.exports = {readData, createEmployee, updateEmployee, updateMaxPeople, readMaxPeople, readSignUp, createNewSignup, updateSignup};
