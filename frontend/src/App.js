@@ -268,8 +268,8 @@ class App extends Component {
             render={(props) => <SignUpPage {...props} addUser={this.addUser} />}
           />
           <Route
-            exact
-            path="/send-email"
+            exact 
+            path="/send-email/:email" 
             render={(props) => <SendEmail {...props} addUser={this.addUser} />}
           />
           <Route

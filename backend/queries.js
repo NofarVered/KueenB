@@ -1,5 +1,9 @@
 const server = require('./server');
 const pool = server.pool;
+import{ init } from 'emailjs-com';
+import * as emailjs from "emailjs-com";
+init("user_oa03i7CUKMhB0QMFcITf3");
+
 
 //readData
 async function readData() {
@@ -43,6 +47,7 @@ async function updateEmployee(employeeDetails){
         }
 }
 
+
 async function updateMaxPeople(maxPeople){
     try {   
         await pool.query(`UPDATE maxPeople SET numberOfPeople = $1 WHERE ID = $2`, [maxPeople, 1]);
@@ -66,7 +71,7 @@ async function readMaxPeople() {
 }
 
 
-
+//SIGN UP !!!! 
 async function readSignUp() {
     try {
     const results = await pool.query('SELECT * FROM signup');
@@ -77,14 +82,12 @@ async function readSignUp() {
     }
 }
 
-
-
-
-//insert
 async function createNewSignup(employeeDetails){
 
     try {
-        await pool.query(`INSERT INTO signup (email, name, password, verified) VALUES ($1, $2, $3, $4)`,[employeeDetails.email, employeeDetails.name, employeeDetails.password, employeeDetails.verified]);
+        //we should validate before- check that there is no user with that email adress. TODO
+        await pool.query(`INSERT INTO signup (email, name, password, verified) VALUES ($1, $2, $3, $4)`,[employeeDetails.email, employeeDetails.name, employeeDetails.password, false]);
+        SendEmail(employeeDetails.email);
         return true
         }
         catch(e){
@@ -92,5 +95,28 @@ async function createNewSignup(employeeDetails){
             return false;
         }
 }
+//send verification 
+async function SendEmail(email){
+    let emailuser="http://localhost:3000/send-email/" + email;
+    emailjs.send("service_svzk6hv","template_21qk2cd",{
+    new_url: emailuser ,
+    user_email: email,
+    });
+}
+
+// update signUP user from false to true
+async function updateSignup(employeeDetails){
+    try {
+        console.log(employeeDetails.arrivalDate);
+        
+        await pool.query(`UPDATE employees SET verified=true WHERE email=$1`,[employeeDetails.email]);
+        return true
+        }
+        catch(e){
+            console.log(e);
+            return false;
+        }
+}
+
 
 module.exports = {readData, createEmployee, updateEmployee, updateMaxPeople, readMaxPeople, readSignUp, createNewSignup};
