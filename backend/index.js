@@ -85,10 +85,22 @@ app.get("/sign-up", async (req, res) => {
 })
 
 
+const express = require('express')
+const bcrypt = require('bcrypt')
+app.use(express.json())
+
 app.post("/sign-up", async (req, res) => {
     let result = {}
     try{
         const reqJson = req.body;
+    
+        const saltRounds = 10;
+
+        const hashedPassword = await bcrypt.hash(reqJson.employees.password, saltRounds);
+
+      
+        reqJson.employees.password = hashedPassword;
+        //reqJson.employees = {email: email, name: name, password:hashedPassword, verified:false}
         result.success = await query.createNewSignup(reqJson.employees)
     }
     catch(e){
@@ -115,5 +127,21 @@ app.put("/sign-up", async (req, res) => {
         res.send(JSON.stringify(result))
     }
 })
+
+// app.post('/login', async (req, res) => {
+//     const user = await User.findOne({ email: req.body.employees.email });
+
+//     try{
+//         const match = await bcrypt.compare(req.body.employees.password, user.password);
+//         const accessToken = jwt.sign(JSON.stringify(user), process.env.TOKEN_SECRET)
+//         if(match){
+//             res.json({ accessToken: accessToken });
+//         } else {
+//             res.json({ message: "Invalid Credentials" });
+//         }
+//     } catch(e) {
+//         console.log(e)
+//     }
+// });
 
 
