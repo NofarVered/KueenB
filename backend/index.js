@@ -64,7 +64,6 @@ app.put("/MaxPeople", async (req, res) => {
     let result = {}
     try{
         const reqJson = req.body;
-        console.log(reqJson.maxPeople + "orel");
         result.success = await query.updateMaxPeople(reqJson.maxPeople)
     }
     catch(e){

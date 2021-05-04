@@ -78,8 +78,6 @@ async function readSignUp() {
 }
 
 
-
-
 //insert
 async function createNewSignup(employeeDetails){
 
@@ -92,5 +90,6 @@ async function createNewSignup(employeeDetails){
             return false;
         }
 }
+
 
 module.exports = {readData, createEmployee, updateEmployee, updateMaxPeople, readMaxPeople, readSignUp, createNewSignup};

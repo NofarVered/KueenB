@@ -25,21 +25,22 @@ class LoginPage extends Component {
   };
 
   handleSubmit = (e) => {
-    this.setState({
-      email: e.target.value,
-    });
     if (isEmail(this.state.email)) {
-      console.log("good email");
       this.setState({
       emailError: 'Valid Email :)'})}
     else {
-      console.log("not a good email");
       this.setState({
       emailError: 'Enter valid Email!'})
     }
-    console.log(this.state);
-    //this.props.addUser(this.state);
+    
+    //if email ans pass OK
+    this.setState({
+      email: e.target.value,
+    });
+    this.props.handleLogin(this.state.email, "name"); //todo: change "name"
   };
+
+
   
 
   render() {

@@ -235,6 +235,14 @@ class App extends Component {
       console.log("showModal - close changed");
   }
 
+
+  //save email and name of the login user to the app state
+  handleLogin = (email, name) => {
+    this.setState({
+      email, name
+    });
+  }
+
   useMessageModal = () => { 
     return(
            <div>
@@ -260,7 +268,7 @@ class App extends Component {
           <Route
             exact
             path="/"
-            render={(props) => <LoginPage {...props} name={this.state.name}/>}
+            render={(props) => <LoginPage {...props} name={this.state.name} handleLogin={this.handleLogin}/>}
           />
           <Route
             exact
