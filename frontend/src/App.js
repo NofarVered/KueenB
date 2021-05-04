@@ -44,24 +44,7 @@ class App extends Component {
     fetch(`http://localhost:3001/sign-up`)
     .then(result =>result.json())
   }
-
-  addUser = (user_copy) => {
-    //add to state email and name
-    const username = user_copy.name;
-    const useremail = user_copy.email;
-    const userpassword = user_copy.password;
-    console.log(username);
-    this.setState(
-      {
-        name: username,
-        email: useremail,
-        password: userpassword
-      },
-      () => {
-        console.log(this.state);
-      }
-    );
-  };
+  
   setHsByEmail = async (email, currentDate) => {
     //update hs in DB to be TRUE exited email and date (today date)
     //used in addHS function
@@ -125,9 +108,6 @@ class App extends Component {
             console.log(this.state);
           }
         );
-        // alert(
-        //   "You never registered for today... Now, the system has registered you for today and confirmed your HS"
-        // );
         
       }
     }
@@ -249,8 +229,11 @@ class App extends Component {
             </MessageModal>
           </div>
           
-      );
-      
+      ); 
+  }
+
+  insertUserDetailsToAppState = (email, name) => {
+    this.setState({email,name});
   }
 
   render() {
@@ -265,17 +248,17 @@ class App extends Component {
           <Route
             exact
             path="/sign-up"
-            render={(props) => <SignUpPage {...props} addUser={this.addUser} name={this.state.name} email={this.state.email} password={this.state.password}/>}
+            render={(props) => <SignUpPage {...props} name={this.state.name} email={this.state.email} password={this.state.password}/>}
           />
           <Route
             exact 
             path="/send-email/:email" 
-            render={(props) => <SendEmail {...props} addUser={this.addUser} />}
+            render={(props) => <SendEmail {...props} insertUserDetailsToAppState={this.insertUserDetailsToAppState} />}
           />
           <Route
             exact
             path="/home"
-            render={(props) => <Home {...props} name={this.state.name} addUser={this.addUser} />}
+            render={(props) => <Home {...props} name={this.state.name} />}
           />
           <Route
             path="/calendar"

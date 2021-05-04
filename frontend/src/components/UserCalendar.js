@@ -16,7 +16,6 @@ class UserCalendar extends React.Component {
         currentDay: new Date(),
         registersList: [],
         maxPeople: this.props.maxPeople,
-        // showModal: this.props.showModal
     };
     
 
@@ -46,6 +45,7 @@ class UserCalendar extends React.Component {
             console.log("Day is full");
         }
         else{
+            console.log('email in continue '+ this.props.email);
             this.insertRegistryToDB(this.props.email, this.props.name, false, format(this.state.selectedDate, "dd/MM/yyyy"));
             // alert("You have successfully signed for "+format(this.state.selectedDate, "dd/MM/yyyy"));
             console.log(this.props.email, this.props.name, false, format(this.state.selectedDate, "dd/MM/yyyy"));
@@ -64,7 +64,6 @@ class UserCalendar extends React.Component {
         console.log("showModal ==== ", this.props.showModal);
         const dicValue = this.props.mapRegistersByDay[format(this.state.selectedDate, 
             "dd/MM/yyyy")];
-        // const maxPeople = 20;
         const numOfRegistersString = dicValue ? ` ${dicValue.length} registered (${this.state.maxPeople-(dicValue.length)} available)` : 
         `0 registered (${this.state.maxPeople} available)`;
         const {showModal, modalMessage, closeModalHandler} = this.props

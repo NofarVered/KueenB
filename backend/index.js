@@ -123,6 +123,14 @@ app.put("/sign-up", async (req, res) => {
     }
 })
 
+app.get("/user-name", async (req, res) => {
+    const email = req.query.email;
+    const result = await query.getUserName(email);
+    const name = JSON.stringify(result[0].name);
+    console.log('username ' + name);
+    res.send(name);
+})
+
 // app.post('/login', async (req, res) => {
 //     const user = await User.findOne({ email: req.body.employees.email });
 

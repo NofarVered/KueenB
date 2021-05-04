@@ -24,10 +24,6 @@ class LoginPage extends Component {
     });
   };
 
-  handleSubmit = (e) => {
-    console.log(this.state);
-    //this.props.addUser(this.state);
-  };
 
   render() {
     const allDetails = (this.state.email!=='' && this.state.password!=='');
@@ -78,7 +74,6 @@ class LoginPage extends Component {
           <div className="box">
             <Link to={allDetails ? "/home" : "/"}>
               <button
-                onClick={this.handleSubmit}
                 className="loginButton"
               >
                   Login
