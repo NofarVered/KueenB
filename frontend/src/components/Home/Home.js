@@ -1,12 +1,13 @@
 import React, { Component } from "react";
 import Button from "react-bootstrap/Button";
 import "bootstrap/dist/css/bootstrap.min.css";
-import regLogo from "./register.png";
 import healthLogo from "./health-statement.png";
-import days_in_office_btn from "./days_in_office_btn.png"
 import Klogo from "./Klogo.png";
+import officeDays from "./office-days.PNG"
+import register from "./register.PNG";
 import { Link } from "react-router-dom";
 import "./home.css";
+import { HiArrowLeft } from "react-icons/hi";
 
 class Home extends Component {
   state = {
@@ -24,6 +25,12 @@ class Home extends Component {
   render() {
     return (
       <div>
+        <div className="head_box">
+            <div className="arrow" onClick={this.handleSubmit}>
+              <HiArrowLeft />
+            </div>
+          <div className="headpage">Office registration</div>
+        </div>
         <Link
           to={{
             pathname: "/calendar",
@@ -31,19 +38,20 @@ class Home extends Component {
           }}
         />
         <div className="box">
+        <div className="home-header">
           <img
             className="navlogo"
-            width="90vw"
-            height="90vw"
+            width="50px"
+            height="50px"
             src={Klogo}
             alt="logo k health"
           />
-        </div>
-        <div className="box">
-          <h2 className="headline" width="270px" height="45px">
-            Hi, {this.state.name}
+          <h2 className="home-headline">
+            Hi, {this.state.name} <button className="signupButton">Log out</button>
           </h2>
-        </div>
+          <p className="p-home">What would like to do?</p>
+        </div></div>
+        <div className="home-body">
         <form>
           <div className="box">
             <Link to="/calendar">
@@ -52,7 +60,7 @@ class Home extends Component {
                 variant="light"
                 className="nav-buttons"
               >
-                <img src={regLogo} className="btn_img" width="45px" height="45px" alt="" />
+                <img src={register} className="btn_img" width="54px" height="45px" alt="" />
                 <div className="btn_text">
                 Register to a day in the office
                 </div>
@@ -66,7 +74,7 @@ class Home extends Component {
                 variant="light"
                 className="nav-buttons"
               >
-                <img src={healthLogo} className="btn_img" width="45px" height="45px" alt="" />
+                <img src={healthLogo} className="btn_img" width="45px" height="48px" alt="" />
                 <div className="btn_text">
                 Fill a health statement
                 </div>
@@ -80,7 +88,7 @@ class Home extends Component {
                   variant="light"
                   className="nav-buttons"
               >
-                <img src={days_in_office_btn} className="btn_img" width="45px" height="45px" alt="" />
+                <img src={officeDays} className="btn_img" width="54px" height="45px" alt="" />
                 <div className="btn_text">
                 Check you office days
                 </div>
@@ -88,6 +96,7 @@ class Home extends Component {
             </Link>
           </div>
         </form>
+        </div>
       </div>
     );
   }

@@ -36,7 +36,24 @@
   top: 5px;
 }
 .navlogo {
-  margin: 50px;
+  margin: 5px;
+}
+
+.home-body{
+  position: relative;
+  top: 100px;
+}
+
+.home-header{
+  top: 99px;
+  right: 60px;
+  text-align: left;
+  position: relative;
+}
+
+.p-home{
+  color:#00406B;
+  font-weight: 500;
 }
 
 .forms {
@@ -52,12 +69,21 @@
   width: 300px;
 }
 
-.headline {
+.home-headline {
   font-family: sofiapro-regular;
   font-style: normal;
   font-weight: bold;
   font-size: 18px;
   line-height: 120%;
-  text-align: center;
-  color: #2b8fff;
+  text-align: left;
+  color: #00406B;
 }
+
+
+.ellipse{
+  position: absolute;
+  left: -95px;
+  top: 5px;
+}
+
+
