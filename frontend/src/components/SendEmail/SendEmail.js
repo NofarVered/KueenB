@@ -6,7 +6,8 @@ import { Link } from "react-router-dom";
 class SendEmail extends Component {
   state = {
     email: window.location.href.split("/").pop(),
-    valid: false
+    valid: false,
+    message: this.props.message,
   };
 
   componentDidMount() {
@@ -30,6 +31,7 @@ class SendEmail extends Component {
 
 
   render() {
+    console.log(this.state.email);
     return (
       <div>
         <div style={{height: "150px"}}/>
@@ -43,18 +45,7 @@ class SendEmail extends Component {
         </div>
         <div style={{height: "80px"}}/>
         <div className="box">
-          Check your mail box and click the link attached
-        </div>
-        <div style={{height: "80px"}}/>
-        <div className="box">
-          <Link to="/home">
-            <button
-              onClick={this.handleSubmit}
-              className="signupButton"
-            >
-              Back to home page
-            </button>
-          </Link>
+          {this.state.message}
         </div>
         </div>
     );
