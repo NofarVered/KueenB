@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Button from "react-bootstrap/Button";
 import "bootstrap/dist/css/bootstrap.min.css";
-import healthLogo from "./health-statement.png";
+import healthLogo from "./health-statement.PNG";
 import officeDays from "./office-days.PNG"
 import register from "./register.PNG";
 import Klogo from "./Klogo.png";

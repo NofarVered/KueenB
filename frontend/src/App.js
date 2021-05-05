@@ -12,6 +12,7 @@ import MessageModal from "./components/MessageModal/MessageModal";
 import LoginPage from "./components/LoginPage/LoginPage";
 import SignUpPage from "./components/SignUpPage/SignUpPage";
 import SendEmail from "./components/SendEmail/SendEmail";
+import Verify from "./components/Verify/Verify";
 
 class App extends Component {
     state = {
@@ -274,8 +275,13 @@ class App extends Component {
           />
           <Route
             exact 
-            path="/send-email/:email" 
-            render={(props) => <SendEmail {...props} insertUserDetailsToAppState={this.insertUserDetailsToAppState} />}
+            path="/send-email"
+            render={(props) => <SendEmail {...props} insertUserDetailsToAppState={this.insertUserDetailsToAppState} message={"Check your mail box and click the link attached"}/>}
+          />
+          <Route
+            exact
+            path="/verify/:email"
+            render={(props) => <Verify {...props}  insertUserDetailsToAppState={this.insertUserDetailsToAppState}/>}
           />
           <Route
             path="/calendar"
