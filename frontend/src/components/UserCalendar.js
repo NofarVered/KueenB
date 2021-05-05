@@ -16,7 +16,6 @@ class UserCalendar extends React.Component {
         currentDay: new Date(),
         registersList: [],
         maxPeople: this.props.maxPeople,
-        // showModal: this.props.showModal
     };
     
 
@@ -32,8 +31,7 @@ class UserCalendar extends React.Component {
 
     insertRegistryToDB = (async (email, name, hs, date)=> {
         const jsonRequest = {}
-        jsonRequest.employees = {email: email, name: name, HS: hs, arrivalDate:date}
-        console.log(jsonRequest);
+        jsonRequest.employees = {email: email, name: name, HS: hs, arrivalDate:date};
         let result = await fetch("http://localhost:3001/registry", {method: "POST", 
                       headers: {"content-type": "application/json"}, body: JSON.stringify(jsonRequest) })
                       result = await result.json();
@@ -64,7 +62,6 @@ class UserCalendar extends React.Component {
         console.log("showModal ==== ", this.props.showModal);
         const dicValue = this.props.mapRegistersByDay[format(this.state.selectedDate, 
             "dd/MM/yyyy")];
-        // const maxPeople = 20;
         const numOfRegistersString = dicValue ? ` ${dicValue.length} registered (${this.state.maxPeople-(dicValue.length)} available)` : 
         `0 registered (${this.state.maxPeople} available)`;
         const {showModal, modalMessage, closeModalHandler} = this.props

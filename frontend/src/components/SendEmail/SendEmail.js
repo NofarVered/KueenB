@@ -9,9 +9,11 @@ class SendEmail extends Component {
     valid: false
   };
 
-  componentDidMount(){
-    console.log(this.state.email);
+  componentDidMount() {
     this.verify(this.state.email);
+    fetch(`http://localhost:3001/user-name?email=${this.state.email}`)
+    .then((result) => result.json())
+    .then(res => this.props.insertUserDetailsToAppState(this.state.email, res));
   }
   
   verify = (async (email)=> {
@@ -25,6 +27,7 @@ class SendEmail extends Component {
     result = await result.json();
     if (!result.success) alert("FAILED! to verify ");
   })
+
 
   render() {
     return (
@@ -44,7 +47,7 @@ class SendEmail extends Component {
         </div>
         <div style={{height: "80px"}}/>
         <div className="box">
-          <Link to="/">
+          <Link to="/home">
             <button
               onClick={this.handleSubmit}
               className="signupButton"

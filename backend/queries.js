@@ -106,5 +106,16 @@ async function updateSignup(employeeDetails){
         }
 }
 
+async function getUserName(email) {
+    try {
+        const res = await pool.query(`SELECT * FROM signup WHERE email = $1`,[email]);
+        return res.rows;
+        }
+        catch(e){
+            console.log(e);
+            return [];
+        }
+}
 
-module.exports = {readData, createEmployee, updateEmployee, updateMaxPeople, readMaxPeople, readSignUp, createNewSignup, updateSignup};
+
+module.exports = {readData, createEmployee, updateEmployee, updateMaxPeople, readMaxPeople, readSignUp, createNewSignup, updateSignup, getUserName};
