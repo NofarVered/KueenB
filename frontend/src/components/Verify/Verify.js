@@ -7,7 +7,7 @@ class Verify extends Component {
   render() {
     return (
       <div>
-   <SendEmail message={"Your mail was verified"}/>
+   <SendEmail message={"Your mail was verified"}  insertUserDetailsToAppState={this.props.insertUserDetailsToAppState}/>
         <div style={{height: "80px"}}/>
         <div className="box">
           <Link to="/home">

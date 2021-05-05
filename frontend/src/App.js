@@ -281,7 +281,7 @@ class App extends Component {
           <Route
             exact
             path="/verify/:email"
-            render={(props) => <Verify/>}
+            render={(props) => <Verify {...props}  insertUserDetailsToAppState={this.insertUserDetailsToAppState}/>}
           />
           <Route
             path="/calendar"
