@@ -151,7 +151,6 @@ class App extends Component {
   // update selectedDate to be the pressed date
   setSelectedDate = (selectedDate) => {
     this.setState({ selectedDate });
-    // console.log(this.state.selectedDate);
   };
 
   countRegisters = () => {
@@ -244,13 +243,9 @@ class App extends Component {
 
   insertUserDetailsToAppState = (email, name) => {
     this.setState({email,name});
-    // localStorage.setItem('email' ,email);
   }
 
   render() {
-    // if (!localStorage.getItem('email')) {
-    //   return ( <LoginPage name={this.state.name} handleLogin={this.handleLogin}/>)
-    // }
     return (
       <Router>
         <div className="App">
@@ -260,16 +255,11 @@ class App extends Component {
             path="/"
             render={(props) => <LoginPage {...props} name={this.state.name} handleLogin={this.handleLogin}/>}
           />
-          {/* <Route exact path="/">
-            {this.state.email ? <Redirect to="/home" /> : <LoginPage name={this.state.name} handleLogin={this.handleLogin}/>}
-          </Route> */}
-          {/* <Switch> */}
             <Route
               exact
               path="/home"
               render={(props) => <Home {...props} name={this.state.name} />}
             />
-          {/* </Switch> */}
           <Route
             exact
             path="/sign-up"
