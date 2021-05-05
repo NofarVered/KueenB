@@ -17,7 +17,6 @@ class App extends Component {
     state = {
       name: '' ,
       email: localStorage.getItem('email'),
-      password: '',
       HS_Fill: false, //defult obj in the reg time
       REG_Date: '',
       data: [],
@@ -80,9 +79,7 @@ class App extends Component {
       console.log(this.state.mapRegistersByDay);
       
             if (this.state.mapRegistersByDay[this.state.currentDate] && 
-        this.state.mapRegistersByDay[this.state.currentDate].length>=this.state.maxPeople){
-          // defult max people per day- need to be change... 
-          //alert("error");
+              this.state.mapRegistersByDay[this.state.currentDate].length>=this.state.maxPeople){
           
           this.setState({
             modalMessage: 'error'
@@ -245,6 +242,16 @@ class App extends Component {
     this.setState({email,name});
   }
 
+  logout = () => {
+    localStorage.clear();
+    this.setState({
+      name: '' ,
+      email: localStorage.getItem('email'),
+      HS_Fill: false, //defult obj in the reg time
+      data: []
+    })
+  }
+
   render() {
     return (
       <Router>
@@ -258,7 +265,7 @@ class App extends Component {
             <Route
               exact
               path="/home"
-              render={(props) => <Home {...props} name={this.state.name} />}
+              render={(props) => <Home {...props} name={this.state.name} logout={this.logout} />}
             />
           <Route
             exact

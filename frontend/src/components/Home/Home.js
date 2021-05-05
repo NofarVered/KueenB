@@ -30,7 +30,7 @@ class Home extends Component {
               alt="logo k health"
             />
         <h2 className="home-headline">
-            Hi, {this.state.name}
+            {`Hi, ${this.state.name}` }
         </h2>
         <p className="p-home">What would like to do?</p>
         </div></div>
@@ -76,6 +76,7 @@ class Home extends Component {
             </Link>
           </div>
         </form>
+          <Link to={"/"} onClick={this.props.logout}>LOG OUT</Link>
       </div>
     </div>
     );
