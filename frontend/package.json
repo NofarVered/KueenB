@@ -50,6 +50,7 @@
     ]
   },
   "devDependencies": {
-    "concurrently": "^6.0.1"
+    "concurrently": "^6.0.2",
+    "emailjs-com": "^2.6.4"
   }
 }

@@ -83,19 +83,30 @@ app.get("/sign-up", async (req, res) => {
     res.send(JSON.stringify(rows))
 })
 
+const express = require('express')
+const bcrypt = require('bcrypt')
+app.use(express.json())
+
 app.get("/login", async (req, res) => {
     const email = req.query.email;
     const password = req.query.password;
-    const result = await query.checkUserDetails(email, password);
-    const name = JSON.stringify(result[0].name);
-    res.send(name);
+    const user = await query.checkUserDetails(email);
+    console.log('user ' + JSON.stringify(user[0].password))
+    const match = user ? await bcrypt.compare(password, user[0].password) : false;
+    if (match) {
+        const name = JSON.stringify(user[0].name);
+        res.send(name);
+    } else res.send(null);
 })
 
 app.post("/sign-up", async (req, res) => {
     let result = {}
     try{
         const reqJson = req.body;
-        result.success = await query.createNewSignup(reqJson.employees)
+        const saltRounds = 10;
+        const hashedPassword = await bcrypt.hash(reqJson.employees.password, saltRounds);
+        reqJson.employees.password = hashedPassword;
+        result.success = await query.createNewSignup(reqJson.employees);
     }
     catch(e){
         result.success=false;
@@ -106,5 +117,44 @@ app.post("/sign-up", async (req, res) => {
     }
    
 })
+//updateSIGN
+app.put("/sign-up", async (req, res) => {
+    let result = {}
+    try{
+        const reqJson = req.body;
+        result.success = await query.updateSignup(reqJson.employee)
+    }
+    catch(e){
+        result.success=false;
+    }
+    finally{
+        res.setHeader("content-type", "application/json")
+        res.send(JSON.stringify(result))
+    }
+})
+
+app.get("/user-name", async (req, res) => {
+    const email = req.query.email;
+    const result = await query.getUserName(email);
+    const name = JSON.stringify(result[0].name);
+    console.log('username ' + name);
+    res.send(name);
+})
+
+app.post('/login', async (req, res) => {
+    const user = await User.findOne({ email: req.body.employees.email });
+
+    try{
+        const match = await bcrypt.compare(req.body.employees.password, user.password);
+        const accessToken = jwt.sign(JSON.stringify(user), process.env.TOKEN_SECRET)
+        if(match){
+            res.json({ accessToken: accessToken });
+        } else {
+            res.json({ message: "Invalid Credentials" });
+        }
+    } catch(e) {
+        console.log(e)
+    }
+});
 
 

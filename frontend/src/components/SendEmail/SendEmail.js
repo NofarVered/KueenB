@@ -5,9 +5,29 @@ import { Link } from "react-router-dom";
 
 class SendEmail extends Component {
   state = {
-    send: false,
-    email: this.props.email,
+    email: window.location.href.split("/").pop(),
+    valid: false
   };
+
+  componentDidMount() {
+    this.verify(this.state.email);
+    fetch(`http://localhost:3001/user-name?email=${this.state.email}`)
+    .then((result) => result.json())
+    .then(res => this.props.insertUserDetailsToAppState(this.state.email, res));
+  }
+  
+  verify = (async (email)=> {
+    const jsonRequest = {};
+    jsonRequest.employee = { email: email};
+    let result = await fetch("http://localhost:3001/sign-up", {
+      method: "PUT",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify(jsonRequest),
+    });
+    result = await result.json();
+    if (!result.success) alert("FAILED! to verify ");
+  })
+
 
   render() {
     return (
@@ -27,7 +47,7 @@ class SendEmail extends Component {
         </div>
         <div style={{height: "80px"}}/>
         <div className="box">
-          <Link to="/">
+          <Link to="/home">
             <button
               onClick={this.handleSubmit}
               className="signupButton"

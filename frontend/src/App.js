@@ -1,10 +1,11 @@
 import React, { Component } from "react";
+import  { Redirect } from 'react-router-dom'
 import Home from "./components/Home/Home";
 import HealthStatement from "./components/HealthStatement/HealthStatement";
 import Registers from "./components/Registers/Registers";
 import OfficeManager from "./components/OfficeManager/OfficeManager";
 import format from "date-fns/format";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import UserCalendar from "./components/UserCalendar";
 import DaysInOffice from "./components/DaysInOffice/DaysInOffice";
 import MessageModal from "./components/MessageModal/MessageModal";
@@ -15,7 +16,7 @@ import SendEmail from "./components/SendEmail/SendEmail";
 class App extends Component {
     state = {
       name: '' ,
-      email: '',
+      email: localStorage.getItem('email'),
       password: '',
       HS_Fill: false, //defult obj in the reg time
       REG_Date: '',
@@ -44,24 +45,7 @@ class App extends Component {
     fetch(`http://localhost:3001/sign-up`)
     .then(result =>result.json())
   }
-
-  addUser = (user_copy) => {
-    //add to state email and name
-    const username = user_copy.name;
-    const useremail = user_copy.email;
-    const userpassword = user_copy.password;
-    console.log(username);
-    this.setState(
-      {
-        name: username,
-        email: useremail,
-        password: userpassword
-      },
-      () => {
-        console.log(this.state);
-      }
-    );
-  };
+  
   setHsByEmail = async (email, currentDate) => {
     //update hs in DB to be TRUE exited email and date (today date)
     //used in addHS function
@@ -125,9 +109,6 @@ class App extends Component {
             console.log(this.state);
           }
         );
-        // alert(
-        //   "You never registered for today... Now, the system has registered you for today and confirmed your HS"
-        // );
         
       }
     }
@@ -241,6 +222,7 @@ class App extends Component {
     this.setState({
       email, name
     });
+    localStorage.setItem('email', email);
   }
 
   useMessageModal = () => { 
@@ -257,33 +239,46 @@ class App extends Component {
             </MessageModal>
           </div>
           
-      );
-      
+      ); 
+  }
+
+  insertUserDetailsToAppState = (email, name) => {
+    this.setState({email,name});
+    // localStorage.setItem('email' ,email);
   }
 
   render() {
+    // if (!localStorage.getItem('email')) {
+    //   return ( <LoginPage name={this.state.name} handleLogin={this.handleLogin}/>)
+    // }
     return (
       <Router>
         <div className="App">
+        <Switch>
           <Route
             exact
             path="/"
             render={(props) => <LoginPage {...props} name={this.state.name} handleLogin={this.handleLogin}/>}
           />
+          {/* <Route exact path="/">
+            {this.state.email ? <Redirect to="/home" /> : <LoginPage name={this.state.name} handleLogin={this.handleLogin}/>}
+          </Route> */}
+          {/* <Switch> */}
+            <Route
+              exact
+              path="/home"
+              render={(props) => <Home {...props} name={this.state.name} />}
+            />
+          {/* </Switch> */}
           <Route
             exact
             path="/sign-up"
-            render={(props) => <SignUpPage {...props} addUser={this.addUser} name={this.state.name} email={this.state.email} password={this.state.password}/>}
+            render={(props) => <SignUpPage {...props} name={this.state.name} email={this.state.email} password={this.state.password}/>}
           />
           <Route
-            exact
-            path="/send-email"
-            render={(props) => <SendEmail {...props} addUser={this.addUser} />}
-          />
-          <Route
-            exact
-            path="/home"
-            render={(props) => <Home {...props} name={this.state.name} addUser={this.addUser} />}
+            exact 
+            path="/send-email/:email" 
+            render={(props) => <SendEmail {...props} insertUserDetailsToAppState={this.insertUserDetailsToAppState} />}
           />
           <Route
             path="/calendar"
@@ -354,6 +349,7 @@ class App extends Component {
                   />
               )}
           />
+        </Switch>
         </div>
       </Router>
     );

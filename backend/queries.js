@@ -1,5 +1,7 @@
 const server = require('./server');
 const pool = server.pool;
+var nodemailer = require('nodemailer');
+const mailGun = require('nodemailer-mailgun-transport');
 
 //readData
 async function readData() {
@@ -43,6 +45,7 @@ async function updateEmployee(employeeDetails){
         }
 }
 
+
 async function updateMaxPeople(maxPeople){
     try {   
         await pool.query(`UPDATE maxPeople SET numberOfPeople = $1 WHERE ID = $2`, [maxPeople, 1]);
@@ -66,7 +69,7 @@ async function readMaxPeople() {
 }
 
 
-
+//SIGN UP !!!! 
 async function readSignUp() {
     try {
     const results = await pool.query('SELECT * FROM signup');
@@ -77,12 +80,12 @@ async function readSignUp() {
     }
 }
 
-
 //insert
 async function createNewSignup(employeeDetails){
 
     try {
-        await pool.query(`INSERT INTO signup (email, name, password, verified) VALUES ($1, $2, $3, $4)`,[employeeDetails.email, employeeDetails.name, employeeDetails.password, employeeDetails.verified]);
+        //we should validate before- check that there is no user with that email adress. TODO
+        await pool.query(`INSERT INTO signup (email, name, password, verified) VALUES ($1, $2, $3, $4)`,[employeeDetails.email, employeeDetails.name, employeeDetails.password, false]);
         return true
         }
         catch(e){
@@ -91,11 +94,24 @@ async function createNewSignup(employeeDetails){
         }
 }
 
+// update signUP user from false to true
+async function updateSignup(employeeDetails){
+    try {
+        await pool.query(`UPDATE signup SET verified=true WHERE email=$1`,[employeeDetails.email]);
+        return true
+        }
+        catch(e){
+            console.log(e);
+            return false;
+        }
+}
+
+
 //checkUserDetails(email, password)
 async function checkUserDetails(email, password){
     try {
-        const res = await pool.query('SELECT * FROM signup WHERE email = $1 and password = $2', [email, password]);
-        if (res.rows.length == 1) return res.rows;
+        const res = await pool.query('SELECT * FROM signup WHERE email = $1', [email]);
+        if (res.rows.length >= 1) return res.rows;
         return false;
     }
     catch(e){
@@ -104,5 +120,16 @@ async function checkUserDetails(email, password){
     }
 }
 
+async function getUserName(email) {
+    try {
+        const res = await pool.query(`SELECT * FROM signup WHERE email = $1`,[email]);
+        return res.rows;
+        }
+        catch(e){
+            console.log(e);
+            return [];
+        }
+}
 
-module.exports = {readData, createEmployee, updateEmployee, updateMaxPeople, readMaxPeople, readSignUp, createNewSignup, checkUserDetails};
+
+module.exports = {readData, createEmployee, updateEmployee, updateMaxPeople, readMaxPeople, readSignUp, createNewSignup, updateSignup, getUserName, checkUserDetails};

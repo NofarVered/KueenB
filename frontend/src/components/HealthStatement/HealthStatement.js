@@ -25,7 +25,7 @@ class HealthStatement extends Component {
                     <div className="dateFill">{format(this.state.Today_Date, "dd/MM/yyyy")}</div>
                 </div>
                 <div>
-                    <Link to="/">
+                    <Link to="/home">
                         <div className="arrow" onClick={this.handleSubmit}>
                             <HiArrowLeft />
                           

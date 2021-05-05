@@ -3,6 +3,9 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { Link } from "react-router-dom";
 import "./SignUpPage.css";
 import { HiArrowLeft } from "react-icons/hi";
+import{ init } from 'emailjs-com';
+import * as emailjs from "emailjs-com";
+init("user_oa03i7CUKMhB0QMFcITf3");
 
 class SignUpPage extends Component {
   state = {
@@ -11,9 +14,6 @@ class SignUpPage extends Component {
     email: "",
     hidePassword: true,
   };
-
-
-
 
 handleChange_name = (e) => {
     this.setState({
@@ -34,16 +34,19 @@ handleChange_name = (e) => {
   };
 
   handleSubmit = (e) => {
-    if (this.state.name!=='' && this.state.email!=='' && this.state.password!=='') {
-      this.props.addUser(this.state);
+    const reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    if (this.state.name!=='' && this.state.email!=='' && this.state.password!=='' && reg.test(this.state.email) === true) {
       this.insertSignUpToDB(this.state.email, this.state.name, this.state.password);
+      emailjs.send("service_svzk6hv","template_21qk2cd",{
+      new_url: "http://localhost:3000/send-email/" + this.state.email ,
+      user_email: this.state.email
+          });     
     }
   };
 
   insertSignUpToDB = (async (email, name, password)=> {
     const jsonRequest = {}
-    jsonRequest.employees = {email: email, name: name, password:password, verified:false}
-    //console.log(jsonRequest);
+    jsonRequest.employees = {email: email, name: name, password:password} 
     let result = await fetch("http://localhost:3001/sign-up", {method: "POST", 
                   headers: {"content-type": "application/json"}, body: JSON.stringify(jsonRequest) })
                   result = await result.json();
@@ -51,7 +54,8 @@ handleChange_name = (e) => {
 })
 
   render() {
-    const allDetails = (this.state.name!=='' && this.state.email!=='' && this.state.password!=='');
+    const reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    const allDetails = (this.state.name!=='' && this.state.email!=='' && this.state.password!=='' && reg.test(this.state.email) === true);
     return (
       <div>
         <Link

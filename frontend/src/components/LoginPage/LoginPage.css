@@ -21,9 +21,9 @@
     color: #2b8fff;
     width: 135px;
     font-size: small;
-    position: fixed;
-    left: 58%;
-    top: 48%;
+    position: absolute;
+    left: 60%;
+    top: 63%;
 }
 
 .signupButton{

@@ -85,7 +85,7 @@ class DaysInOffice extends React.Component {
                 <div className="head_box_office_days">
                     <h1 className="head_line_office_days">Check Office Days</h1>
                     <h5 className="second_line">Select a date range</h5>
-                    <Link to="/">
+                    <Link to="/home">
                         <div className="arrow">
                         <HiArrowLeft />
                         </div>
