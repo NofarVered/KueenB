@@ -91,12 +91,13 @@ app.get("/login", async (req, res) => {
     const email = req.query.email;
     const password = req.query.password;
     const user = await query.checkUserDetails(email);
-    console.log('user ' + JSON.stringify(user[0].password))
     const match = user ? await bcrypt.compare(password, user[0].password) : false;
     if (match) {
         const name = JSON.stringify(user[0].name);
         res.send(name);
-    } else res.send(null);
+    } else {
+        res.send(false);
+    }
 })
 
 app.post("/sign-up", async (req, res) => {

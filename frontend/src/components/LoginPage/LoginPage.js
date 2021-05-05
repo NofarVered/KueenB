@@ -12,6 +12,7 @@ class LoginPage extends Component {
     email: "",
     name: "",
     hidePassword: true,
+    loginOK: null
   };
 
   handleChange_email = (e) => {
@@ -28,7 +29,6 @@ class LoginPage extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    // localStorage.setItem('email' ,this.state.email)
     if (isEmail(this.state.email)) {
       this.checkUserDetails(this.state.email, this.state.password);
     } else this.setState({ emailError: 'Email or Password incorrect'});
@@ -37,12 +37,11 @@ class LoginPage extends Component {
   checkUserDetails = (email, password) => {
     fetch(`http://localhost:3001/login?email=${email}&password=${password}`)
     .then(result =>result.json())
-    // .then(pass => {pass ? localStorage.setItem('email' , email) : 
     .then(name => {
       if(name) {
-        console.log('name ' + name);
         this.props.handleLogin(email, name);
-        localStorage.setItem('email' , email); 
+        localStorage.setItem('email' , email);
+        this.setState({loginOK: true}) 
       } else {
         this.setState({ emailError: 'Email or Password incorrect'})
       }
@@ -51,18 +50,11 @@ class LoginPage extends Component {
   
 
   render() {
-    if (localStorage.getItem("email")) {
+    if (this.state.loginOK) {
       return <Redirect to="/home" />;
     }
-    // (this.state.email ==='tom' && this.state.password==='3');
     return (
       <div>
-        {/* <Link
-          to={{
-            pathname: "/calendar",
-            state: this.state,
-          }}
-        /> */}
         <div className="box">
           <img
             className="navlogo"
@@ -91,7 +83,7 @@ class LoginPage extends Component {
           <div className="box">
             <input
               className="forms"
-              // type= {allDetails ? "password" : "text"}
+              type= {this.state.hidePassword ? "password" : "text"}
               placeholder="Password"
               onChange={this.handleChange_password}
               value={this.state.password}
@@ -101,15 +93,12 @@ class LoginPage extends Component {
           <button className="login-showPassword" onClick={(e)=>{e.preventDefault(); this.setState({hidePassword: !this.state.hidePassword})}}>Show Password</button>
           <br/>
           <div className="box">
-            {/* <Link to={this.state.user ? "/home" : "/"}> */}
               <button
-                // onClick={this.handleSubmit}
                 type="submit"
                 className="loginButton"
               >
                   Login
               </button>
-            {/* </Link> */}
           </div>
           <div style={{height: "50px"}}/>
           <div className="box">
