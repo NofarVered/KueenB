@@ -1,10 +1,11 @@
 import React, { Component } from "react";
+import  { Redirect } from 'react-router-dom'
 import Home from "./components/Home/Home";
 import HealthStatement from "./components/HealthStatement/HealthStatement";
 import Registers from "./components/Registers/Registers";
 import OfficeManager from "./components/OfficeManager/OfficeManager";
 import format from "date-fns/format";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import UserCalendar from "./components/UserCalendar";
 import DaysInOffice from "./components/DaysInOffice/DaysInOffice";
 import MessageModal from "./components/MessageModal/MessageModal";
@@ -15,7 +16,7 @@ import SendEmail from "./components/SendEmail/SendEmail";
 class App extends Component {
     state = {
       name: '' ,
-      email: '',
+      email: localStorage.getItem('email'),
       password: '',
       HS_Fill: false, //defult obj in the reg time
       REG_Date: '',
@@ -150,7 +151,6 @@ class App extends Component {
   // update selectedDate to be the pressed date
   setSelectedDate = (selectedDate) => {
     this.setState({ selectedDate });
-    // console.log(this.state.selectedDate);
   };
 
   countRegisters = () => {
@@ -215,6 +215,15 @@ class App extends Component {
       console.log("showModal - close changed");
   }
 
+
+  //save email and name of the login user to the app state
+  handleLogin = (email, name) => {
+    this.setState({
+      email, name
+    });
+    localStorage.setItem('email', email);
+  }
+
   useMessageModal = () => { 
     return(
            <div>
@@ -240,11 +249,17 @@ class App extends Component {
     return (
       <Router>
         <div className="App">
+        <Switch>
           <Route
             exact
             path="/"
-            render={(props) => <LoginPage {...props} name={this.state.name}/>}
+            render={(props) => <LoginPage {...props} name={this.state.name} handleLogin={this.handleLogin}/>}
           />
+            <Route
+              exact
+              path="/home"
+              render={(props) => <Home {...props} name={this.state.name} />}
+            />
           <Route
             exact
             path="/sign-up"
@@ -254,11 +269,6 @@ class App extends Component {
             exact 
             path="/send-email/:email" 
             render={(props) => <SendEmail {...props} insertUserDetailsToAppState={this.insertUserDetailsToAppState} />}
-          />
-          <Route
-            exact
-            path="/home"
-            render={(props) => <Home {...props} name={this.state.name} />}
           />
           <Route
             path="/calendar"
@@ -329,6 +339,7 @@ class App extends Component {
                   />
               )}
           />
+        </Switch>
         </div>
       </Router>
     );

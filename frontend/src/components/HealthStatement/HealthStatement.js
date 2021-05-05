@@ -12,10 +12,6 @@ class HealthStatement extends Component {
     Today_Date: new Date(),
   };
 
-  componentDidMount() {
-      console.log('mail in hs ' + this.state.email);
-  }
-
     handleOnSubmit = (e) => {
         this.props.addHS();
         this.props.openModalHandler();

@@ -64,7 +64,6 @@ app.put("/MaxPeople", async (req, res) => {
     let result = {}
     try{
         const reqJson = req.body;
-        console.log(reqJson.maxPeople + "orel");
         result.success = await query.updateMaxPeople(reqJson.maxPeople)
     }
     catch(e){
@@ -84,10 +83,22 @@ app.get("/sign-up", async (req, res) => {
     res.send(JSON.stringify(rows))
 })
 
-
 const express = require('express')
 const bcrypt = require('bcrypt')
 app.use(express.json())
+
+app.get("/login", async (req, res) => {
+    const email = req.query.email;
+    const password = req.query.password;
+    const user = await query.checkUserDetails(email);
+    const match = user ? await bcrypt.compare(password, user[0].password) : false;
+    if (match) {
+        const name = JSON.stringify(user[0].name);
+        res.send(name);
+    } else {
+        res.send(false);
+    }
+})
 
 app.post("/sign-up", async (req, res) => {
     let result = {}
@@ -130,21 +141,4 @@ app.get("/user-name", async (req, res) => {
     console.log('username ' + name);
     res.send(name);
 })
-
-// app.post('/login', async (req, res) => {
-//     const user = await User.findOne({ email: req.body.employees.email });
-
-//     try{
-//         const match = await bcrypt.compare(req.body.employees.password, user.password);
-//         const accessToken = jwt.sign(JSON.stringify(user), process.env.TOKEN_SECRET)
-//         if(match){
-//             res.json({ accessToken: accessToken });
-//         } else {
-//             res.json({ message: "Invalid Credentials" });
-//         }
-//     } catch(e) {
-//         console.log(e)
-//     }
-// });
-
 

@@ -1,16 +1,19 @@
 import React, { Component } from "react";
+import { Redirect } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Klogo from "../Home/Klogo.png";
 import { Link } from "react-router-dom";
 import "./LoginPage.css";
+import isEmail from 'validator/lib/isEmail';
 
 class LoginPage extends Component {
   state = {
     password: "",
     email: "",
+    name: "",
     hidePassword: true,
+    loginOK: null
   };
-
 
   handleChange_email = (e) => {
     this.setState({
@@ -24,17 +27,34 @@ class LoginPage extends Component {
     });
   };
 
+  handleSubmit = (e) => {
+    e.preventDefault();
+    if (isEmail(this.state.email)) {
+      this.checkUserDetails(this.state.email, this.state.password);
+    } else this.setState({ emailError: 'Email or Password incorrect'});
+  };
+
+  checkUserDetails = (email, password) => {
+    fetch(`http://localhost:3001/login?email=${email}&password=${password}`)
+    .then(result =>result.json())
+    .then(name => {
+      if(name) {
+        this.props.handleLogin(email, name);
+        localStorage.setItem('email' , email);
+        this.setState({loginOK: true}) 
+      } else {
+        this.setState({ emailError: 'Email or Password incorrect'})
+      }
+    });
+  }
+  
 
   render() {
-    const allDetails = (this.state.email!=='' && this.state.password!=='');
+    if (this.state.loginOK) {
+      return <Redirect to="/home" />;
+    }
     return (
       <div>
-        <Link
-          to={{
-            pathname: "/calendar",
-            state: this.state,
-          }}
-        />
         <div className="box">
           <img
             className="navlogo"
@@ -49,16 +69,17 @@ class LoginPage extends Component {
             Office registration
           </h2>
         </div>
-        <form>
+        <form onSubmit={this.handleSubmit}>
           <div className="box">
             <input
               className="forms"
               type="text"
               placeholder="Email"
               onChange={this.handleChange_email}
-              value={this.state.email}
+              value={this.state.email} 
             />
           </div>
+          <div className = "error">{this.state.emailError}</div>
           <div className="box">
             <input
               className="forms"
@@ -72,24 +93,22 @@ class LoginPage extends Component {
           <button className="login-showPassword" onClick={(e)=>{e.preventDefault(); this.setState({hidePassword: !this.state.hidePassword})}}>Show Password</button>
           <br/>
           <div className="box">
-            <Link to={allDetails ? "/home" : "/"}>
               <button
+                type="submit"
                 className="loginButton"
               >
                   Login
               </button>
-            </Link>
           </div>
           <div style={{height: "50px"}}/>
           <div className="box">
             Don't have an account?
             <Link to="/sign-up">
               <button
-                onClick={this.handleSubmit}
                 className="signupButton"
               >
                   sign up
-              </button>
+              </button>          
             </Link>
           </div>
         </form>
