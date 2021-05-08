@@ -55,6 +55,7 @@ class LoginPage extends Component {
     }
     return (
       <div>
+        <div style={{height: "50px"}}/>
         <div className="box">
           <img
             className="navlogo"
@@ -89,9 +90,8 @@ class LoginPage extends Component {
               value={this.state.password}
             />
           </div>
-          <br/>
           <button className="login-showPassword" onClick={(e)=>{e.preventDefault(); this.setState({hidePassword: !this.state.hidePassword})}}>Show Password</button>
-          <br/>
+          <div style={{height: "30px"}}/>
           <div className="box">
               <button
                 type="submit"

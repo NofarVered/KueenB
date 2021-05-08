@@ -8,6 +8,7 @@ import {Link} from "react-router-dom";
 import "./Calendar/calendar.css";
 import Calendar from "./Calendar/Calendar";
 import MessageModal from "./MessageModal/MessageModal";
+import Headbox from "./Headbox/Headbox";
 
 class UserCalendar extends React.Component {
     state = {
@@ -67,15 +68,8 @@ class UserCalendar extends React.Component {
         const {showModal, modalMessage, closeModalHandler} = this.props
         return (
             <div>
-                <div className="headlineBox">
-                    <Link to="/home">
-                            <div className="arrow" onClick={this.handleSubmit}>
-                            <HiArrowLeft />
-                            </div>
-                    </Link>   
-                    <h4 className="calendarHeadline">When are you coming?</h4>
-                </div>  
-
+                <Headbox headline={"When are you coming?"} linkTo={"/home"}/>
+                <div style={{height:"100px"}}/>
                 <Calendar onDateClick={this.onDateClick}></Calendar>
                 <div className="box">
                         <div className="dayWindow">
@@ -90,9 +84,9 @@ class UserCalendar extends React.Component {
                             </Link>              
                         </div>
                 </div>
-                    <Button variant="primary" size="sm" onClick={this.onContinueClick}>
+                    <button className="loginButton" onClick={this.onContinueClick}>
                         Continue
-                    </Button>
+                    </button>
                     {showModal ?
                         <MessageModal
                             className="modal"

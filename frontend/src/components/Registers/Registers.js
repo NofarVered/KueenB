@@ -3,6 +3,7 @@ import format from "date-fns/format";
 import "./Registers.css";
 import { HiArrowLeft } from "react-icons/hi";
 import { Link } from "react-router-dom";
+import Headbox from "../Headbox/Headbox";
 
 class Registers extends React.Component {
   render() {
@@ -17,15 +18,7 @@ class Registers extends React.Component {
     }
     return (
       <div>
-        <div className="head_box">
-          <Link to="/calendar">
-            <div className="arrow" onClick={this.handleSubmit}>
-              <HiArrowLeft />
-            </div>
-          </Link>
-          <div className="headpage">Registers List</div>
-          <div className="dateFill">{date}</div>
-        </div>
+        <Headbox headline={"Registers List"} linkTo={"/calendar"} date={date}/>
         <div className="contentPage">
           <ol>{registersList}</ol>
         </div>

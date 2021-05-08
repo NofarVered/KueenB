@@ -5,6 +5,7 @@ import "./SignUpPage.css";
 import { HiArrowLeft } from "react-icons/hi";
 import{ init } from 'emailjs-com';
 import * as emailjs from "emailjs-com";
+import Headbox from "../Headbox/Headbox";
 init("user_oa03i7CUKMhB0QMFcITf3");
 
 class SignUpPage extends Component {
@@ -64,14 +65,7 @@ handleChange_name = (e) => {
             state: this.state,
           }}
         />
-        <div className="head_box">
-          <Link to="/">
-            <div className="arrow" onClick={this.handleSubmit}>
-              <HiArrowLeft />
-            </div>
-          </Link>
-          <div className="headpage">Sign up</div>
-        </div>
+       <Headbox linkTo={"/"} headline={"sign up"}/>
         <div className="signup-forms">
           <h2 className="headline">
             Sign up for office registration

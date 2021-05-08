@@ -64,33 +64,7 @@ code {
   color: #a4a8ac;
   width: 300px;
 }
-.declare {
-  font-family: sofiapro-regular;
-  font-style: normal;
-  font-weight: bold;
-  font-size: 16px;
-  line-height: 120%;
-  text-align: left;
-  color: #00406b;
-  position: absolute;
-  width: 320px;
-  height: 24px;
-  left: 35px;
-  top: 123px;
-}
-.form-check-label {
-  position: absolute;
-  width: 286px;
-  height: 346px;
-  left: 64px;
-  top: 162px;
-  font-family: sofiapro-regular;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 16px;
-  line-height: 120%;
-  color: #00406b;
-}
+
 .warp1 {
   position: absolute;
   width: 29px;

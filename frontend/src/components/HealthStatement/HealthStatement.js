@@ -4,6 +4,7 @@ import { HiArrowLeft } from "react-icons/hi";
 import { Link } from "react-router-dom";
 import "./HS.css";
 import MessageModal from "../MessageModal/MessageModal.js";
+import Headbox from "../Headbox/Headbox";
 
 class HealthStatement extends Component {
   state = {
@@ -19,21 +20,13 @@ class HealthStatement extends Component {
     render() {
         const {showModal, modalMessage, closeModalHandler} = this.props
         return (
+
             <div>
-                <div className="head_box">
-                    <div className="headpage">Health Statement</div>
-                    <div className="dateFill">{format(this.state.Today_Date, "dd/MM/yyyy")}</div>
-                </div>
-                <div>
-                    <Link to="/home">
-                        <div className="arrow" onClick={this.handleSubmit}>
-                            <HiArrowLeft />
-                          
-                        </div>
-                    </Link>
-                    
+              <Headbox headline={"Health Statement"} linkTo={"/home"} date={format(this.state.Today_Date, "dd/MM/yyyy")}/>
+                <div className="box">
                     <h5 className="declare"> I, {this.state.name} declare that: </h5>
                 </div>
+              <div className="box">
                 <div className="form-check-label">
                     I do not have a cough (other than coughing or difficulty bredthing as a result of a chronic condition, asthma or other allergy).
                 <br></br>
@@ -50,6 +43,7 @@ class HealthStatement extends Component {
                     <br></br>
                     <br></br>
                 </div>
+              </div>
                     <button onClick={this.handleOnSubmit} className="sendButton" type='submit'>send</button>
                     {showModal ?
                         <MessageModal

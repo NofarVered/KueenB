@@ -8,44 +8,6 @@ code {
     monospace;
 }
 
-.head_box {
-  position: absolute;
-  width: 375px;
-  height: 83px;
-  background: #ffffff;
-  box-shadow: 0px 4px 10px rgba(51, 51, 51, 0.12);
-}
-
-.headpage {
-  position: absolute;
-  width: 255px;
-  height: 58px;
-  left: 60px;
-  top: 26px;
-  font-family: sofiapro-regular;
-  font-style: normal;
-  font-weight: bold;
-  font-size: 16px;
-  line-height: 120%;
-  text-align: center;
-  color: #00406b;
-}
-
-.dateFill {
-  position: absolute;
-  width: 162px;
-  height: 16px;
-  left: 25.93%;
-  right: 33.95%;
-  top: 59px;
-  font-family: sofiapro-regular;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 13px;
-  line-height: 120%;
-  text-align: center;
-  color: #00406b;
-}
 
 .sendButton {
   padding: 9px 30px;
@@ -65,6 +27,32 @@ code {
   color: #ffffff;
   margin: 0px 10px;
   font-weight: normal;
+  border: #2b8fff;
+}
+
+.declare {
+  font-family: sofiapro-regular;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 120%;
+  text-align: left;
+  color: #00406b;
+  position: relative;
+  top: 110px;
+  right: 82px;
+}
+.form-check-label {
+  font-family: sofiapro-regular;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 120%;
+  color: #00406b;
+  position: relative;
+  width: 270px;
+  top: 125px;
+  text-align: left;
 }
 
 .arrow {

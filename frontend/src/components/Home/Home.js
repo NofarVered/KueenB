@@ -3,11 +3,12 @@ import Button from "react-bootstrap/Button";
 import "bootstrap/dist/css/bootstrap.min.css";
 import healthLogo from "./health-statement.PNG";
 import officeDays from "./office-days.PNG"
-import register from "./register.PNG";
+import register from "./register.png";
 import Klogo from "./Klogo.png";
 import { Link } from "react-router-dom";
 import "./home.css";
 import { HiArrowLeft } from "react-icons/hi";
+import Headbox from "../Headbox/Headbox";
 
 class Home extends Component {
   state = {
@@ -17,9 +18,7 @@ class Home extends Component {
   render() {
     return (
       <div>
-        <div className="head_box">
-          <div className="headpage">Office registration</div>
-        </div>
+        <Headbox headline={"Office registration"}/>
         <div className="box">
           <div className="home-header">
             <img
