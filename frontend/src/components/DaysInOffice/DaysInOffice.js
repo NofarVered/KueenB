@@ -9,6 +9,7 @@ import { HiArrowLeft } from "react-icons/hi";
 import { Link } from "react-router-dom";
 import Calendar from "../Calendar/Calendar";
 import "./DaysInOffice.css";
+import Headbox from "../Headbox/Headbox";
 
 class DaysInOffice extends React.Component {
     state = {
@@ -82,7 +83,8 @@ class DaysInOffice extends React.Component {
         return (
             <div>
                 {/* the head box of this page: */}
-                <div className="head_box_office_days">
+                <Headbox headline={"Check Office Days"} linkTo={"/home"} date={"select a date range"}/>
+                {/* <div className="head_box_office_days">
                     <h1 className="head_line_office_days">Check Office Days</h1>
                     <h5 className="second_line">Select a date range</h5>
                     <Link to="/home">
@@ -90,7 +92,7 @@ class DaysInOffice extends React.Component {
                         <HiArrowLeft />
                         </div>
                     </Link>
-               </div> 
+               </div>  */}
               <div className="calender_office_days">
                 <Calendar  onDateClick={this.onDateClick} registersDays={registersDays} first={new Date()} second={addDays(new Date(), 14)}></Calendar>
               </div>

@@ -12,7 +12,7 @@
     position: relative;
     width: 213px;
     height: 58px;
-    left: calc(50% - 130px + 11.5px);
+    left: 25%;
     top: 26px;
     font-family: sofiapro-regular;
     font-style: normal;
@@ -24,17 +24,16 @@
 }
 
 
-.dateFill {
+.dateFillHeadBox {
     position: absolute;
     width: 162px;
     height: 16px;
-    left: 25.93%;
-    right: 33.95%;
+    left: 31.5%;
     top: 59px;
     font-family: sofiapro-regular;
     font-style: normal;
     font-weight: normal;
-    font-size: 13px;
+    font-size: 15px;
     line-height: 120%;
     text-align: center;
     color: #00406b;

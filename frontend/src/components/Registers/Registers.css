@@ -15,11 +15,11 @@
   color: #00406b;
 }
 .contentPage {
-  position: absolute;
+  position: relative;
   width: 100px;
   height: 183px;
-  left: 44px;
-  top: 130px;
+  left: 42px;
+  top: 52px;
 }
 
 li {

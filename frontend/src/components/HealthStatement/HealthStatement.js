@@ -28,7 +28,7 @@ class HealthStatement extends Component {
                 </div>
               <div className="box">
                 <div className="form-check-label">
-                    I do not have a cough (other than coughing or difficulty bredthing as a result of a chronic condition, asthma or other allergy).
+                    I do not have a cough (other than coughing or difficulty breathing as a result of a chronic condition, asthma or other allergy).
                 <br></br>
                     <br></br>
                 I do not have a temperature over 38 degrees celsius.
@@ -37,7 +37,7 @@ class HealthStatement extends Component {
                 I have not had a fever (over 38 degrees celsius) over the last week.
                 <br></br>
                     <br></br>
-                I have not been in contact with anyone diagnosed with coronavirus over the last 2 weeks.
+                I have not been in contact with anyone diagnosed with covid19 over the last 2 weeks.
                 <br></br>
                     <br></br>
                     <br></br>

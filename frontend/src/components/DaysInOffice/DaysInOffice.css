@@ -45,18 +45,15 @@
 }
 .calender_office_days {
   top: 100px;
-  position: absolute;
+  position: relative;
 }
 
 .box-days{
-  position: absolute;
+  position: relative;
   width: 349px;
   height: 124px;
-  left: 15px;
-  top: 409px;
-
-  /* Gray 6 */
-
+  left: 31px;
+  top: 130px;
   background: #F2F2F2;
   border-radius: 4px;
 }

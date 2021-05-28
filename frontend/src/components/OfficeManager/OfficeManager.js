@@ -16,7 +16,7 @@ class OfficeManager extends Component {
         selectedDate: new Date(),
         registersList: [],
         openSettings: false,
-        maxPeople: this.props.maxPeople //maybe we need to save the last value in db and initialize this value accordingly
+        maxPeople: this.props.maxPeople ? this.props.maxPeople : '' //maybe we need to save the last value in db and initialize this value accordingly
 
     }
 
@@ -82,14 +82,16 @@ class OfficeManager extends Component {
                       <img src={settings_img}  alt=""/>
                   </button>
                   {this.state.openSettings ? <div className="settings_tab">
-                      <h3>Settings</h3>
-                      <MdClear className="clear_btn" onClick={this.openSettings}/>
+                    <MdClear className="clear_btn" onClick={this.openSettings}/>
+                    <div className="innerSettingDiv">
+                      <h3 className="settingsTitle">Settings</h3>
                       <p className="settings_p">Number of people allowed in the office</p>
                       <input className="office_manager_forms" type="text" placeholder=" " onChange={this.handleChange} value={this.state.maxPeople}></input>
-                      <div>
-                          <Button className="sendButton" variant="primary" size="sm" onClick={this.onSaveClick}>
-                              Save
-                          </Button>
+                        <div>
+                            <Button className="sendButtonOfficeManager" variant="primary" size="sm" onClick={this.onSaveClick}>
+                                Save
+                            </Button>
+                        </div>
                       </div>
                   </div> : null}
 

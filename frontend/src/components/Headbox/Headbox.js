@@ -18,7 +18,7 @@ class Headbox extends Component{
             </div>
           </Link>
           <div className="headpage">{this.state.headline}</div>
-          <div className="dateFill">{this.state.date ? this.state.date : null}</div>
+          <div className="dateFillHeadBox">{this.state.date ? this.state.date : null}</div>
         </div>
       );
     }
