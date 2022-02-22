@@ -1,3 +1,5 @@
+HR-app for Khealth employees, frontend(React)+server(Node.js)+backend(PostgreSQL).
+
 # KueenB project
 
 How to run the project locally:
